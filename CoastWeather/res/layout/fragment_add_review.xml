@@ -8,7 +8,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose you&apos;re beach:" />
+        android:text="Choose your beach:" />
 
     <RadioGroup
         android:layout_width="fill_parent"
