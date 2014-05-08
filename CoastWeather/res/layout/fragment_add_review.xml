@@ -62,6 +62,13 @@
             android:contentDescription="2" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/feelingtext"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:text="" />
+
     <RadioGroup
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
