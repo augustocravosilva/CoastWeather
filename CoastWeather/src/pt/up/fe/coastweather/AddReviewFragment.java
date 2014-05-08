@@ -24,6 +24,8 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 
 
 	private ImageButton[] feelingButtons = new ImageButton[5];
+	private ImageButton[] weatherButtons = new ImageButton[4];
+
 	private TextView feelingText;
 
 
@@ -51,6 +53,11 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 		feelingButtons[3] = (ImageButton) rootView.findViewById(R.id.imagebutton1);
 		feelingButtons[4] = (ImageButton) rootView.findViewById(R.id.imagebutton2);
 
+		weatherButtons[0] = (ImageButton) rootView.findViewById(R.id.imagebuttonSunny);
+		weatherButtons[1] = (ImageButton) rootView.findViewById(R.id.imagebuttonWindy);
+		weatherButtons[2] = (ImageButton) rootView.findViewById(R.id.imagebuttonCloudy);
+		weatherButtons[3] = (ImageButton) rootView.findViewById(R.id.imagebuttonRainy);
+
 		feelingText = (TextView) rootView.findViewById(R.id.feelingtext);
 
 
@@ -59,7 +66,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 
 				@Override
 				public void onClick(View v) {
-					unselectOtherButtons(v.getId());
+					unselectOtherButtons();
 					v.setSelected(true);
 					setFeelingText(((String)v.getContentDescription()).trim());
 				}
@@ -90,9 +97,31 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 
 
 
-				private void unselectOtherButtons(int id) {
+				private void unselectOtherButtons() {
 					for(ImageButton j : feelingButtons)
 						j.setSelected(false);
+				}
+			});
+		}
+
+		for(ImageButton i : weatherButtons) {
+			i.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					boolean selected = v.isSelected();
+					
+					if(!((String)v.getContentDescription()).equals("windy"))
+						unselectOtherButtons();
+					v.setSelected(!selected);
+				}
+
+				private void unselectOtherButtons() {
+					for(ImageButton j : weatherButtons) {
+						if (!((String)j.getContentDescription()).equals("windy"))
+							j.setSelected(false);
+					}
+
 				}
 			});
 		}

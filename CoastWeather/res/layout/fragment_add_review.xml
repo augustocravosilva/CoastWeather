@@ -8,7 +8,13 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select your beach:" />
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="Select your beach:"
+        android:textSize="14dp"
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/beaches_spinner"
@@ -19,12 +25,20 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="How are you feeling with the weather?" />
+        android:paddingTop="15dp"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="How are you feeling with the weather?"
+        android:textSize="14dp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingTop="5dp"
         android:weightSum="5" >
 
         <ImageButton
@@ -79,27 +93,55 @@
         android:id="@+id/weatherintro"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="More info" />
+        android:paddingTop="10dp"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="More info"
+        android:textSize="14dp"
+        android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" 
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal" >
 
         <ImageButton
             android:id="@+id/imagebuttonSunny"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:background="@drawable/weather_sunny"
-            android:contentDescription="-2" />
+            android:contentDescription="sunny" />
+
+        <ImageButton
+            android:id="@+id/imagebuttonWindy"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/weather_windy"
+            android:contentDescription="windy" />
+
+        <ImageButton
+            android:id="@+id/imagebuttonCloudy"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/weather_cloudy"
+            android:contentDescription="cloudy" />
+
+        <ImageButton
+            android:id="@+id/imagebuttonRainy"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/weather_rainy"
+            android:contentDescription="rainy" />
     </LinearLayout>
 
     <Button
         android:id="@+id/button_publish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Publish" />
+        android:layout_gravity="center_horizontal"
+        android:text="Share" />
 
 </LinearLayout>
