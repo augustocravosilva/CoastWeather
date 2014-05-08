@@ -24,3 +24,24 @@ proguard/
 
 #Log Files
 *.log
+CoastWeather/bin/AndroidManifest.xml
+
+CoastWeather/bin/classes.dex
+
+CoastWeather/bin/resources.ap_
+
+CoastWeather/bin/classes/com/feup/sdis/coastweather/R$drawable.class
+
+CoastWeather/bin/classes/com/feup/sdis/coastweather/R$id.class
+
+CoastWeather/bin/classes/com/feup/sdis/coastweather/R$layout.class
+
+CoastWeather/bin/classes/com/feup/sdis/coastweather/R$menu.class
+
+CoastWeather/bin/classes/com/feup/sdis/coastweather/R$string.class
+
+CoastWeather/bin/classes/com/feup/sdis/coastweather/R$style.class
+
+CoastWeather/bin/CoastWeather.apk
+
+CoastWeather/bin/jarlist.cache
