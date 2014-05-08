@@ -1,6 +1,6 @@
 package pt.up.fe.coastweather;
 
-import pt.up.fe.coastweather.R;
+import pt.up.fe.coastweather.R.*;
 
 import android.app.Activity;
 import android.os.Bundle;
