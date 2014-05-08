@@ -1,4 +1,6 @@
-package com.feup.sdis.coastweather;
+package pt.up.fe.coastweather;
+
+import pt.up.fe.coastweather.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -95,8 +98,8 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				}
 			});
 		}
-		/*
-		ImageButton b1 = (ImageButton) rootView.findViewById(R.id.imagebutton1);
+		
+		/*ImageButton b1 = (ImageButton) rootView.findViewById(R.id.imagebutton1);
 		b1.setSelected(true);
 		b1.setOnClickListener(new OnClickListener() {
 

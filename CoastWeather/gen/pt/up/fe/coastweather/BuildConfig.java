@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package com.feup.sdis.coastweather;
+package pt.up.fe.coastweather;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;

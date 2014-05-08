@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.feup.sdis.coastweather;
+package pt.up.fe.coastweather;
 
 public final class R {
     public static final class attr {
@@ -39,29 +39,27 @@ public final class R {
         public static final int ic_feeling_m2_selected=0x7f02000f;
         public static final int ic_feeling_sad=0x7f020010;
         public static final int ic_launcher=0x7f020011;
-        public static final int radio_feelings=0x7f020012;
+        public static final int ic_weather_sunny=0x7f020012;
+        public static final int ic_weather_sunny_selected=0x7f020013;
+        public static final int radio_feelings=0x7f020014;
+        public static final int weather_sunny=0x7f020015;
     }
     public static final class id {
-        public static final int action_settings=0x7f080013;
+        public static final int action_settings=0x7f08000e;
         public static final int beaches_spinner=0x7f080002;
-        public static final int button_publish=0x7f080011;
+        public static final int button_publish=0x7f08000c;
         public static final int feelingtext=0x7f080009;
         public static final int imagebutton0=0x7f080006;
         public static final int imagebutton1=0x7f080007;
         public static final int imagebutton2=0x7f080008;
         public static final int imagebuttonM1=0x7f080005;
         public static final int imagebuttonM2=0x7f080004;
+        public static final int imagebuttonSunny=0x7f08000b;
         public static final int pager=0x7f080000;
-        public static final int radio_state=0x7f08000a;
-        public static final int radio_state1=0x7f08000b;
-        public static final int radio_state2=0x7f08000c;
-        public static final int radio_state3=0x7f08000d;
-        public static final int radio_state4=0x7f08000e;
-        public static final int radio_state5=0x7f08000f;
-        public static final int radio_state6=0x7f080010;
-        public static final int section_label=0x7f080012;
+        public static final int section_label=0x7f08000d;
         public static final int textView1=0x7f080001;
         public static final int textView2=0x7f080003;
+        public static final int weatherintro=0x7f08000a;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

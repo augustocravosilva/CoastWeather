@@ -1,6 +1,9 @@
-package com.feup.sdis.coastweather;
+package pt.up.fe.coastweather;
 
 import java.util.Locale;
+
+import pt.up.fe.coastweather.R;
+
 
 import android.content.Context;
 import android.os.Bundle;

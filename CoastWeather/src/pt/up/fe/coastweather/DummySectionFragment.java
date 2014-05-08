@@ -1,4 +1,6 @@
-package com.feup.sdis.coastweather;
+package pt.up.fe.coastweather;
+
+import pt.up.fe.coastweather.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
