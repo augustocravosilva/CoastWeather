@@ -3,10 +3,11 @@ package pt.up.fe.coastweather;
 import java.util.Locale;
 
 import pt.up.fe.coastweather.R;
-
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
@@ -18,7 +19,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
 	private Context context;
-
+	private LoginFragment login;
+	
 	public SectionsPagerAdapter(FragmentManager fm, Context context) {
 		super(fm);
 		this.context = context;
@@ -41,6 +43,23 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 			args.putInt(AddReviewFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
 			return fragment;
+		} else if(position == 1) {
+			//if (savedInstanceState == null) {
+		        // Add the fragment on initial activity setup
+				login = new LoginFragment();
+		      /*  ((FragmentActivity) context).getSupportFragmentManager()
+		        .beginTransaction()
+		        .add(login,"LOGIN")
+		        .commit();*/
+		   // } else {
+		        // Or set the fragment from restored state info
+		  //  	login = (LoginFragment) ((FragmentActivity) context).getSupportFragmentManager()
+		//        .findFragmentByTag("LOGIN");
+		//    }
+			Bundle args = new Bundle();
+			args.putInt(LoginFragment.ARG_SECTION_NUMBER, position + 1);
+			login.setArguments(args);
+			return login;
 		}
 		else {
 			Fragment fragment = new DummySectionFragment();
