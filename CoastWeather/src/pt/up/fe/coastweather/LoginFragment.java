@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.json.JSONArray;
 
+import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -44,6 +45,7 @@ public class LoginFragment extends Fragment {
 	private UiLifecycleHelper uiHelper;
 	private LoginButton authButton;
 	private TextView text;
+	private Session msession;
 	public LoginFragment() {
 	}
 
@@ -64,6 +66,7 @@ public class LoginFragment extends Fragment {
 	
 	@SuppressWarnings("deprecation")
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+		this.msession=session;
 	        if (state.isOpened()) {
 		        Log.i(TAG, "Logged in...");
 
@@ -77,6 +80,17 @@ public class LoginFragment extends Fragment {
 	                        // Display the parsed user info
 	                       fbuser = user;
 	                       text.setText(user.getName() + " "+user.getId() + " " + response);
+	                       new Request(
+	                    		    msession,
+	                    		    "/me/friends",
+	                    		    null,
+	                    		    HttpMethod.GET,
+	                    		    new Request.Callback() {
+	                    		        public void onCompleted(Response response) {
+	                    		            text.append("\n\n\n"+response.toString());
+	                    		        }
+	                    		    }
+	                    		).executeAsync();
 	                    }
 	                }
 	            });
