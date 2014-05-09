@@ -115,9 +115,9 @@ public class HelloFacebookSampleActivity extends FragmentActivity {
                 Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
                 }
         } catch (NameNotFoundException e) {
-
+        	Log.e("keyhash","error1");
         } catch (NoSuchAlgorithmException e) {
-
+        	Log.e("keyhash","error2");
         }
 
         
