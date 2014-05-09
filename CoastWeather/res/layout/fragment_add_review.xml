@@ -8,6 +8,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
         android:shadowColor="#FFFFFF"
         android:shadowDx="1"
         android:shadowDy="1"
@@ -25,12 +26,13 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
         android:paddingTop="15dp"
         android:shadowColor="#FFFFFF"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:text="How are you feeling with the weather?"
+        android:text="How does it feel?"
         android:textSize="14dp"
         android:textStyle="bold" />
 
@@ -93,6 +95,7 @@
         android:id="@+id/weatherintro"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
         android:paddingTop="10dp"
         android:shadowColor="#FFFFFF"
         android:shadowDx="1"
@@ -107,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
-        android:paddingBottom="30dp" >
+        android:paddingBottom="15dp" >
 
         <ImageButton
             android:id="@+id/imagebuttonSunny"
@@ -136,6 +139,55 @@
             android:layout_height="75dp"
             android:background="@drawable/weather_rainy"
             android:contentDescription="rainy" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/flagsintro"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="Flag"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp" >
+
+        <ImageButton
+            android:id="@+id/imagebuttonGreen"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/flag_green"
+            android:contentDescription="green" />
+
+        <ImageButton
+            android:id="@+id/imagebuttonYellow"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/flag_yellow"
+            android:contentDescription="yellow" />
+
+        <ImageButton
+            android:id="@+id/imagebuttonRed"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/flag_red"
+            android:contentDescription="red" />
+
+        <ImageButton
+            android:id="@+id/imagebuttonBlack"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/flag_black"
+            android:contentDescription="black" />
     </LinearLayout>
 
     <Button
