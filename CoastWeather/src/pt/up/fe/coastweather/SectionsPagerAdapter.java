@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import pt.up.fe.coastweather.R;
 import android.app.Activity;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

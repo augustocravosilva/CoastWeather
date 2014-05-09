@@ -8,5 +8,12 @@
     <string name="title_section3">Friends</string>
     <string name="title_section4">Add Review</string>
     <string name="app_id">486696868124352</string>
+    
+    <string name="feeling_2_text">It\'s awesome!</string> 
+    <string name="feeling_1_text">It\'s perfect</string> 
+    <string name="feeling_0_text">It\'s OK</string>
+    <string name="feeling_m1_text">It\'s not OK</string> 
+    <string name="feeling_m2_text">I\'m going home!</string>
+    
 
 </resources>
