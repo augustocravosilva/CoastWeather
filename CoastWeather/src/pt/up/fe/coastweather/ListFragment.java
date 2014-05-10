@@ -1,11 +1,13 @@
 package pt.up.fe.coastweather;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class ListFragment extends Fragment {
@@ -23,6 +25,13 @@ public class ListFragment extends Fragment {
 		list = (ListView) rootView.findViewById(R.id.MessageList);
 		list.setAdapter(new ListFragmentAdapter(getActivity()));
 
+		list.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView a, View v, int position, long id) {
+				Intent x = new Intent(getActivity(), BeachActivity.class);
+				startActivity(x);
+			}});
+
 		return rootView;
+
 	}
 }

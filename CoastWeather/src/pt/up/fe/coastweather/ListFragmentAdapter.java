@@ -71,35 +71,10 @@ public class ListFragmentAdapter extends BaseAdapter {
 		timeView.setText("5 minutes ago");      
 		image_feeling.setImageResource(R.drawable.ic_feeling_2);
 		image_weather1.setImageResource(R.drawable.ic_weather_sunny);
-		image_weather2.setImageResource(R.drawable.ic_weather_windy);
+		//image_weather2.setImageResource(R.drawable.ic_weather_windy);
 		image_flag.setImageResource(R.drawable.ic_flag_green);
 
 		return v;
-	}
-
-	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-		ImageView bmImage;
-
-		public DownloadImageTask(ImageView bmImage) {
-			this.bmImage = bmImage;
-		}
-
-		protected Bitmap doInBackground(String... urls) {
-			String urldisplay = urls[0];
-			Bitmap mIcon11 = null;
-			try {
-				InputStream in = new java.net.URL(urldisplay).openStream();
-				mIcon11 = BitmapFactory.decodeStream(in);
-			} catch (Exception e) {
-				Log.e("Error", e.getMessage());
-				e.printStackTrace();
-			}
-			return mIcon11;
-		}
-
-		protected void onPostExecute(Bitmap result) {
-			bmImage.setImageBitmap(result);
-		}
 	}
 
 }
