@@ -52,7 +52,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 			args.putInt(AddReviewFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
 			return fragment;
-		} else if(position == 1) {
+		} case 2: {
 			//if (savedInstanceState == null) {
 		        // Add the fragment on initial activity setup
 				login = new LoginFragment();
