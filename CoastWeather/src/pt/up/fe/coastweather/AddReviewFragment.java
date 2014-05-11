@@ -25,6 +25,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 
 	private ImageButton[] feelingButtons = new ImageButton[5];
 	private ImageButton[] weatherButtons = new ImageButton[4];
+	private ImageButton[] flagsButtons = new ImageButton[4];
 
 	private TextView feelingText;
 
@@ -57,6 +58,11 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 		weatherButtons[1] = (ImageButton) rootView.findViewById(R.id.imagebuttonWindy);
 		weatherButtons[2] = (ImageButton) rootView.findViewById(R.id.imagebuttonCloudy);
 		weatherButtons[3] = (ImageButton) rootView.findViewById(R.id.imagebuttonRainy);
+
+		flagsButtons[0] = (ImageButton) rootView.findViewById(R.id.imagebuttonGreen);
+		flagsButtons[1] = (ImageButton) rootView.findViewById(R.id.imagebuttonYellow);
+		flagsButtons[2] = (ImageButton) rootView.findViewById(R.id.imagebuttonRed);
+		flagsButtons[3] = (ImageButton) rootView.findViewById(R.id.imagebuttonBlack);
 
 		feelingText = (TextView) rootView.findViewById(R.id.feelingtext);
 
@@ -110,7 +116,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				@Override
 				public void onClick(View v) {
 					boolean selected = v.isSelected();
-					
+
 					if(!((String)v.getContentDescription()).equals("windy"))
 						unselectOtherButtons();
 					v.setSelected(!selected);
@@ -120,6 +126,26 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 					for(ImageButton j : weatherButtons) {
 						if (!((String)j.getContentDescription()).equals("windy"))
 							j.setSelected(false);
+					}
+
+				}
+			});
+		}
+
+		for(ImageButton i : flagsButtons) {
+			i.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					boolean selected = v.isSelected();
+
+					unselectOtherButtons();
+					v.setSelected(!selected);
+				}
+
+				private void unselectOtherButtons() {
+					for(ImageButton j : flagsButtons) {
+						j.setSelected(false);
 					}
 
 				}
