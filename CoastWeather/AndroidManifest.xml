@@ -26,18 +26,24 @@
         </activity>
         <activity
             android:name="pt.up.fe.coastweather.BeachActivity"
-            android:label="@string/app_name" >
+            android:label="beach"
+            android:parentActivityName="pt.up.fe.coastweather.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pt.up.fe.coastweather.MainActivity" />
         </activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
 
-        <activity android:name="com.facebook.LoginActivity" 
-            android:parentActivityName="pt.up.fe.coastweather.MainActivity" android:label="FacebookLogin">
+        <activity
+            android:name="com.facebook.LoginActivity"
+            android:label="FacebookLogin"
+            android:parentActivityName="pt.up.fe.coastweather.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pt.up.fe.coastweather.MainActivity"/>
+                android:value="pt.up.fe.coastweather.MainActivity" />
         </activity>
     </application>
 
