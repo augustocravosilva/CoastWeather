@@ -38,13 +38,21 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 		fragment.setArguments(args);
 		return fragment;*/
 
-		if(position == 3) {
+		switch (position) {
+		case 1: {
+			ListFragment fragment = new ListFragment();
+			Bundle args = new Bundle();
+			args.putInt(AddReviewFragment.ARG_SECTION_NUMBER, position + 1);
+			fragment.setArguments(args);
+			return fragment;
+		}
+		case 3: {
 			AddReviewFragment fragment = new AddReviewFragment();
 			Bundle args = new Bundle();
 			args.putInt(AddReviewFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
 			return fragment;
-		} else if(position == 1) {
+		} case 2: {
 			//if (savedInstanceState == null) {
 		        // Add the fragment on initial activity setup
 				login = new LoginFragment();
@@ -62,13 +70,29 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 			login.setArguments(args);
 			return login;
 		}
-		else {
+		default: {
 			Fragment fragment = new DummySectionFragment();
 			Bundle args = new Bundle();
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
 			return fragment;
 		}
+
+		}
+		/*	if(position == 3) {
+			AddReviewFragment fragment = new AddReviewFragment();
+			Bundle args = new Bundle();
+			args.putInt(AddReviewFragment.ARG_SECTION_NUMBER, position + 1);
+			fragment.setArguments(args);
+			return fragment;
+		}
+		else {
+			Fragment fragment = new DummySectionFragment();
+			Bundle args = new Bundle();
+			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+			fragment.setArguments(args);
+			return fragment;
+		}*/
 	}
 
 	@Override
