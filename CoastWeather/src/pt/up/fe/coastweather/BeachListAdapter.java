@@ -8,11 +8,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ListFragmentAdapter extends BaseAdapter {
+public class BeachListAdapter extends BaseAdapter {
 	Context context;
 
 
-	ListFragmentAdapter(Context c) {
+	BeachListAdapter(Context c) {
 		this.context = c;
 	}
 	@Override
