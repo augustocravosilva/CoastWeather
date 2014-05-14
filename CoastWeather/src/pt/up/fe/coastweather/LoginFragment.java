@@ -2,8 +2,6 @@ package pt.up.fe.coastweather;
 
 import java.util.Arrays;
 
-import org.json.JSONArray;
-
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;

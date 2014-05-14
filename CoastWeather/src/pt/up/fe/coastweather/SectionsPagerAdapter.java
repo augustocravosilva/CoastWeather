@@ -71,7 +71,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 			return login;
 		}
 		default: {
-			Fragment fragment = new DummySectionFragment();
+			Fragment fragment = new BeachMapFragment();
 			Bundle args = new Bundle();
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);

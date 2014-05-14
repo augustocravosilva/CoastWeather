@@ -1,12 +1,15 @@
 package pt.up.fe.coastweather;
 
-import pt.up.fe.coastweather.R;
-
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 
 public class MainActivity extends FragmentActivity implements
@@ -26,6 +29,10 @@ public class MainActivity extends FragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	
+	public static FragmentManager fragmentManager;
+    private static final float LOCATION_REFRESH_DISTANCE = 50;
+    private static final long LOCATION_REFRESH_TIME = 5000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +73,34 @@ public class MainActivity extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+		
+		
+		fragmentManager = getSupportFragmentManager();
+		LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
+                LOCATION_REFRESH_DISTANCE, mLocationListener);
 	}
+	
+	private final LocationListener mLocationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+        	
+        	if( null != location ) {
+        		Log.i("onLocationChanged", "Mudou");
+        		BeachMapFragment.onLocationChanged(location.getLatitude(), location.getLongitude());
+        	} else Log.i("onLocationChanged", "Mudou e null");
+        		
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {}
+
+        @Override
+        public void onProviderEnabled(String s) {}
+
+        @Override
+        public void onProviderDisabled(String s) {}
+    };
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
