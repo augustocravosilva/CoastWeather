@@ -22,10 +22,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class BeachMapFragment extends Fragment {
+public class MapFragment extends Fragment {
 	private static View view;
 	private static GoogleMap googleMap;
-	private static final String TAG = "Map fragment";
+	private static final String TAG = "MapFragment";
 	private static final String URL = "http://192.168.1.80/beaches.txt";
 	private static float CAMERA_ZOOM = 12;
 
@@ -55,19 +55,6 @@ public class BeachMapFragment extends Fragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		if (googleMap == null)
 			googleMap = ((SupportMapFragment) MainActivity.fragmentManager.findFragmentById(R.id.location_map)).getMap();
-	}
-
-
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
-		
-		if( null != googleMap ) {
-			MainActivity.fragmentManager.beginTransaction()
-				.remove(MainActivity.fragmentManager.findFragmentById(R.id.location_map)).commit();
-			
-			googleMap = null;
-		}
 	}
 
 	static public void onLocationChanged(double latitude, double longitude) {

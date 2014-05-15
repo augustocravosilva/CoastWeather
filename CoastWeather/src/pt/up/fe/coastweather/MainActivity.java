@@ -87,7 +87,7 @@ public class MainActivity extends FragmentActivity implements
         	
         	if( null != location ) {
         		Log.i("onLocationChanged", "Mudou");
-        		BeachMapFragment.onLocationChanged(location.getLatitude(), location.getLongitude());
+        		MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude());
         	} else Log.i("onLocationChanged", "Mudou e null");
         		
         }
