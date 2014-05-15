@@ -14,6 +14,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class UserStatus {
+	@Override
+	public String toString() {
+		return "UserStatus [beachId=" + beachId + ", beachName=" + beachName
+				+ ", feeling=" + feeling + ", sunny=" + sunny + ", windy="
+				+ windy + ", cloudy=" + cloudy + ", rainy=" + rainy + ", flag="
+				+ flag + ", userID=" + userID + ", username=" + username
+				+ ", date=" + date + ", id=" + id + "]";
+	}
+
 	public final static int FLAG_GREEN = 0;
 	public final static int FLAG_YELLOW = 1;
 	public final static int FLAG_RED = 2;
@@ -52,36 +61,6 @@ public class UserStatus {
 		cloudy = x.getBoolean("clouds");
 		rainy = x.getBoolean("rain");
 		date = x.getString("date");
-
-
-
-
-
-	}
-
-	public static void main(String [ ] args){
-
-		HttpClient client = new DefaultHttpClient();  
-		HttpGet get = new HttpGet("http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/1"); 
-		//get.setHeader("Content-type", "application/json");
-
-		/*  JSONObject obj = new JSONObject();
-	        obj.put("username", "un");
-	        obj.put("pwd", "password");
-	        obj.put("key","123456");*/
-
-		//get.setEntity(new StringEntity(obj.toString(), "UTF-8"));
-		HttpResponse response;
-		try {
-			response = client.execute(get);
-
-			System.out.println(response.toString());
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 
