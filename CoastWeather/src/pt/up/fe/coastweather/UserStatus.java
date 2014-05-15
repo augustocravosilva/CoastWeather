@@ -1,5 +1,15 @@
 package pt.up.fe.coastweather;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,7 +18,7 @@ public class UserStatus {
 	public final static int FLAG_YELLOW = 1;
 	public final static int FLAG_RED = 2;
 	public final static int FLAG_BLACK = 3;
-	
+
 	private int beachId;
 	private int beachName;
 
@@ -25,13 +35,13 @@ public class UserStatus {
 	private String username;
 
 	private String date;
-	
+
 	//Only for ones in server
 	private int id;
 
 	UserStatus(String j) throws JSONException {
 		JSONObject x = new JSONObject(j);
-		
+
 		id = x.getInt("IdStatus");
 		userID = x.getLong("idUser");
 		beachId = x.getInt("idBeach");
@@ -42,11 +52,36 @@ public class UserStatus {
 		cloudy = x.getBoolean("clouds");
 		rainy = x.getBoolean("rain");
 		date = x.getString("date");
-		
-		
-		
-		
-		
+
+
+
+
+
+	}
+
+	public static void main(String [ ] args){
+
+		HttpClient client = new DefaultHttpClient();  
+		HttpGet get = new HttpGet("http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/1"); 
+		//get.setHeader("Content-type", "application/json");
+
+		/*  JSONObject obj = new JSONObject();
+	        obj.put("username", "un");
+	        obj.put("pwd", "password");
+	        obj.put("key","123456");*/
+
+		//get.setEntity(new StringEntity(obj.toString(), "UTF-8"));
+		HttpResponse response;
+		try {
+			response = client.execute(get);
+
+			System.out.println(response.toString());
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 

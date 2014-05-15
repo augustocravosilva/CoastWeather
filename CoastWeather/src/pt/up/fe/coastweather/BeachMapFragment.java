@@ -36,7 +36,7 @@ public class BeachMapFragment extends Fragment {
 			return null;
 		}
 
-		view = (RelativeLayout) inflater.inflate(R.layout.fragment_map, container, false);
+		view = (RelativeLayout) inflater.inflate(R.layout.fragment_map, container, false); //TODO: ERRO ACHO QUE É ISTO
 		setupMap();
 
 		return view;
