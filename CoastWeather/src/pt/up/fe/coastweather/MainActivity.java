@@ -7,7 +7,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
@@ -30,7 +29,6 @@ public class MainActivity extends FragmentActivity implements
 	 */
 	ViewPager mViewPager;
 	
-	public static FragmentManager fragmentManager;
     private static final float LOCATION_REFRESH_DISTANCE = 50;
     private static final long LOCATION_REFRESH_TIME = 5000;
 
@@ -75,10 +73,11 @@ public class MainActivity extends FragmentActivity implements
 		}
 		
 		
-		fragmentManager = getSupportFragmentManager();
+		
 		LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
                 LOCATION_REFRESH_DISTANCE, mLocationListener);
+                
 	}
 	
 	private final LocationListener mLocationListener = new LocationListener() {
