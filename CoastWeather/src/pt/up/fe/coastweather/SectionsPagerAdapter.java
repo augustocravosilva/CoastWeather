@@ -20,7 +20,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 	private Context context;
 	private LoginFragment login;
 	private Fragment mapFragment = new MapFragment();
-	
+
 	public SectionsPagerAdapter(FragmentManager fm, Context context) {
 		super(fm);
 		this.context = context;
@@ -53,26 +53,32 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 			return fragment;
 		} case 2: {
 			//if (savedInstanceState == null) {
-		        // Add the fragment on initial activity setup
-				login = new LoginFragment();
-		      /*  ((FragmentActivity) context).getSupportFragmentManager()
+			// Add the fragment on initial activity setup
+			login = new LoginFragment();
+			/*  ((FragmentActivity) context).getSupportFragmentManager()
 		        .beginTransaction()
 		        .add(login,"LOGIN")
 		        .commit();*/
-		   // } else {
-		        // Or set the fragment from restored state info
-		  //  	login = (LoginFragment) ((FragmentActivity) context).getSupportFragmentManager()
-		//        .findFragmentByTag("LOGIN");
-		//    }
+			// } else {
+			// Or set the fragment from restored state info
+			//  	login = (LoginFragment) ((FragmentActivity) context).getSupportFragmentManager()
+			//        .findFragmentByTag("LOGIN");
+			//    }
 			Bundle args = new Bundle();
 			args.putInt(LoginFragment.ARG_SECTION_NUMBER, position + 1);
 			login.setArguments(args);
 			return login;
 		}
+		/*case 0: {
+			DummySectionFragment fragment = new DummySectionFragment();
+			Bundle args = new Bundle();
+			args.putInt(AddReviewFragment.ARG_SECTION_NUMBER, position + 1);
+			fragment.setArguments(args);
+			return fragment;
+		}*/
 		default: {
 			return mapFragment;
 		}
-
 		}
 		/*	if(position == 3) {
 			AddReviewFragment fragment = new AddReviewFragment();
