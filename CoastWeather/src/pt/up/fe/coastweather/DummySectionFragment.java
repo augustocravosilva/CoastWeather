@@ -9,6 +9,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.net.ConnectivityManager;
@@ -29,7 +31,7 @@ import android.widget.Toast;
  * displays dummy text.
  */
 public class DummySectionFragment extends Fragment {
-	
+
 	public static final String LOG_TEST_MESSAGE = "TESTING_JSON";
 	/**
 	 * The fragment argument representing the section number for this
@@ -38,6 +40,7 @@ public class DummySectionFragment extends Fragment {
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	private TextView etResponse;
 	private TextView tvIsConnected;
+	private static UserStatus user = null;
 
 	public DummySectionFragment() {
 	}
@@ -73,7 +76,7 @@ public class DummySectionFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				etResponse.setText("benfica");
+				etResponse.setText(user == null? "benfica" : user.toString());
 
 			}
 		});
@@ -83,7 +86,7 @@ public class DummySectionFragment extends Fragment {
 	public static String GET(String url){
 		InputStream inputStream = null;
 		String result = "";
-		UserStatus user = null;
+		
 		try {
 
 			// create HttpClient
@@ -99,7 +102,7 @@ public class DummySectionFragment extends Fragment {
 			if(inputStream != null) {
 				result = convertInputStreamToString(inputStream);
 				user = new UserStatus(result);
-				Log.i(LOG_TEST_MESSAGE, user.toString());
+				//Log.d(LOG_TEST_MESSAGE, user.toString());
 			}
 			else
 				result = "Did not work!";
@@ -142,7 +145,14 @@ public class DummySectionFragment extends Fragment {
 		@Override
 		protected void onPostExecute(String result) {
 			Toast.makeText(getActivity().getBaseContext(), "Received!", Toast.LENGTH_LONG).show();
-			etResponse.setText(result);
+			JSONObject json;
+			try {
+				json = new JSONObject(result);
+				etResponse.setText(json.toString(1));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
 		}
 	}
 }
