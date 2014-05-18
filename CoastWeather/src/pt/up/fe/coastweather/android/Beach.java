@@ -1,4 +1,4 @@
-package pt.up.fe.coastweather;
+package pt.up.fe.coastweather.android;
 
 public class Beach {
     private double latitude, longitude;

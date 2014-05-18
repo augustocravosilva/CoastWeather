@@ -1,10 +1,12 @@
-package pt.up.fe.coastweather;
+package pt.up.fe.coastweather.android;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
+
+import pt.up.fe.coastweather.R;
 
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;

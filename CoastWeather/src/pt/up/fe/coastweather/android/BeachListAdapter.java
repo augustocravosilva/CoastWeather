@@ -1,5 +1,6 @@
-package pt.up.fe.coastweather;
+package pt.up.fe.coastweather.android;
 
+import pt.up.fe.coastweather.R;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ListFragmentAdapter extends BaseAdapter {
+public class BeachListAdapter extends BaseAdapter {
 	Context context;
 
 
-	ListFragmentAdapter(Context c) {
+	BeachListAdapter(Context c) {
 		this.context = c;
 	}
 	@Override
@@ -39,14 +40,14 @@ public class ListFragmentAdapter extends BaseAdapter {
 		if (v == null)
 		{
 			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = vi.inflate(R.layout.fragment_list_item, null);
+			v = vi.inflate(R.layout.activity_beach_list_item, null);
 		}
 
 		ImageView image = (ImageView) v.findViewById(R.id.icon);
 		new DownloadImageTask(image)
 		.execute("https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-ash2/t1.0-9/523837_507942599227785_89321393_n.jpg");
 		TextView nameView = (TextView)v.findViewById(R.id.name);
-		TextView beachView = (TextView)v.findViewById(R.id.beach);
+		//TextView beachView = (TextView)v.findViewById(R.id.beach);
 		TextView descView = (TextView)v.findViewById(R.id.description);
 
 		ImageView image_feeling = (ImageView) v.findViewById(R.id.icon_feeling);
@@ -60,8 +61,8 @@ public class ListFragmentAdapter extends BaseAdapter {
 
 		//image.setImageResource(R.drawable.ic_feeling_0);
 		nameView.setText("Tiago Fernandes");
-		beachView.setText("Praia da Rocha - Portimão");
-		descView.setText("Feeling awesome");
+		//beachView.setText("Praia da Rocha - Portimão");
+		descView.setText("- Feeling awesome");
 		timeView.setText("5 minutes ago");      
 		image_feeling.setImageResource(R.drawable.ic_feeling_2);
 		image_weather1.setImageResource(R.drawable.ic_weather_sunny);

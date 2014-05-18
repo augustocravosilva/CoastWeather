@@ -21,7 +21,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="pt.up.fe.coastweather.MainActivity"
+            android:name="pt.up.fe.coastweather.android.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,9 +30,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="pt.up.fe.coastweather.BeachActivity"
+            android:name="pt.up.fe.coastweather.android.BeachActivity"
             android:label="beach"
-            android:parentActivityName="pt.up.fe.coastweather.MainActivity" >
+            android:parentActivityName="pt.up.fe.coastweather.android.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pt.up.fe.coastweather.MainActivity" />
@@ -45,7 +45,7 @@
         <activity
             android:name="com.facebook.LoginActivity"
             android:label="FacebookLogin"
-            android:parentActivityName="pt.up.fe.coastweather.MainActivity" >
+            android:parentActivityName="pt.up.fe.coastweather.android.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pt.up.fe.coastweather.MainActivity" />

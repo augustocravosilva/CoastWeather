@@ -1,4 +1,4 @@
-package pt.up.fe.coastweather;
+package pt.up.fe.coastweather.logic;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package pt.up.fe.coastweather;
+package pt.up.fe.coastweather.android;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +11,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import pt.up.fe.coastweather.R;
+import pt.up.fe.coastweather.logic.UserStatus;
 
 import android.app.Activity;
 import android.net.ConnectivityManager;

@@ -1,9 +1,7 @@
-package pt.up.fe.coastweather;
+package pt.up.fe.coastweather.logic;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.facebook.model.GraphUser;
 
 import android.util.Log;
 
@@ -51,7 +49,7 @@ public class UserStatus {
 	//Only for ones in server
 	private int statusId;
 
-	UserStatus(String j) throws JSONException {
+	public UserStatus(String j) throws JSONException {
 		JSONObject x = new JSONObject(j);
 
 		statusId = x.getInt(STATUS_ID);
@@ -70,6 +68,17 @@ public class UserStatus {
 		date = x.getString(DATE);
 		
 		Log.i(LOG_TEST_MESSAGE, "Success parsing!");
+	}
+	
+	public UserStatus(int beachId, int feeling, int flag, boolean sunny, boolean windy, boolean cloudy, boolean rainy) {
+		this.userID = 1;//TODO: USER facebook
+		this.beachId = beachId;
+		this.feeling = feeling;
+		this.flag = flag;
+		this.sunny = sunny;
+		this.windy = windy;
+		this.cloudy = cloudy;
+		this.rainy = rainy;
 	}
 
 	@Override
@@ -185,16 +194,7 @@ public class UserStatus {
 		this.statusId = statusId;
 	}
 	
-	UserStatus(int beachId, int feeling, int flag, boolean sunny, boolean windy, boolean cloudy, boolean rainy) {
-		this.userID = 1;//TODO: USER facebook
-		this.beachId = beachId;
-		this.feeling = feeling;
-		this.flag = flag;
-		this.sunny = sunny;
-		this.windy = windy;
-		this.cloudy = cloudy;
-		this.rainy = rainy;
-	}
+	
 	
 	public JSONObject getJson() {
 		JSONObject json = new JSONObject();

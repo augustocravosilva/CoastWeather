@@ -1,5 +1,6 @@
-package pt.up.fe.coastweather;
+package pt.up.fe.coastweather.android;
 
+import pt.up.fe.coastweather.R;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.location.Location;
