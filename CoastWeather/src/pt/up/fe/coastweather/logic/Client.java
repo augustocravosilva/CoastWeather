@@ -4,18 +4,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
 
 import android.util.Log;
-
-import com.google.android.gms.plus.model.people.Person;
 
 public class Client {
 	public static String GET_STATUS_BY_ID = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/";
@@ -50,6 +49,45 @@ public class Client {
 		return result;
 	}
 
+	public static String POST(String url, List<NameValuePair> data){
+		InputStream inputStream = null;
+		String result = "";
+		try {
+			
+			// 1. create HttpClient
+			HttpClient httpclient = new DefaultHttpClient();
+			
+			// 2. make POST request to the given URL
+			HttpPost httpPost = new HttpPost(url);
+			
+			
+			// 6. set httpPost Entity
+			httpPost.setEntity(new UrlEncodedFormEntity(data));
+			
+			// 7. Set some headers to inform server about the type of the content   
+			//httpPost.setHeader("Accept", "application/json");
+			//httpPost.setHeader("Content-type", "application/json");
+			
+			// 8. Execute POST request to the given URL
+			HttpResponse httpResponse = httpclient.execute(httpPost);
+			
+			// 9. receive response as inputStream
+			inputStream = httpResponse.getEntity().getContent();
+			
+			// 10. convert inputstream to string
+			if(inputStream != null)
+				result = convertInputStreamToString(inputStream);
+			else
+				result = "Did not work!";
+			
+		} catch (Exception e) {
+			Log.d("InputStream", e.getLocalizedMessage());
+		}
+		
+		// 11. return result
+		return result;
+	}
+	/*
 	public static String POST(String url, JSONObject jsonObject){
 		InputStream inputStream = null;
 		String result = "";
@@ -63,11 +101,7 @@ public class Client {
 
 			String json = "";
 
-			/*// 3. build jsonObject
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.accumulate("name", person.getName());
-			jsonObject.accumulate("country", person.getCountry());
-			jsonObject.accumulate("twitter", person.getTwitter());*/
+
 
 			// 4. convert JSONObject to JSON to String
 			json = jsonObject.toString();
@@ -104,7 +138,7 @@ public class Client {
 
 		// 11. return result
 		return result;
-	}
+	}*/
 
 	private static String convertInputStreamToString(InputStream inputStream) throws IOException{
 		BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));

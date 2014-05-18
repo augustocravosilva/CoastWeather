@@ -25,7 +25,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 	public static final String LOG = "CoastWeather";
 
 	private CharSequence[] A = {"Praia da Rocha","Praia da Rocha1","Praia da Rocha2","Praia da Rocha3","Praia da Rocha4"};
-	private int[] B = {0,1,2,3,4};
+	private int[] B = {1,2,3,4,5};
 
 
 	private ImageButton[] feelingButtons = new ImageButton[5];
@@ -240,7 +240,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 		protected String doInBackground(String... urls) {
 
 			if (user != null)
-				return Client.POST(urls[0],user.getJson());
+				return Client.POST(urls[0],user.getPost());
 			else
 				return "";
 		}

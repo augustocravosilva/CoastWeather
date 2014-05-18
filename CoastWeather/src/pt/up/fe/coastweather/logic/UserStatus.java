@@ -1,5 +1,10 @@
 package pt.up.fe.coastweather.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -201,7 +206,6 @@ public class UserStatus {
 		try {
 			json.put(USER_ID, userID); //TODO: access via FaceBook user
 			json.put(BEACH_ID, beachId);
-			//json.put(CON, value)
 			json.put(FEELING, feeling);
 			json.put(FLAG, flag);
 			json.put(SUNNY, sunny);
@@ -214,6 +218,19 @@ public class UserStatus {
 		}
 		
 		return json;
+	}
+	
+	public List<NameValuePair> getPost() {
+		  List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		  nameValuePairs.add(new BasicNameValuePair(USER_ID, Long.toString(userID)));
+		  nameValuePairs.add(new BasicNameValuePair(BEACH_ID, Integer.toString(beachId)));
+		  nameValuePairs.add(new BasicNameValuePair(FEELING, Integer.toString(feeling)));
+		  nameValuePairs.add(new BasicNameValuePair(FLAG, Integer.toString(flag)));
+		  nameValuePairs.add(new BasicNameValuePair(SUNNY, Boolean.toString(sunny)));
+		  nameValuePairs.add(new BasicNameValuePair(WINDY, Boolean.toString(windy)));
+		  nameValuePairs.add(new BasicNameValuePair(CLOUDY, Boolean.toString(cloudy)));
+		  nameValuePairs.add(new BasicNameValuePair(RAINY, Boolean.toString(rainy)));
+		  return nameValuePairs;
 	}
 	
 	//idUser, idBeach, content, feeling, flag, sun, wind, clouds, rain
