@@ -1,5 +1,6 @@
 package pt.up.fe.coastweather;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -19,18 +20,22 @@ import android.widget.Toast;
 public class AddReviewFragment extends Fragment implements OnItemSelectedListener {
 
 	public static final String ARG_SECTION_NUMBER = "section_number";
-	public static final String LOG = "AddReviewFragment LOG";
+	public static final String LOG = "CoastWeather";
 
 	private CharSequence[] A = {"Praia da Rocha","Praia da Rocha1","Praia da Rocha2","Praia da Rocha3","Praia da Rocha4"};
+	private int[] B = {0,1,2,3,4};
 
 
 	private ImageButton[] feelingButtons = new ImageButton[5];
 	private ImageButton[] weatherButtons = new ImageButton[4];
 	private ImageButton[] flagsButtons = new ImageButton[4];
-	
+
 	private Button shareButton;
 
 	private TextView feelingText;
+	private TextView test;
+	private Spinner spinner;
+	private UserStatus user = null;
 
 
 	public AddReviewFragment() {
@@ -42,7 +47,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 		View rootView = inflater.inflate(R.layout.fragment_add_review,
 				container, false);
 
-		Spinner spinner = (Spinner) rootView.findViewById(R.id.beaches_spinner);
+		spinner = (Spinner) rootView.findViewById(R.id.beaches_spinner);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item, A);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -68,6 +73,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 		flagsButtons[3] = (ImageButton) rootView.findViewById(R.id.imagebuttonBlack);
 
 		feelingText = (TextView) rootView.findViewById(R.id.feelingtext);
+		test = (TextView) rootView.findViewById(R.id.textTest);
 
 
 		for(ImageButton i : feelingButtons) {
@@ -155,16 +161,33 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 			});
 		}
 		shareButton = (Button) rootView.findViewById(R.id.button_publish);
-		
+
 		shareButton.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
+				Log.i(LOG, "handler");
 				int feeling = getFeeling();
+
 				int flag = getFlag();
-				if(feeling < 0 || flag < 0)
+
+				boolean sunny = weatherButtons[0].isSelected();
+				boolean windy = weatherButtons[1].isSelected();
+				boolean cloudy = weatherButtons[2].isSelected();
+				boolean rainy = weatherButtons[3].isSelected();
+
+				int beachId = B[spinner.getSelectedItemPosition()];
+
+				if(feeling < 0 || !(sunny || windy || cloudy || rainy)) {
+					Toast.makeText(getActivity(), "Select it!", Toast.LENGTH_SHORT).show();
 					return;
-				
+				}
+
+				user = new UserStatus(beachId, feeling, flag, sunny, windy, cloudy, rainy);
+
+
+				new HttpAsyncTask().execute(Client.POST_STATUS);
+
 			}
 
 			private int getFlag() {
@@ -178,8 +201,8 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				for(int i = 0; i < feelingButtons.length; i++)
 					if(feelingButtons[i].isSelected())
 						return i;
-				
-				Toast.makeText(getActivity(), "You must select a feeling!", Toast.LENGTH_SHORT); //TODO: add to strings
+
+				Toast.makeText(getActivity(), "You must select a feeling!", Toast.LENGTH_SHORT).show(); //TODO: add to strings
 				return -1;
 			}
 		});
@@ -208,5 +231,23 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 
 	public void onNothingSelected(AdapterView<?> parent) {
 		// Another interface callback
+	}
+
+	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
+		@Override
+		protected String doInBackground(String... urls) {
+
+			if (user != null)
+				return Client.POST(urls[0],user.getJson());
+			else
+				return "";
+		}
+		// onPostExecute displays the results of the AsyncTask.
+		@Override
+		protected void onPostExecute(String result) {
+
+			Toast.makeText(getActivity(), "Data Sent!", Toast.LENGTH_SHORT).show();
+			test.setText(result);
+		}
 	}
 }

@@ -1,202 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="4dp"
-        android:shadowColor="#FFFFFF"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
-        android:text="Select your beach:"
-        android:textSize="14dp"
-        android:textStyle="bold" />
-
-    <Spinner
-        android:id="@+id/beaches_spinner"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="4dp"
-        android:paddingTop="15dp"
-        android:shadowColor="#FFFFFF"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
-        android:text="How does it feel?"
-        android:textSize="14dp"
-        android:textStyle="bold" />
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="5dp"
-        android:weightSum="5" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-        <ImageButton
-            android:id="@+id/imagebuttonM2"
-            android:layout_width="0dp"
-            android:layout_height="72dp"
-            android:layout_weight="1"
-            android:background="@drawable/feeling_m2"
-            android:contentDescription="-2" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:text="Select your beach:"
+            android:textSize="14dp"
+            android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/imagebuttonM1"
-            android:layout_width="0dp"
-            android:layout_height="72dp"
-            android:layout_weight="1"
-            android:background="@drawable/feeling_m1"
-            android:contentDescription="-1" />
+        <Spinner
+            android:id="@+id/beaches_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
 
-        <ImageButton
-            android:id="@+id/imagebutton0"
-            android:layout_width="0dp"
-            android:layout_height="72dp"
-            android:layout_weight="1"
-            android:background="@drawable/feeling_0"
-            android:contentDescription="0" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingTop="15dp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:text="How does it feel?"
+            android:textSize="14dp"
+            android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/imagebutton1"
-            android:layout_width="0dp"
-            android:layout_height="72dp"
-            android:layout_weight="1"
-            android:background="@drawable/feeling_1"
-            android:contentDescription="1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:weightSum="5" >
 
-        <ImageButton
-            android:id="@+id/imagebutton2"
-            android:layout_width="0dp"
-            android:layout_height="72dp"
-            android:layout_weight="1"
-            android:background="@drawable/feeling_2"
-            android:contentDescription="2" />
+            <ImageButton
+                android:id="@+id/imagebuttonM2"
+                android:layout_width="0dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:background="@drawable/feeling_m2"
+                android:contentDescription="-2" />
+
+            <ImageButton
+                android:id="@+id/imagebuttonM1"
+                android:layout_width="0dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:background="@drawable/feeling_m1"
+                android:contentDescription="-1" />
+
+            <ImageButton
+                android:id="@+id/imagebutton0"
+                android:layout_width="0dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:background="@drawable/feeling_0"
+                android:contentDescription="0" />
+
+            <ImageButton
+                android:id="@+id/imagebutton1"
+                android:layout_width="0dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:background="@drawable/feeling_1"
+                android:contentDescription="1" />
+
+            <ImageButton
+                android:id="@+id/imagebutton2"
+                android:layout_width="0dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:background="@drawable/feeling_2"
+                android:contentDescription="2" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/feelingtext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/weatherintro"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingTop="10dp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:text="More info"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp" >
+
+            <ImageButton
+                android:id="@+id/imagebuttonSunny"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/weather_sunny"
+                android:contentDescription="sunny" />
+
+            <ImageButton
+                android:id="@+id/imagebuttonWindy"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/weather_windy"
+                android:contentDescription="windy" />
+
+            <ImageButton
+                android:id="@+id/imagebuttonCloudy"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/weather_cloudy"
+                android:contentDescription="cloudy" />
+
+            <ImageButton
+                android:id="@+id/imagebuttonRainy"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/weather_rainy"
+                android:contentDescription="rainy" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/flagsintro"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:text="Flag"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp" >
+
+            <ImageButton
+                android:id="@+id/imagebuttonGreen"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/flag_green"
+                android:contentDescription="green" />
+
+            <ImageButton
+                android:id="@+id/imagebuttonYellow"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/flag_yellow"
+                android:contentDescription="yellow" />
+
+            <ImageButton
+                android:id="@+id/imagebuttonRed"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/flag_red"
+                android:contentDescription="red" />
+
+            <ImageButton
+                android:id="@+id/imagebuttonBlack"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/flag_black"
+                android:contentDescription="black" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_publish"
+            style="@style/ButtonText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/blue_button"
+            android:text="Share" />
+        
+         <TextView
+            android:id="@+id/textTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+         />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/feelingtext"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="" />
-
-    <TextView
-        android:id="@+id/weatherintro"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="4dp"
-        android:paddingTop="10dp"
-        android:shadowColor="#FFFFFF"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
-        android:text="More info"
-        android:textSize="14dp"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:paddingBottom="15dp" >
-
-        <ImageButton
-            android:id="@+id/imagebuttonSunny"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:background="@drawable/weather_sunny"
-            android:contentDescription="sunny" />
-
-        <ImageButton
-            android:id="@+id/imagebuttonWindy"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:background="@drawable/weather_windy"
-            android:contentDescription="windy" />
-
-        <ImageButton
-            android:id="@+id/imagebuttonCloudy"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:background="@drawable/weather_cloudy"
-            android:contentDescription="cloudy" />
-
-        <ImageButton
-            android:id="@+id/imagebuttonRainy"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:background="@drawable/weather_rainy"
-            android:contentDescription="rainy" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/flagsintro"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="4dp"
-        android:shadowColor="#FFFFFF"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
-        android:text="Flag"
-        android:textSize="14dp"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp" >
-
-        <ImageButton
-            android:id="@+id/imagebuttonGreen"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:background="@drawable/flag_green"
-            android:contentDescription="green" />
-
-        <ImageButton
-            android:id="@+id/imagebuttonYellow"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:background="@drawable/flag_yellow"
-            android:contentDescription="yellow" />
-
-        <ImageButton
-            android:id="@+id/imagebuttonRed"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:background="@drawable/flag_red"
-            android:contentDescription="red" />
-
-        <ImageButton
-            android:id="@+id/imagebuttonBlack"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:background="@drawable/flag_black"
-            android:contentDescription="black" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button_publish"
-        style="@style/ButtonText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/blue_button"
-        android:text="Share" />
-
-</LinearLayout>
+</ScrollView>
