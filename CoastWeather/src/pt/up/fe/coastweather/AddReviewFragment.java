@@ -1,6 +1,5 @@
 package pt.up.fe.coastweather;
 
-import pt.up.fe.coastweather.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddReviewFragment extends Fragment implements OnItemSelectedListener {
 
@@ -26,6 +27,8 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 	private ImageButton[] feelingButtons = new ImageButton[5];
 	private ImageButton[] weatherButtons = new ImageButton[4];
 	private ImageButton[] flagsButtons = new ImageButton[4];
+	
+	private Button shareButton;
 
 	private TextView feelingText;
 
@@ -151,6 +154,35 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				}
 			});
 		}
+		shareButton = (Button) rootView.findViewById(R.id.button_publish);
+		
+		shareButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				int feeling = getFeeling();
+				int flag = getFlag();
+				if(feeling < 0 || flag < 0)
+					return;
+				
+			}
+
+			private int getFlag() {
+				for(int i = 0; i < flagsButtons.length; i++)
+					if(flagsButtons[i].isSelected())
+						return i;
+				return -1;
+			}
+
+			private int getFeeling() {
+				for(int i = 0; i < feelingButtons.length; i++)
+					if(feelingButtons[i].isSelected())
+						return i;
+				
+				Toast.makeText(getActivity(), "You must select a feeling!", Toast.LENGTH_SHORT); //TODO: add to strings
+				return -1;
+			}
+		});
 
 		/*ImageButton b1 = (ImageButton) rootView.findViewById(R.id.imagebutton1);
 		b1.setSelected(true);

@@ -77,6 +77,12 @@ public class DummySectionFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				etResponse.setText(user == null? "benfica" : user.toString());
+				UserStatus x = new UserStatus(1, 4, 1, true, false, false, false);
+				try {
+					etResponse.setText(x.getJson().toString(1));
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 
 			}
 		});

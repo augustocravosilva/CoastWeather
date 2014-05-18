@@ -69,13 +69,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 			login.setArguments(args);
 			return login;
 		}
-		/*case 0: {
+		case 0: {
 			DummySectionFragment fragment = new DummySectionFragment();
 			Bundle args = new Bundle();
 			args.putInt(AddReviewFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
 			return fragment;
-		}*/
+		}
 		default: {
 			return mapFragment;
 		}
