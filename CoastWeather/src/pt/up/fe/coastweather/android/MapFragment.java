@@ -34,6 +34,8 @@ public class MapFragment extends Fragment {
 	private static final String TAG = "MapFragment";
 	private static final String URL = "http://192.168.1.80/beaches.txt";
 	private static float CAMERA_ZOOM = 12;
+	private static boolean initialized = false;
+	private static double initialLatitude = 0, initialLongitude = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +55,10 @@ public class MapFragment extends Fragment {
 				googleMap = mapView.getMap();
 				googleMap.getUiSettings().setMyLocationButtonEnabled(false);
 				googleMap.setMyLocationEnabled(true);
+				if( initialized )
+					googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+							new LatLng(initialLatitude, initialLongitude), CAMERA_ZOOM));
+				
 				new getBeachesTask().execute(URL);
 			}
 
@@ -92,6 +98,11 @@ public class MapFragment extends Fragment {
 	static public void onLocationChanged(double latitude, double longitude) {
 		if(null != googleMap)
 			googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), CAMERA_ZOOM));
+		else {
+			initialLatitude = latitude;
+			initialLongitude = longitude;
+			initialized = true;
+		}
 	}
 
 	private class getBeachesTask extends AsyncTask<String, Void, List<Beach>> {

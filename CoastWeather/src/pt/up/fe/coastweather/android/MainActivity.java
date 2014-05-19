@@ -3,6 +3,7 @@ package pt.up.fe.coastweather.android;
 import pt.up.fe.coastweather.R;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -80,6 +81,10 @@ public class MainActivity extends FragmentActivity implements
 		LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
                 LOCATION_REFRESH_DISTANCE, mLocationListener);
+        
+        Location location = mLocationManager.getLastKnownLocation(mLocationManager.getBestProvider(new Criteria(), false));
+        if( null != location )
+        	MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude());
                 
 	}
 	
