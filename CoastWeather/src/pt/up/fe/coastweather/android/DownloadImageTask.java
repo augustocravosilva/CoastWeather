@@ -20,7 +20,8 @@ class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 		Bitmap mIcon11 = null;
 		try {
 			InputStream in = new java.net.URL(urldisplay).openStream();
-			mIcon11 = BitmapFactory.decodeStream(in);
+			if (in != null) //added because sometimes it appear to be null
+				mIcon11 = BitmapFactory.decodeStream(in);
 		} catch (Exception e) {
 			Log.e("Error", e.getMessage());
 			e.printStackTrace();

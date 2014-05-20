@@ -87,7 +87,7 @@ public class MapFragment extends Fragment {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		if(mapView != null)
+		if(mapView != null) //added because sometimes it appear to be null
 			mapView.onDestroy();
 	}
 	@Override
