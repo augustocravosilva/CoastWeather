@@ -138,4 +138,10 @@ public class MainActivity extends FragmentActivity implements
 			FragmentTransaction fragmentTransaction) {
 	}
 
+	@Override
+	protected void onPause() {
+		
+		super.onPause();
+	}
+
 }

@@ -32,7 +32,7 @@ public class MapFragment extends Fragment {
 	private MapView mapView;
 	private static GoogleMap googleMap;
 	private static final String TAG = "MapFragment";
-	private static final String URL = "http://192.168.1.80/beaches.txt";
+	private static final String URL = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/beaches";
 	private static float CAMERA_ZOOM = 12;
 	private static boolean initialized = false;
 	private static double initialLatitude = 0, initialLongitude = 0;
@@ -58,27 +58,27 @@ public class MapFragment extends Fragment {
 				if( initialized )
 					googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
 							new LatLng(initialLatitude, initialLongitude), CAMERA_ZOOM));
-				
+
 				new getBeachesTask().execute(URL);
 			}
 
 			break;
-			
+
 		case ConnectionResult.SERVICE_MISSING: 
 			Toast.makeText(getActivity(), "SERVICE MISSING", Toast.LENGTH_SHORT).show();
 			break;
-			
+
 		case ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED: 
 			Toast.makeText(getActivity(), "UPDATE REQUIRED", Toast.LENGTH_SHORT).show();
 			break;
-			
+
 		default:
 			Toast.makeText(getActivity(), GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity()), Toast.LENGTH_SHORT).show();
 		}
-		
+
 		return v;
 	}
-	
+
 	@Override
 	public void onResume() {
 		mapView.onResume();
@@ -87,7 +87,8 @@ public class MapFragment extends Fragment {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		mapView.onDestroy();
+		if(mapView != null)
+			mapView.onDestroy();
 	}
 	@Override
 	public void onLowMemory() {

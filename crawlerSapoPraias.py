@@ -59,9 +59,4 @@ def search_page(page):
     if nextp:
         search_page(nextp.get('href'))
 
-search_page("http://praias.sapo.pt/praias/centro/")
-search_page("http://praias.sapo.pt/praias/lisboa/")
-search_page("http://praias.sapo.pt/praias/alentejo/")
-search_page("http://praias.sapo.pt/praias/algarve/")
-search_page("http://praias.sapo.pt/praias/madeira/")
-search_page("http://praias.sapo.pt/praias/acores/")
+search_page("http://praias.sapo.pt/praias/norte/")

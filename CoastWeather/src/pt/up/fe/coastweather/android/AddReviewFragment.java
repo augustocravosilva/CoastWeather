@@ -53,7 +53,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item, A);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinner.setAdapter(adapter);
+		//spinner.setAdapter(adapter);
 
 
 		spinner.setOnItemSelectedListener(this);
