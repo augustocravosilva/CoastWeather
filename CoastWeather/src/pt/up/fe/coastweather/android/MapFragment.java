@@ -7,7 +7,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 
 import pt.up.fe.coastweather.R;
-
+import android.content.Intent;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,15 +22,18 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapFragment extends Fragment {
 
 	private MapView mapView;
 	private static GoogleMap googleMap;
+	@SuppressWarnings("unused")
 	private static final String TAG = "MapFragment";
 	private static final String URL = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/beaches";
 	private static float CAMERA_ZOOM = 12;
@@ -55,6 +58,7 @@ public class MapFragment extends Fragment {
 				googleMap = mapView.getMap();
 				googleMap.getUiSettings().setMyLocationButtonEnabled(false);
 				googleMap.setMyLocationEnabled(true);
+				googleMap.setOnInfoWindowClickListener(onMarkerInfoWindowClickListener);
 				if( initialized )
 					googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
 							new LatLng(initialLatitude, initialLongitude), CAMERA_ZOOM));
@@ -78,7 +82,15 @@ public class MapFragment extends Fragment {
 
 		return v;
 	}
-
+	
+	private final OnInfoWindowClickListener onMarkerInfoWindowClickListener = new OnInfoWindowClickListener() {
+		@Override
+		public void onInfoWindowClick(Marker marker) {
+			Intent intent = new Intent(getActivity(), BeachActivity.class);
+			startActivity(intent);
+		}
+	};
+	
 	@Override
 	public void onResume() {
 		mapView.onResume();
@@ -100,10 +112,12 @@ public class MapFragment extends Fragment {
 		if(null != googleMap)
 			googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), CAMERA_ZOOM));
 		else {
-			initialLatitude = latitude;
-			initialLongitude = longitude;
-			initialized = true;
+			
 		}
+		
+		initialLatitude = latitude;
+		initialLongitude = longitude;
+		initialized = true;
 	}
 
 	private class getBeachesTask extends AsyncTask<String, Void, List<Beach>> {

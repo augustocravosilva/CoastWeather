@@ -7,15 +7,16 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.WindowManager;
 
-public class MainActivity extends FragmentActivity implements
-		ActionBar.TabListener {
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -31,9 +32,11 @@ public class MainActivity extends FragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
-	
-    private static final float LOCATION_REFRESH_DISTANCE = 50;
-    private static final long LOCATION_REFRESH_TIME = 5000;
+
+	@SuppressWarnings("unused")
+	private static final String TAG = "MainActivity";
+	private static final float LOCATION_REFRESH_DISTANCE = 50;
+	private static final long LOCATION_REFRESH_TIME = 5000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +60,12 @@ public class MainActivity extends FragmentActivity implements
 		// tab. We can also use ActionBar.Tab#select() to do this if we have
 		// a reference to the Tab.
 		mViewPager
-				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-					@Override
-					public void onPageSelected(int position) {
-						actionBar.setSelectedNavigationItem(position);
-					}
-				});
+		.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
+				actionBar.setSelectedNavigationItem(position);
+			}
+		});
 
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //TODO: delete this
 		// For each of the sections in the app, add a tab to the action bar.
@@ -75,43 +78,43 @@ public class MainActivity extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
-		
-		
-		
+
+
+
 		LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
-                LOCATION_REFRESH_DISTANCE, mLocationListener);
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_REFRESH_TIME,
-                LOCATION_REFRESH_DISTANCE, mLocationListener);
-        mLocationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, LOCATION_REFRESH_TIME,
-                LOCATION_REFRESH_DISTANCE, mLocationListener);
-        
-        Location location = mLocationManager.getLastKnownLocation(mLocationManager.getBestProvider(new Criteria(), false));
-        if( null != location )
-        	MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude());
-                
+		mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
+				LOCATION_REFRESH_DISTANCE, mLocationListener);
+		mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_REFRESH_TIME,
+				LOCATION_REFRESH_DISTANCE, mLocationListener);
+		mLocationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, LOCATION_REFRESH_TIME,
+				LOCATION_REFRESH_DISTANCE, mLocationListener);
+
+		Location location = mLocationManager.getLastKnownLocation(mLocationManager.getBestProvider(new Criteria(), false));
+		if( null != location )
+			MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude());
+
 	}
-	
+
 	private final LocationListener mLocationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(Location location) {
-        	
-        	if( null != location ) {
-        		Log.i("onLocationChanged", "Mudou");
-        		MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude());
-        	} else Log.i("onLocationChanged", "Mudou e null");
-        		
-        }
+		@Override
+		public void onLocationChanged(Location location) {
 
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {}
+			if( null != location ) {
+				Log.i("onLocationChanged", "Mudou");
+				MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude());
+			} else Log.i("onLocationChanged", "Mudou e null");
 
-        @Override
-        public void onProviderEnabled(String s) {}
+		}
 
-        @Override
-        public void onProviderDisabled(String s) {}
-    };
+		@Override
+		public void onStatusChanged(String s, int i, Bundle bundle) {}
+
+		@Override
+		public void onProviderEnabled(String s) {}
+
+		@Override
+		public void onProviderDisabled(String s) {}
+	};
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -140,8 +143,44 @@ public class MainActivity extends FragmentActivity implements
 
 	@Override
 	protected void onPause() {
-		
+
 		super.onPause();
 	}
 
+	private MenuItem menuItem;
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_refresh:
+			menuItem = item;
+			menuItem.setActionView(R.layout.menu_progressbar);
+			menuItem.expandActionView();
+			TestTask task = new TestTask();
+			task.execute("test");
+			break;
+		default:
+			break;
+		}
+		return true;
+	}
+
+	private class TestTask extends AsyncTask<String, Void, String> {
+
+		@Override
+		protected String doInBackground(String... params) {
+			// Simulate something long running
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			menuItem.collapseActionView();
+			menuItem.setActionView(null);
+		}
+	}
 }
