@@ -41,49 +41,44 @@
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:orientation="horizontal"
-            android:paddingTop="5dp"
-            android:weightSum="5" >
+            android:paddingTop="5dp" >
 
             <ImageButton
                 android:id="@+id/imagebuttonM2"
-                android:layout_width="0dp"
+                android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:layout_weight="1"
                 android:background="@drawable/feeling_m2"
                 android:contentDescription="-2" />
 
             <ImageButton
                 android:id="@+id/imagebuttonM1"
-                android:layout_width="0dp"
+                android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:layout_weight="1"
                 android:background="@drawable/feeling_m1"
                 android:contentDescription="-1" />
 
             <ImageButton
                 android:id="@+id/imagebutton0"
-                android:layout_width="0dp"
+                android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:layout_weight="1"
                 android:background="@drawable/feeling_0"
                 android:contentDescription="0" />
 
             <ImageButton
                 android:id="@+id/imagebutton1"
-                android:layout_width="0dp"
+                android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:layout_weight="1"
                 android:background="@drawable/feeling_1"
                 android:contentDescription="1" />
 
             <ImageButton
                 android:id="@+id/imagebutton2"
-                android:layout_width="0dp"
+                android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:layout_weight="1"
                 android:background="@drawable/feeling_2"
                 android:contentDescription="2" />
         </LinearLayout>
@@ -202,12 +197,11 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/blue_button"
             android:text="Share" />
-        
-         <TextView
+
+        <TextView
             android:id="@+id/textTest"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-         />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </ScrollView>
