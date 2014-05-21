@@ -1,5 +1,9 @@
 package pt.up.fe.coastweather.android;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import pt.up.fe.coastweather.R;
 import pt.up.fe.coastweather.logic.*;
 import android.os.AsyncTask;
@@ -27,6 +31,9 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 	private CharSequence[] A = {"Praia da Rocha","Praia da Rocha1","Praia da Rocha2","Praia da Rocha3","Praia da Rocha4"};
 	private int[] B = {1,2,3,4,5};
 
+	private CharSequence[] beachesNames;
+	private int[] beachesIds;
+
 
 	private ImageButton[] feelingButtons = new ImageButton[5];
 	private ImageButton[] weatherButtons = new ImageButton[4];
@@ -51,10 +58,11 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 
 		spinner = (Spinner) rootView.findViewById(R.id.beaches_spinner);
 		// Create an ArrayAdapter using the string array and a default spinner layout
-		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item, A);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		//ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item, A);
+		//adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		//spinner.setAdapter(adapter);
 
+		new HttpAsyncTask(HttpAsyncTask.MODE_GET_BEACHES).execute(Client.GET_BEACHES_BY_LOCATION);
 
 		spinner.setOnItemSelectedListener(this);
 
@@ -178,7 +186,11 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				boolean cloudy = weatherButtons[2].isSelected();
 				boolean rainy = weatherButtons[3].isSelected();
 
-				int beachId = B[spinner.getSelectedItemPosition()];
+				if(spinner.getCount() < 1) {
+					Toast.makeText(getActivity(), "You need an internet connection!", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				int beachId = beachesIds[spinner.getSelectedItemPosition()];
 
 				if(feeling < 0 || !(sunny || windy || cloudy || rainy)) {
 					Toast.makeText(getActivity(), "Select it!", Toast.LENGTH_SHORT).show();
@@ -188,7 +200,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				user = new UserStatus(beachId, feeling, flag, sunny, windy, cloudy, rainy);
 
 
-				new HttpAsyncTask().execute(Client.POST_STATUS);
+				new HttpAsyncTask(HttpAsyncTask.MODE_SEND_STATUS).execute(Client.POST_STATUS);
 
 			}
 
@@ -236,20 +248,71 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 	}
 
 	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
+		static final int MODE_SEND_STATUS = 1;
+		static final int MODE_GET_BEACHES = 2;
+		int mode;
+
+		HttpAsyncTask(int mode) {
+			this.mode = mode;
+		}
 		@Override
 		protected String doInBackground(String... urls) {
 
-			if (user != null)
-				return Client.POST(urls[0],user.getPost());
-			else
-				return "";
+			switch(mode){
+			case MODE_SEND_STATUS: {
+				if (user != null)
+					return Client.POST(urls[0],user.getPost());
+				else
+					return "";
+			}
+			case MODE_GET_BEACHES: {
+				return Client.GET(urls[0], "38.614916/-9.210523");
+			}
+			}
+
+			return "";
 		}
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
 		protected void onPostExecute(String result) {
 
 			Toast.makeText(getActivity(), "Data Sent!", Toast.LENGTH_SHORT).show();
-			test.setText(result);
+			if(mode == MODE_GET_BEACHES) {
+				Log.d(LOG,"1");
+				try {
+					JSONObject j = new JSONObject(result);
+					if (j.getBoolean("error"))
+						return;
+
+					JSONArray array = j.getJSONArray("beaches");
+					j = null;
+
+					beachesNames = new String[array.length() < 10 ? array.length() : 10];
+					beachesIds = new int[array.length() < 10 ? array.length() : 10];
+
+					for (int i = 0; i < array.length() && i < 10;i++) {
+						//beaches[i] = array.getJSONObject(i).toString();
+						Beach b = new Beach(array.getJSONObject(i));
+						beachesNames[i] = b.getName();
+						beachesIds[i] = b.getIdBeach();
+					}
+
+					array = null;
+
+					ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item, beachesNames);
+					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					spinner.setAdapter(adapter);
+
+					test.setText("dones");
+
+				} catch (JSONException e) {
+					Log.w(LOG, "Json exception " + e.getMessage());
+					e.printStackTrace();
+				}
+			}
+			else
+				test.setText(result);
 		}
 	}
+
 }

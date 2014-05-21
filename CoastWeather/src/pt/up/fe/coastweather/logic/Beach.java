@@ -27,7 +27,7 @@ public class Beach {
 	private boolean restaurant;
 	private boolean umbrella;
 	
-	Beach(JSONObject json) throws JSONException {
+	public Beach(JSONObject json) throws JSONException {
 		idBeach = json.getInt(ID_BEACH);
 		name = json.getString(NAME);
 		latitude = json.getDouble(LATITUDE);
@@ -41,6 +41,91 @@ public class Beach {
 		umbrella =  Boolean.parseBoolean(json.getString(UMBRELLA));
 	}
 	
-	
+	public Beach(String newName, double newLatitude, double newLongitude) {
+        latitude = newLatitude;
+        longitude = newLongitude;
+        name = newName;
+    }
+
+
+	public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+	public int getIdBeach() {
+		return idBeach;
+	}
+
+	public void setIdBeach(int idBeach) {
+		this.idBeach = idBeach;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+	public boolean isParking() {
+		return parking;
+	}
+
+	public void setParking(boolean parking) {
+		this.parking = parking;
+	}
+
+	public boolean isBlueFlag() {
+		return blueFlag;
+	}
+
+	public void setBlueFlag(boolean blueFlag) {
+		this.blueFlag = blueFlag;
+	}
+
+	public boolean isRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(boolean restaurant) {
+		this.restaurant = restaurant;
+	}
+
+	public boolean isUmbrella() {
+		return umbrella;
+	}
+
+	public void setUmbrella(boolean umbrella) {
+		this.umbrella = umbrella;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
 
 }

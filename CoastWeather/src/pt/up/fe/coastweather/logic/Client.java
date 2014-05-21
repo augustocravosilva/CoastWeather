@@ -19,9 +19,10 @@ import android.util.Log;
 public class Client {
 	public static String GET_STATUS_BY_ID = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/";
 	public static String POST_STATUS = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status";
+	public static String GET_BEACHES_BY_LOCATION= "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/beaches/";
 
 
-	public static String GET(String url){
+	public static String GET(String url, String data){
 		InputStream inputStream = null;
 		String result = "";
 
@@ -31,7 +32,7 @@ public class Client {
 			HttpClient httpclient = new DefaultHttpClient();
 
 			// make GET request to the given URL
-			HttpResponse httpResponse = httpclient.execute(new HttpGet(url));
+			HttpResponse httpResponse = httpclient.execute(new HttpGet(url + data));
 
 			// receive response as inputStream
 			inputStream = httpResponse.getEntity().getContent();

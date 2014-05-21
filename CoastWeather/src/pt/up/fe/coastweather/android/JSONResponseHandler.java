@@ -12,6 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import pt.up.fe.coastweather.logic.Beach;
+
 public class JSONResponseHandler implements	ResponseHandler<List<Beach>> {
 	@Override
 	public List<Beach> handleResponse(HttpResponse response) throws IOException {

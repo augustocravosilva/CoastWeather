@@ -7,6 +7,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 
 import pt.up.fe.coastweather.R;
+import pt.up.fe.coastweather.logic.Beach;
 import android.content.Intent;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
