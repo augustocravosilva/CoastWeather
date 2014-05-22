@@ -258,7 +258,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 					return "";
 			}
 			case MODE_GET_BEACHES: {
-				return Client.GET(urls[0], MapFragment.getInitialLatitude() + "/" + MapFragment.getInitialLongitude()/*38.614916/-9.210523"*/);
+				return Client.GET(urls[0], MapFragment.getLatitude() + "/" + MapFragment.getLongitude()/*38.614916/-9.210523"*/);
 			}
 			}
 
