@@ -20,4 +20,12 @@ public class BeachData {
 	public static void clearBeaches() {
 		beaches.clear();
 	}
+	
+	public static Beach getBeachByName(String name) {
+		for(int i = 0, size = beaches.size(); i < size; i++)
+			if( beaches.valueAt(i).getName().equals(name) )
+				return beaches.valueAt(i);
+		
+		return null;
+	}
 }
