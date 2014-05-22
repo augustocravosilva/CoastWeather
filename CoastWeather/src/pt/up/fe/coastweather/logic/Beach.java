@@ -41,6 +41,22 @@ public class Beach {
 		umbrella =  Boolean.parseBoolean(json.getString(UMBRELLA));
 	}
 	
+	public Beach(String beach) throws JSONException {
+		JSONObject json = new JSONObject(beach);
+		idBeach = json.getInt(ID_BEACH);
+		name = json.getString(NAME);
+		latitude = json.getDouble(LATITUDE);
+		longitude = json.getDouble(LONGITUDE);
+		place = json.getString(PLACE);
+		picture = json.getString(PICTURE);
+		
+		parking =  Boolean.parseBoolean(json.getString(PARKING));
+		blueFlag =  Boolean.parseBoolean(json.getString(BLUE_FLAG));
+		restaurant =  Boolean.parseBoolean(json.getString(RESTAURANT));
+		umbrella =  Boolean.parseBoolean(json.getString(UMBRELLA));
+	}
+	
+	
 	public Beach(String newName, double newLatitude, double newLongitude) {
         latitude = newLatitude;
         longitude = newLongitude;

@@ -221,16 +221,6 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 			}
 		});
 
-		/*ImageButton b1 = (ImageButton) rootView.findViewById(R.id.imagebutton1);
-		b1.setSelected(true);
-		b1.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Log.i(LOG,"abc " + v.getId());
-				v.setSelected(true);
-			}
-		});*/
 
 		return rootView;
 	}
@@ -276,7 +266,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 		@Override
 		protected void onPostExecute(String result) {
 
-			Toast.makeText(getActivity(), "Data Sent!", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getActivity(), "Data Sent!", Toast.LENGTH_SHORT).show();
 			if(mode == MODE_GET_BEACHES) {
 				Log.d(LOG,"1");
 				try {
@@ -303,15 +293,15 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					spinner.setAdapter(adapter);
 
-					test.setText("dones");
-
 				} catch (JSONException e) {
 					Log.w(LOG, "Json exception " + e.getMessage());
 					e.printStackTrace();
 				}
 			}
-			else
+			else {
+				Toast.makeText(getActivity(), "Data Sent!", Toast.LENGTH_SHORT).show();
 				test.setText(result);
+			}
 		}
 	}
 
