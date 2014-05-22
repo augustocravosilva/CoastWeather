@@ -199,6 +199,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				}
 
 				user = new UserStatus(beachId, feeling, flag, sunny, windy, cloudy, rainy);
+				
 
 
 				new HttpAsyncTask(HttpAsyncTask.MODE_SEND_STATUS).execute(Client.POST_STATUS);
@@ -301,7 +302,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 			}
 			else {
 				Toast.makeText(getActivity(), "Data Sent!", Toast.LENGTH_SHORT).show();
-				test.setText(result);
+				test.setText(result + "\n" + user.getPost());
 			}
 		}
 	}
