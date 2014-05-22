@@ -2,16 +2,22 @@ package pt.up.fe.coastweather.android;
 
 import java.util.Arrays;
 
+import org.json.JSONObject;
+
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.Response.PagingDirection;
+import com.facebook.model.GraphObject;
+import com.facebook.model.GraphObjectList;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 
 import pt.up.fe.coastweather.R;
+import pt.up.fe.coastweather.logic.User;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -77,7 +83,9 @@ public class LoginFragment extends Fragment {
 	                    if (user != null) {
 	                        // Display the parsed user info
 	                       fbuser = user;
-	                       text.setText(user.getName() + " "+user.getId() + " " + response);
+	                       User.getInstance().setFacebookId(user.getId());
+	                       User.getInstance().setName(user.getName());
+	                      // 	text.setText(user.getName() + " "+user.getId() + " " + response);
 	                       new Request(
 	                    		    msession,
 	                    		    "/me/friends",
@@ -85,7 +93,23 @@ public class LoginFragment extends Fragment {
 	                    		    HttpMethod.GET,
 	                    		    new Request.Callback() {
 	                    		        public void onCompleted(Response response) {
-	                    		            text.append("\n\n\n"+response.toString());
+	                    		         //  text.append("\n\n\n"+response.getGraphObject().getPropertyAsList("data",GraphUser.class));
+	                    		        	GraphObjectList<GraphUser> glist = response.getGraphObject().getPropertyAsList("data",GraphUser.class);
+	                    		        	if(glist==null)
+	                    		        		return;
+	                    		        	for(GraphUser friend : glist)
+	                    		        	{
+	                    		        		String fid = friend.getId();
+	                    		        		String fname = friend.getName();
+	                    		        	//	text.append("\n\n"+fid + " " + fname);
+	                    		        		User.getInstance().addFriend(fid,fname);
+	                    		        	}
+	                    		        	Request r2 = response.getRequestForPagedResults(PagingDirection.NEXT);
+	                    		        	if(r2!=null)
+	                    		        	{
+	                    		        		r2.setCallback(this);
+	                    		        		r2.executeAsync();
+	                    		        	}
 	                    		        }
 	                    		    }
 	                    		).executeAsync();
