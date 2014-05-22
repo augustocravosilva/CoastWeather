@@ -67,7 +67,7 @@ public class ListFragmentAdapter extends BaseAdapter {
 		/*if(User.getInstance().isLoggedIn())
 		{*/
 			try {
-				String result = Client.GET("http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/user/friends/[123]");
+				String result = Client.GET("http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/user/friends/","[123]");
 				json = new JSONObject(result);
 				//json = new JSONObject(Client.GET("http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/user/friends/"+User.getInstance().friendsArrayAsString()));
 				//image.setImageResource(R.drawable.ic_feeling_0);
