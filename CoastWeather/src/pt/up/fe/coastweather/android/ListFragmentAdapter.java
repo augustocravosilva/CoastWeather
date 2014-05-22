@@ -1,7 +1,14 @@
 package pt.up.fe.coastweather.android;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import pt.up.fe.coastweather.R;
+import pt.up.fe.coastweather.logic.Client;
+import pt.up.fe.coastweather.logic.User;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,21 +62,31 @@ public class ListFragmentAdapter extends BaseAdapter {
 		ImageView image_weather2 = (ImageView) v.findViewById(R.id.icon_weather2);
 		ImageView image_flag = (ImageView) v.findViewById(R.id.icon_flag);
 		TextView timeView = (TextView)v.findViewById(R.id.time);
-
-
-
-
-		//image.setImageResource(R.drawable.ic_feeling_0);
-		nameView.setText("Tiago Fernandes");
-		beachView.setText("Praia da Rocha - Portimão");
-		descView.setText("Feeling awesome");
-		timeView.setText("5 minutes ago");      
-		image_feeling.setImageResource(R.drawable.ic_feeling_2);
-		image_weather1.setImageResource(R.drawable.ic_weather_sunny);
-		image_weather2.setImageResource(R.drawable.ic_weather_windy);
-		image_flag.setImageResource(R.drawable.ic_flag_green);
-
+		
+		JSONObject json = null;
+		/*if(User.getInstance().isLoggedIn())
+		{*/
+			try {
+				String result = Client.GET("http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/user/friends/[123]");
+				json = new JSONObject(result);
+				//json = new JSONObject(Client.GET("http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/user/friends/"+User.getInstance().friendsArrayAsString()));
+				//image.setImageResource(R.drawable.ic_feeling_0);
+				nameView.setText(json.getJSONArray("status").getJSONObject(position).getString("name"));
+				beachView.setText(json.getJSONArray("status").getJSONObject(position).getString("beach"));
+				descView.setText("Feeling awesome");
+				timeView.setText("5 minutes ago");      
+				image_feeling.setImageResource(R.drawable.ic_feeling_2);
+				image_weather1.setImageResource(R.drawable.ic_weather_sunny);
+				image_weather2.setImageResource(R.drawable.ic_weather_windy);
+				image_flag.setImageResource(R.drawable.ic_flag_green);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		//}
+		
 		return v;
 	}
+	
 
 }
