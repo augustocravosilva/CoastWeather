@@ -67,8 +67,8 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 
 		spinner.setOnItemSelectedListener(this);
 
-		feelingButtons[0] = (ImageButton) rootView.findViewById(R.id.imagebuttonM1);
-		feelingButtons[1] = (ImageButton) rootView.findViewById(R.id.imagebuttonM2);
+		feelingButtons[0] = (ImageButton) rootView.findViewById(R.id.imagebuttonM2);
+		feelingButtons[1] = (ImageButton) rootView.findViewById(R.id.imagebuttonM1);
 		feelingButtons[2] = (ImageButton) rootView.findViewById(R.id.imagebutton0);
 		feelingButtons[3] = (ImageButton) rootView.findViewById(R.id.imagebutton1);
 		feelingButtons[4] = (ImageButton) rootView.findViewById(R.id.imagebutton2);
@@ -202,7 +202,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				
 
 
-				new HttpAsyncTask(HttpAsyncTask.MODE_SEND_STATUS).execute(Client.POST_STATUS);
+				new HttpAsyncTask(HttpAsyncTask.MODE_SEND_STATUS).execute(Client.POST_STATUS); //TODO: Uncomment
 
 			}
 
@@ -214,6 +214,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 			}
 
 			private int getFeeling() {
+			
 				for(int i = 0; i < feelingButtons.length; i++)
 					if(feelingButtons[i].isSelected())
 						return i;

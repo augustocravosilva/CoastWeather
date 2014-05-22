@@ -16,5 +16,11 @@
     <string name="feeling_m1_text">It\'s not OK</string> 
     <string name="feeling_m2_text">I\'m going home!</string>
     
+    <string name="feeling_2_text2">Feeling awesome</string> 
+    <string name="feeling_1_text2">Feeling perfect</string> 
+    <string name="feeling_0_text2">Feeling OK</string>
+    <string name="feeling_m1_text2">Feeling not OK</string> 
+    <string name="feeling_m2_text2">Thinking about going home</string>
+    
 
 </resources>
