@@ -32,6 +32,9 @@ public class Beach {
 		name = json.getString(NAME);
 		latitude = json.getDouble(LATITUDE);
 		longitude = json.getDouble(LONGITUDE);
+		
+		//TODO quando estiver no servidor, descomentar
+		/*
 		place = json.getString(PLACE);
 		picture = json.getString(PICTURE);
 		
@@ -39,14 +42,8 @@ public class Beach {
 		blueFlag =  Boolean.parseBoolean(json.getString(BLUE_FLAG));
 		restaurant =  Boolean.parseBoolean(json.getString(RESTAURANT));
 		umbrella =  Boolean.parseBoolean(json.getString(UMBRELLA));
+		*/
 	}
-	
-	public Beach(String newName, double newLatitude, double newLongitude) {
-        latitude = newLatitude;
-        longitude = newLongitude;
-        name = newName;
-    }
-
 
 	public double getLatitude() {
         return latitude;

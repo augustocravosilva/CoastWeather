@@ -1,12 +1,21 @@
 package pt.up.fe.coastweather.android;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+
 import pt.up.fe.coastweather.R;
+import pt.up.fe.coastweather.logic.Beach;
+import pt.up.fe.coastweather.logic.BeachData;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -33,10 +42,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	 */
 	ViewPager mViewPager;
 
-	@SuppressWarnings("unused")
 	private static final String TAG = "MainActivity";
 	private static final float LOCATION_REFRESH_DISTANCE = 50;
 	private static final long LOCATION_REFRESH_TIME = 5000;
+	private static final String URL = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/beaches";
+	private MenuItem menuItem;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +103,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		if( null != location )
 			MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude());
 
+		new getBeachesTask().execute(URL);
 	}
 
 	private final LocationListener mLocationListener = new LocationListener() {
@@ -147,7 +158,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		super.onPause();
 	}
 
-	private MenuItem menuItem;
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -155,32 +165,52 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			menuItem = item;
 			menuItem.setActionView(R.layout.menu_progressbar);
 			menuItem.expandActionView();
-			TestTask task = new TestTask();
-			task.execute("test");
+			new getBeachesTask().execute(URL);
+			
 			break;
 		default:
 			break;
 		}
 		return true;
 	}
-
-	private class TestTask extends AsyncTask<String, Void, String> {
+	
+	private class getBeachesTask extends AsyncTask<String, Void, List<Beach>> {
+		private final AndroidHttpClient mClient = AndroidHttpClient.newInstance("");
 
 		@Override
-		protected String doInBackground(String... params) {
-			// Simulate something long running
+		protected List<Beach> doInBackground(String... params) {
 			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+				return mClient.execute(new HttpGet(params[0]),
+						new BeachesJSONResponseHandler());
+			} catch (ClientProtocolException e) {
+				Log.e(TAG, "ClientProtocolException", e);
+			} catch (IOException e) {
+				Log.e(TAG, "IOException", e);
 			}
+
 			return null;
 		}
 
 		@Override
-		protected void onPostExecute(String result) {
-			menuItem.collapseActionView();
-			menuItem.setActionView(null);
+		protected void onPostExecute(List<Beach> result) {
+			if( null != result ) {
+				BeachData.clearBeaches();
+				
+				for( Beach beach : result ) {
+					BeachData.addBeach(beach);
+				}
+				
+				MapFragment.refreshBeaches();
+			}
+					
+			
+			if ( null != mClient )
+				mClient.close();
+			
+			if( null != menuItem ) {
+				menuItem.collapseActionView();
+				menuItem.setActionView(null);
+			}
 		}
 	}
 }

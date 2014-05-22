@@ -13,8 +13,10 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import pt.up.fe.coastweather.logic.Beach;
+import android.util.Log;
 
-public class JSONResponseHandler implements	ResponseHandler<List<Beach>> {
+public class BeachesJSONResponseHandler implements	ResponseHandler<List<Beach>> {
+	private static String TAG = "MainActivity";
 	@Override
 	public List<Beach> handleResponse(HttpResponse response) throws IOException {
 
@@ -22,19 +24,15 @@ public class JSONResponseHandler implements	ResponseHandler<List<Beach>> {
 		String JSONResponse = new BasicResponseHandler().handleResponse(response);
 
 		try {
-
 			JSONObject object = (JSONObject) new JSONTokener(JSONResponse).nextValue();
 			JSONArray beaches = object.getJSONArray("beaches");
 
 			for (int i = 0; i < beaches.length(); i++) {
-
 				JSONObject tmp = (JSONObject) beaches.get(i);
-				result.add(new Beach(tmp.getString("name"), tmp.getDouble("latitude"), tmp.getDouble("longitude")));
-
+				result.add(new Beach(tmp));
 			}
-
 		} catch (JSONException e) {
-			e.printStackTrace();
+			Log.e(TAG, "JSON Exception", e);
 		}
 		return result;
 	}

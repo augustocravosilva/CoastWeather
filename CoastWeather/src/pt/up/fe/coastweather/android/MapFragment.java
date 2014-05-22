@@ -1,19 +1,12 @@
 package pt.up.fe.coastweather.android;
 
-import java.io.IOException;
-import java.util.List;
-
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-
 import pt.up.fe.coastweather.R;
 import pt.up.fe.coastweather.logic.Beach;
+import pt.up.fe.coastweather.logic.BeachData;
 import android.content.Intent;
-import android.net.http.AndroidHttpClient;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +29,6 @@ public class MapFragment extends Fragment {
 	private static GoogleMap googleMap;
 	@SuppressWarnings("unused")
 	private static final String TAG = "MapFragment";
-	private static final String URL = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/beaches";
 	private static float CAMERA_ZOOM = 12;
 	private static boolean initialized = false;
 	private static double initialLatitude = 0, initialLongitude = 0;
@@ -63,8 +55,8 @@ public class MapFragment extends Fragment {
 				if( initialized )
 					googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
 							new LatLng(initialLatitude, initialLongitude), CAMERA_ZOOM));
-
-				new getBeachesTask().execute(URL);
+				
+				refreshBeaches();
 			}
 
 			break;
@@ -84,6 +76,20 @@ public class MapFragment extends Fragment {
 		return v;
 	}
 	
+	public static void refreshBeaches() {
+		if( null != googleMap ) {
+			SparseArray<Beach> beaches = BeachData.getAllBeaches();
+						
+			for(int i = 0, size = beaches.size(); i < size; i++) {
+				Beach beach = beaches.valueAt(i);
+
+				googleMap.addMarker(new MarkerOptions()
+					.position(new LatLng(beach.getLatitude(), beach.getLongitude()))
+					.title(String.valueOf(beach.getName())));
+			}
+		}
+	}
+
 	private final OnInfoWindowClickListener onMarkerInfoWindowClickListener = new OnInfoWindowClickListener() {
 		@Override
 		public void onInfoWindowClick(Marker marker) {
@@ -91,7 +97,7 @@ public class MapFragment extends Fragment {
 			startActivity(intent);
 		}
 	};
-	
+
 	@Override
 	public void onResume() {
 		mapView.onResume();
@@ -113,45 +119,11 @@ public class MapFragment extends Fragment {
 		if(null != googleMap)
 			googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), CAMERA_ZOOM));
 		else {
-			
+
 		}
-		
+
 		initialLatitude = latitude;
 		initialLongitude = longitude;
 		initialized = true;
-	}
-
-	private class getBeachesTask extends AsyncTask<String, Void, List<Beach>> {
-		private static final String TAG = "getBeachesTask";
-		private AndroidHttpClient mClient = AndroidHttpClient.newInstance("");
-
-		@Override
-		protected List<Beach> doInBackground(String... params) {
-			try {
-				return mClient.execute(new HttpGet(params[0]),
-						new JSONResponseHandler());
-			} catch (ClientProtocolException e) {
-				Log.i(TAG, "ClientProtocolException");
-			} catch (IOException e) {
-				Log.i(TAG, "IOException");
-			}
-
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(List<Beach> result) {
-
-			if( null != googleMap && null != result ) {
-				for( Beach beach : result ) {
-					googleMap.addMarker(new MarkerOptions()
-					.position(new LatLng(beach.getLatitude(), beach.getLongitude()))
-					.title(String.valueOf(beach.getName())));
-				}			
-			}
-
-			if (null != mClient)
-				mClient.close();
-		}
 	}
 }
