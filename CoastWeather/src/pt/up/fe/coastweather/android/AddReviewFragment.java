@@ -26,6 +26,7 @@ import android.widget.Toast;
 public class AddReviewFragment extends Fragment implements OnItemSelectedListener {
 
 	public static final String ARG_SECTION_NUMBER = "section_number";
+	private static final int MAX_BEACHES_SPINNER = 15;
 	public static final String LOG = "CoastWeather";
 
 	private CharSequence[] A = {"Praia da Rocha","Praia da Rocha1","Praia da Rocha2","Praia da Rocha3","Praia da Rocha4"};
@@ -256,7 +257,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 					return "";
 			}
 			case MODE_GET_BEACHES: {
-				return Client.GET(urls[0], "38.614916/-9.210523");
+				return Client.GET(urls[0], MapFragment.getInitialLatitude() + "/" + MapFragment.getInitialLongitude()/*38.614916/-9.210523"*/);
 			}
 			}
 
@@ -277,10 +278,10 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 					JSONArray array = j.getJSONArray("beaches");
 					j = null;
 
-					beachesNames = new String[array.length() < 10 ? array.length() : 10];
-					beachesIds = new int[array.length() < 10 ? array.length() : 10];
+					beachesNames = new String[array.length() < MAX_BEACHES_SPINNER ? array.length() : MAX_BEACHES_SPINNER];
+					beachesIds = new int[array.length() < MAX_BEACHES_SPINNER ? array.length() : MAX_BEACHES_SPINNER];
 
-					for (int i = 0; i < array.length() && i < 10;i++) {
+					for (int i = 0; i < array.length() && i < MAX_BEACHES_SPINNER;i++) {
 						//beaches[i] = array.getJSONObject(i).toString();
 						Beach b = new Beach(array.getJSONObject(i));
 						beachesNames[i] = b.getName();

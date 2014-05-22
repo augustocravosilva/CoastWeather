@@ -126,4 +126,13 @@ public class MapFragment extends Fragment {
 		initialLongitude = longitude;
 		initialized = true;
 	}
+
+	public static double getInitialLatitude() {
+		return initialLatitude;
+	}
+
+	public static double getInitialLongitude() {
+		return initialLongitude;
+	}
+
 }
