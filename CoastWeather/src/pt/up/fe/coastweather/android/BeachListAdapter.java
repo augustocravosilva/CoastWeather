@@ -1,5 +1,8 @@
 package pt.up.fe.coastweather.android;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import pt.up.fe.coastweather.R;
 import pt.up.fe.coastweather.logic.UserStatus;
 import android.content.Context;
@@ -98,7 +101,42 @@ public class BeachListAdapter extends BaseAdapter {
 			break;
 		}
 		//descView.setText("- Feeling awesome");
-		timeView.setText("5 minutes ago");      
+		//HH converts hour in 24 hours format (0-23), day calculation
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		Date d1 = null;
+		Date d2 = null;
+
+		try {
+			d1 = format.parse(user.getDate());
+			d2 = new Date();
+
+			//in milliseconds
+			long diff = d2.getTime() - d1.getTime();
+
+			long diffSeconds = diff / 1000 % 60;
+			long diffMinutes = diff / (60 * 1000) % 60;
+			long diffHours = diff / (60 * 60 * 1000) % 24;
+			long diffDays = diff / (24 * 60 * 60 * 1000);
+			Log.i(LOG, "**Seconds: " + diffSeconds + " **Minutes: " +diffMinutes + " **Hours: " + diffHours + " **Days: " + diffDays);
+
+			if(diffMinutes == 0)
+				timeView.setText(diffSeconds + " seconds ago"); 
+			else if (diffHours == 0)
+				timeView.setText(diffMinutes + " minutes ago"); 
+			else if (diffDays == 0)
+				timeView.setText(diffHours + " hours ago");
+			else if (diffDays <= 7)
+				timeView.setText(diffDays + " days ago");
+			else
+				timeView.setText(user.getDate());
+
+			//timeView.setText(user.getDate()); 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		//image_feeling.setImageResource(R.drawable.ic_feeling_2);
 		if(user.isSunny())
 			image_weather1.setImageResource(R.drawable.ic_weather_sunny);
@@ -106,10 +144,10 @@ public class BeachListAdapter extends BaseAdapter {
 			image_weather1.setImageResource(R.drawable.ic_weather_cloudy);
 		else if(user.isRainy())
 			image_weather1.setImageResource(R.drawable.ic_weather_rainy);
-		
+
 		if(user.isWindy())
 			image_weather2.setImageResource(R.drawable.ic_weather_windy);
-		
+
 		switch(user.getFlag()) {
 		case 0:
 			image_flag.setImageResource(R.drawable.ic_flag_green);
@@ -124,7 +162,7 @@ public class BeachListAdapter extends BaseAdapter {
 			image_flag.setImageResource(R.drawable.ic_flag_black);
 			break;
 		}
-		
+
 
 		return v;
 	}
