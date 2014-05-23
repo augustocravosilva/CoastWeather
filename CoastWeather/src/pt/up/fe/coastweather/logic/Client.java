@@ -23,7 +23,7 @@ public class Client {
 	public static String GET_BEACHES_BY_LOCATION= "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/beaches/";
 	public static String GET_BEACH_BY_ID = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/beaches/";
 	public static String GET_STATUS_BY_BEACH_ID = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/beach/";
-
+	public static String POST_REGISTER = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/users";
 
 	public static String GET(String url, String data){
 		InputStream inputStream = null;

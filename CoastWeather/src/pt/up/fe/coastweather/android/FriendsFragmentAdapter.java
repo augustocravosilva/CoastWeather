@@ -37,7 +37,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 	}
 
 	//TODO how to trigger update after loggin
-	public void updateData()
+	synchronized public void updateData()
 	{
 
 		if(User.getInstance().isLoggedIn() && statuses==null)
@@ -58,6 +58,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		Log.i(LOG, "Draw view");
 		View v = convertView;
 		if (v == null)
 		{
@@ -83,7 +84,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 				UserStatus us = statuses.get(position);
 				nameView.setText(us.getUsername());
 				beachView.setText(us.getBeachName());
-				descView.setText(us.getFeeling()); //TODO converter
+				descView.setText(Integer.toString(us.getFeeling())); //TODO converter
 				timeView.setText(us.getDate()); //TODO other format?    
 				image_feeling.setImageResource(R.drawable.ic_feeling_2); //TODO
 				image_weather1.setImageResource(R.drawable.ic_weather_sunny);
@@ -100,22 +101,25 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 		protected ArrayList<UserStatus> doInBackground(String... urls) {
 			try {
 				ArrayList<UserStatus> statusArray = new ArrayList<UserStatus>();
-				String out = Client.GET(urls[0],User.getInstance().friendsArrayAsString());
-				JSONArray arr = new JSONArray(out);
+				String list = User.getInstance().friendsArrayAsString();
+				Log.d(LOG,list);
+				String out = Client.GET(urls[0],list);
+				Log.d(LOG,out);
+				JSONArray arr = new JSONArray((new JSONObject(out)).get("status").toString());
 				for(int i = 0; i < arr.length(); i++)
 				{
 					UserStatus us = new UserStatus(arr.getString(i));
 					statusArray.add(us);
 				}
 				return statusArray;
-			} catch (JSONException e) {
+			} catch (Exception e) {
 				Log.w(LOG, "json  " + e.getMessage());
 			}
 			return null;
 		}
 		// onPostExecute displays the results of the AsyncTask.
 		//@Override
-		protected void onPostExecute(ArrayList<UserStatus> result) {
+		synchronized protected void onPostExecute(ArrayList<UserStatus> result) {
 			if (result != null) {
 				statuses=result;
 				notifyDataSetChanged();

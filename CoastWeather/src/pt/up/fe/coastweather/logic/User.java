@@ -56,7 +56,16 @@ public class User {
 	
 	public String friendsArrayAsString()
 	{
-		return friends.toString();
+		StringBuilder str = new StringBuilder();
+		str.append("%5B");
+		for(int i = 0; i < friends.size(); i++)
+		{
+			str.append(friends.get(i).getFacebookId());
+			if(i<friends.size()-1)
+				str.append(",");
+		}
+		str.append("%5D");
+		return str.toString();
 	}
 	
 	public ArrayList<User> getFriends()

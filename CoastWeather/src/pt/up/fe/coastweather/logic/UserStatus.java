@@ -93,7 +93,7 @@ public class UserStatus {
 	}
 
 	public UserStatus(int beachId, int feeling, int flag, boolean sunny, boolean windy, boolean cloudy, boolean rainy) {
-		this.userID = 4556;//TODO: USER facebook
+		this.userID = Long.parseLong(User.getInstance().getFacebookId());
 		this.beachId = beachId;
 		this.feeling = feeling;
 		this.flag = flag;
