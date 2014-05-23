@@ -55,10 +55,7 @@ public class ListFragmentAdapter extends BaseAdapter {
 		ImageView image_weather2 = (ImageView) v.findViewById(R.id.icon_weather2);
 		ImageView image_flag = (ImageView) v.findViewById(R.id.icon_flag);
 		TextView timeView = (TextView)v.findViewById(R.id.time);
-
-
-
-
+		
 		//image.setImageResource(R.drawable.ic_feeling_0);
 		nameView.setText("Tiago Fernandes");
 		beachView.setText("Praia da Rocha - Portimão");

@@ -21,7 +21,7 @@ public class UserStatus {
 
 	private int beachId;
 	private String beachName;
-	private String place; //TODO: database add
+	private String place;
 
 	private int feeling;
 
@@ -36,7 +36,7 @@ public class UserStatus {
 	private String username;
 
 	private String date;
-	
+
 	private final String BEACH_ID = "idBeach";
 	private final String BEACH_NAME = "beach";
 	private final String FEELING = "feeling";
@@ -58,8 +58,7 @@ public class UserStatus {
 		JSONObject x = new JSONObject(j);
 
 		statusId = x.getInt(STATUS_ID);
-		//userID = x.getLong(USER_ID); //TODO: DATABASE correction
-		userID = 0;
+		userID = x.getLong(USER_ID); 
 		username = x.getString(USERNAME);
 		beachId = x.getInt(BEACH_ID);
 		beachName = x.getString(BEACH_NAME);
@@ -71,12 +70,30 @@ public class UserStatus {
 		cloudy =  Boolean.parseBoolean(x.getString(CLOUDY));
 		rainy =  Boolean.parseBoolean(x.getString(RAINY));
 		date = x.getString(DATE);
-		
+
 		Log.i(LOG_TEST_MESSAGE, "Success parsing!");
 	}
-	
+
+	public UserStatus(JSONObject x) throws JSONException {
+		statusId = x.getInt(STATUS_ID);
+		userID = x.getLong(USER_ID);
+		username = x.getString(USERNAME);
+		beachId = x.getInt(BEACH_ID);
+		beachName = x.getString(BEACH_NAME);
+		place = x.isNull(PLACE) ? null : x.getString(PLACE);
+		feeling = x.getInt(FEELING);
+		flag = x.isNull(FLAG) ? -1 : x.getInt(FLAG);
+		sunny = Boolean.parseBoolean(x.getString(SUNNY));
+		windy =  Boolean.parseBoolean(x.getString(WINDY));
+		cloudy =  Boolean.parseBoolean(x.getString(CLOUDY));
+		rainy =  Boolean.parseBoolean(x.getString(RAINY));
+		date = x.getString(DATE);
+
+		Log.i(LOG_TEST_MESSAGE, "Success parsing!");
+	}
+
 	public UserStatus(int beachId, int feeling, int flag, boolean sunny, boolean windy, boolean cloudy, boolean rainy) {
-		this.userID = 1;//TODO: USER facebook
+		this.userID = 4556;//TODO: USER facebook
 		this.beachId = beachId;
 		this.feeling = feeling;
 		this.flag = flag;
@@ -198,9 +215,9 @@ public class UserStatus {
 	public void setStatusId(int statusId) {
 		this.statusId = statusId;
 	}
-	
-	
-	
+
+
+
 	public JSONObject getJson() {
 		JSONObject json = new JSONObject();
 		try {
@@ -216,23 +233,23 @@ public class UserStatus {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 		return json;
 	}
-	
+
 	public List<NameValuePair> getPost() {
-		  List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-		  nameValuePairs.add(new BasicNameValuePair(USER_ID, Long.toString(userID)));
-		  nameValuePairs.add(new BasicNameValuePair(BEACH_ID, Integer.toString(beachId)));
-		  nameValuePairs.add(new BasicNameValuePair(FEELING, Integer.toString(feeling)));
-		  nameValuePairs.add(new BasicNameValuePair(FLAG, Integer.toString(flag)));
-		  nameValuePairs.add(new BasicNameValuePair(SUNNY, Boolean.toString(sunny)));
-		  nameValuePairs.add(new BasicNameValuePair(WINDY, Boolean.toString(windy)));
-		  nameValuePairs.add(new BasicNameValuePair(CLOUDY, Boolean.toString(cloudy)));
-		  nameValuePairs.add(new BasicNameValuePair(RAINY, Boolean.toString(rainy)));
-		  return nameValuePairs;
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair(USER_ID, Long.toString(userID)));
+		nameValuePairs.add(new BasicNameValuePair(BEACH_ID, Integer.toString(beachId)));
+		nameValuePairs.add(new BasicNameValuePair(FEELING, Integer.toString(feeling)));
+		nameValuePairs.add(new BasicNameValuePair(FLAG, Integer.toString(flag)));
+		nameValuePairs.add(new BasicNameValuePair(SUNNY, Boolean.toString(sunny)));
+		nameValuePairs.add(new BasicNameValuePair(WINDY, Boolean.toString(windy)));
+		nameValuePairs.add(new BasicNameValuePair(CLOUDY, Boolean.toString(cloudy)));
+		nameValuePairs.add(new BasicNameValuePair(RAINY, Boolean.toString(rainy)));
+		return nameValuePairs;
 	}
-	
+
 	//idUser, idBeach, content, feeling, flag, sun, wind, clouds, rain
 
 }

@@ -107,10 +107,12 @@
         android:textSize="12sp" />
 
     <View
+        android:id="@+id/beach_separator"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginTop="2dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@android:color/darker_gray"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/beach_status_list"

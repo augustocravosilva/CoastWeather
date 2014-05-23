@@ -26,6 +26,7 @@ import android.widget.Toast;
 public class AddReviewFragment extends Fragment implements OnItemSelectedListener {
 
 	public static final String ARG_SECTION_NUMBER = "section_number";
+	private static final int MAX_BEACHES_SPINNER = 15;
 	public static final String LOG = "CoastWeather";
 
 	private CharSequence[] A = {"Praia da Rocha","Praia da Rocha1","Praia da Rocha2","Praia da Rocha3","Praia da Rocha4"};
@@ -66,8 +67,8 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 
 		spinner.setOnItemSelectedListener(this);
 
-		feelingButtons[0] = (ImageButton) rootView.findViewById(R.id.imagebuttonM1);
-		feelingButtons[1] = (ImageButton) rootView.findViewById(R.id.imagebuttonM2);
+		feelingButtons[0] = (ImageButton) rootView.findViewById(R.id.imagebuttonM2);
+		feelingButtons[1] = (ImageButton) rootView.findViewById(R.id.imagebuttonM1);
 		feelingButtons[2] = (ImageButton) rootView.findViewById(R.id.imagebutton0);
 		feelingButtons[3] = (ImageButton) rootView.findViewById(R.id.imagebutton1);
 		feelingButtons[4] = (ImageButton) rootView.findViewById(R.id.imagebutton2);
@@ -198,9 +199,10 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				}
 
 				user = new UserStatus(beachId, feeling, flag, sunny, windy, cloudy, rainy);
+				
 
 
-				new HttpAsyncTask(HttpAsyncTask.MODE_SEND_STATUS).execute(Client.POST_STATUS);
+				new HttpAsyncTask(HttpAsyncTask.MODE_SEND_STATUS).execute(Client.POST_STATUS); //TODO: Uncomment
 
 			}
 
@@ -212,6 +214,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 			}
 
 			private int getFeeling() {
+			
 				for(int i = 0; i < feelingButtons.length; i++)
 					if(feelingButtons[i].isSelected())
 						return i;
@@ -256,7 +259,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 					return "";
 			}
 			case MODE_GET_BEACHES: {
-				return Client.GET(urls[0], "38.614916/-9.210523");
+				return Client.GET(urls[0], MapFragment.getLatitude() + "/" + MapFragment.getLongitude()/*38.614916/-9.210523"*/);
 			}
 			}
 
@@ -277,10 +280,10 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 					JSONArray array = j.getJSONArray("beaches");
 					j = null;
 
-					beachesNames = new String[array.length() < 10 ? array.length() : 10];
-					beachesIds = new int[array.length() < 10 ? array.length() : 10];
+					beachesNames = new String[array.length() < MAX_BEACHES_SPINNER ? array.length() : MAX_BEACHES_SPINNER];
+					beachesIds = new int[array.length() < MAX_BEACHES_SPINNER ? array.length() : MAX_BEACHES_SPINNER];
 
-					for (int i = 0; i < array.length() && i < 10;i++) {
+					for (int i = 0; i < array.length() && i < MAX_BEACHES_SPINNER;i++) {
 						//beaches[i] = array.getJSONObject(i).toString();
 						Beach b = new Beach(array.getJSONObject(i));
 						beachesNames[i] = b.getName();
@@ -300,7 +303,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 			}
 			else {
 				Toast.makeText(getActivity(), "Data Sent!", Toast.LENGTH_SHORT).show();
-				test.setText(result);
+				test.setText(result + "\n" + user.getPost());
 			}
 		}
 	}

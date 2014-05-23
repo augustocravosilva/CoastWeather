@@ -31,7 +31,7 @@ public class MapFragment extends Fragment {
 	private static final String TAG = "MapFragment";
 	private static float CAMERA_ZOOM = 12;
 	private static boolean initialized = false;
-	private static double initialLatitude = 0, initialLongitude = 0;
+	private static double latitude = 0, longitude = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class MapFragment extends Fragment {
 				googleMap.setOnInfoWindowClickListener(onMarkerInfoWindowClickListener);
 				if( initialized )
 					googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-							new LatLng(initialLatitude, initialLongitude), CAMERA_ZOOM));
+							new LatLng(latitude, longitude), CAMERA_ZOOM));
 				
 				refreshBeaches();
 			}
@@ -94,6 +94,7 @@ public class MapFragment extends Fragment {
 		@Override
 		public void onInfoWindowClick(Marker marker) {
 			Intent intent = new Intent(getActivity(), BeachActivity.class);
+			intent.putExtra(BeachActivity.BEACH_ID, BeachData.getBeachByName(marker.getTitle()).getIdBeach());
 			startActivity(intent);
 		}
 	};
@@ -115,15 +116,24 @@ public class MapFragment extends Fragment {
 		mapView.onLowMemory();
 	}
 
-	static public void onLocationChanged(double latitude, double longitude) {
+	static public void onLocationChanged(double newLatitude, double newLongitude) {
 		if(null != googleMap)
-			googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), CAMERA_ZOOM));
+			googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(newLatitude, newLongitude), CAMERA_ZOOM));
 		else {
 
 		}
 
-		initialLatitude = latitude;
-		initialLongitude = longitude;
+		latitude = newLatitude;
+		longitude = newLongitude;
 		initialized = true;
 	}
+
+	public static double getLatitude() {
+		return latitude;
+	}
+
+	public static double getLongitude() {
+		return longitude;
+	}
+
 }
