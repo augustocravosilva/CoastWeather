@@ -17,6 +17,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.util.Log;
 
 public class Client {
+	public static final String GET_FRIENDS_ACT = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/user/friends/";
 	public static String GET_STATUS_BY_ID = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/";
 	public static String POST_STATUS = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status";
 	public static String GET_BEACHES_BY_LOCATION= "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/beaches/";

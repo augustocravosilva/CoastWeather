@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.TextView;
 
 /**
@@ -85,7 +86,7 @@ public class LoginFragment extends Fragment {
 	                       fbuser = user;
 	                       User.getInstance().setFacebookId(user.getId());
 	                       User.getInstance().setName(user.getName());
-	                      // 	text.setText(user.getName() + " "+user.getId() + " " + response);
+	                       	text.setText(user.getName() + " "+user.getId() + " " + response);
 	                       new Request(
 	                    		    msession,
 	                    		    "/me/friends",
@@ -104,6 +105,7 @@ public class LoginFragment extends Fragment {
 	                    		        	//	text.append("\n\n"+fid + " " + fname);
 	                    		        		User.getInstance().addFriend(fid,fname);
 	                    		        	}
+	                    		    
 	                    		        	Request r2 = response.getRequestForPagedResults(PagingDirection.NEXT);
 	                    		        	if(r2!=null)
 	                    		        	{
@@ -168,4 +170,6 @@ public class LoginFragment extends Fragment {
 	    super.onSaveInstanceState(outState);
 	    uiHelper.onSaveInstanceState(outState);
 	}
+	
+	
 }

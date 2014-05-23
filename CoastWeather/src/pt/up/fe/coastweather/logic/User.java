@@ -58,5 +58,10 @@ public class User {
 	{
 		return friends.toString();
 	}
+	
+	public ArrayList<User> getFriends()
+	{
+		return friends;
+	}
 
 }
