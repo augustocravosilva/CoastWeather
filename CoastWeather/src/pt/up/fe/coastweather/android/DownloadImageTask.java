@@ -1,6 +1,8 @@
 package pt.up.fe.coastweather.android;
 
 import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,7 +21,14 @@ class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 		String urldisplay = urls[0];
 		Bitmap mIcon11 = null;
 		try {
-			InputStream in = new java.net.URL(urldisplay).openStream();
+			Log.d("Down",urls[0]);
+			URLConnection con = new URL(urldisplay).openConnection();
+			con.connect();
+			InputStream in2 = con.getInputStream();
+			//TODO this is doing 2 requests, only way I could make it work
+			//because of redirects
+			InputStream in = new java.net.URL(con.getURL().toString()).openStream();
+			in2.close();
 			if (in != null) //added because sometimes it appear to be null
 				mIcon11 = BitmapFactory.decodeStream(in);
 		} catch (Exception e) {

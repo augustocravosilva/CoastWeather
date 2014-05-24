@@ -8,6 +8,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import pt.up.fe.coastweather.R;
+import android.content.res.Resources;
 import android.util.Log;
 
 public class UserStatus {

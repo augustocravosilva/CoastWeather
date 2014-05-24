@@ -48,7 +48,7 @@ public class LoginFragment extends Fragment {
 	 * fragment.
 	 */
 	public static final String ARG_SECTION_NUMBER = "section_number";
-	private static final String TAG = "LoginFragment";
+	private static final String TAG = "LoginFragment ";
 	private GraphUser fbuser;
 	private SectionsPagerAdapter spa;
 
@@ -161,7 +161,10 @@ public class LoginFragment extends Fragment {
 		// session is not null, the session state change notification
 		// may not be triggered. Trigger it if it's open/closed.
 		Session session = Session.getActiveSession();
-		onSessionStateChange(session, session.getState(), null);
+	    if (session != null &&
+	           (session.isOpened() || session.isClosed()) ) {
+	        onSessionStateChange(session, session.getState(), null);
+	    }
 		uiHelper.onResume();
 	}
 

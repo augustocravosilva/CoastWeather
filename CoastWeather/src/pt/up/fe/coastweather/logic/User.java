@@ -60,7 +60,9 @@ public class User {
 		str.append("%5B");
 		for(int i = 0; i < friends.size(); i++)
 		{
+			str.append("%22");
 			str.append(friends.get(i).getFacebookId());
+			str.append("%22");
 			if(i<friends.size()-1)
 				str.append(",");
 		}
@@ -71,6 +73,16 @@ public class User {
 	public ArrayList<User> getFriends()
 	{
 		return friends;
+	}
+	
+	public String getUserPicLink()
+	{
+		return "http://graph.facebook.com/"+facebookId+"/picture?type=square";
+	}
+	
+	static public String getUserPicLink(String id)
+	{
+		return "http://graph.facebook.com/"+id+"/picture?type=square";
 	}
 
 }

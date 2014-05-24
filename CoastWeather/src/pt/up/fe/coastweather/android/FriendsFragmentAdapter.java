@@ -36,7 +36,6 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 		return 0;
 	}
 
-	//TODO how to trigger update after loggin
 	synchronized public void updateData()
 	{
 
@@ -56,6 +55,79 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 		return arg0;
 	}
 
+
+	public String getStatusString(int id)
+	{
+		String out = "";
+		switch (id) {
+		case 0:
+			out = context.getResources().getString(R.string.feeling_m2_text);
+			break;
+		case 1:
+			out = context.getResources().getString(R.string.feeling_m1_text);
+			break;
+		case 2:
+			out = context.getResources().getString(R.string.feeling_0_text);
+			break;
+		case 3:
+			out = context.getResources().getString(R.string.feeling_1_text);
+			break;
+		case 4:
+			out = context.getResources().getString(R.string.feeling_2_text);
+			break;
+		default:
+			break;
+		}
+		return out;
+	}
+	
+	public int getStatusPic(int id)
+	{
+		int out = 0;
+		switch (id) {
+		case 0:
+			out = R.drawable.ic_feeling_m2;
+			break;
+		case 1:
+			out = R.drawable.ic_feeling_m1;
+			break;
+		case 2:
+			out = R.drawable.ic_feeling_0;
+			break;
+		case 3:
+			out = R.drawable.ic_feeling_1;
+			break;
+		case 4:
+			out = R.drawable.ic_feeling_2;
+			break;
+		default:
+			break;
+		}
+		return out;
+	}
+	
+	public int getFlagPic(int id)
+	{
+		int out = 0;
+		switch (id) {
+		case UserStatus.FLAG_BLACK:
+			out = R.drawable.ic_flag_black;
+			break;
+		case UserStatus.FLAG_GREEN:
+			out = R.drawable.ic_flag_green;
+			break;
+		case UserStatus.FLAG_RED:
+			out = R.drawable.ic_flag_red;
+			break;
+		case UserStatus.FLAG_YELLOW:
+			out = R.drawable.ic_flag_yellow;
+			break;
+		default:
+			break;
+		}
+		return out;
+	}
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Log.i(LOG, "Draw view");
@@ -67,7 +139,6 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 		}
 
 		ImageView image = (ImageView) v.findViewById(R.id.icon);
-		//new DownloadImageTask(image).execute("https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-ash2/t1.0-9/523837_507942599227785_89321393_n.jpg");
 		TextView nameView = (TextView)v.findViewById(R.id.name);
 		TextView beachView = (TextView)v.findViewById(R.id.beach);
 		TextView descView = (TextView)v.findViewById(R.id.description);
@@ -84,12 +155,20 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 				UserStatus us = statuses.get(position);
 				nameView.setText(us.getUsername());
 				beachView.setText(us.getBeachName());
-				descView.setText(Integer.toString(us.getFeeling())); //TODO converter
+				Log.d(LOG,"->"+us.getFeeling());
+				descView.setText(getStatusString(us.getFeeling()));
 				timeView.setText(us.getDate()); //TODO other format?    
-				image_feeling.setImageResource(R.drawable.ic_feeling_2); //TODO
-				image_weather1.setImageResource(R.drawable.ic_weather_sunny);
-				image_weather2.setImageResource(R.drawable.ic_weather_windy);
-				image_flag.setImageResource(R.drawable.ic_flag_green);
+				image_feeling.setImageResource(getStatusPic(us.getFeeling()));
+				if(us.isCloudy())
+					image_weather1.setImageResource(R.drawable.ic_weather_cloudy);
+				else if(us.isRainy())
+					image_weather1.setImageResource(R.drawable.ic_weather_rainy);
+				else if(us.isSunny())
+					image_weather1.setImageResource(R.drawable.ic_weather_sunny);
+				if(us.isWindy())
+					image_weather2.setImageResource(R.drawable.ic_weather_windy);
+				image_flag.setImageResource(getFlagPic(us.getFlag()));
+				new DownloadImageTask(image).execute(User.getUserPicLink(String.valueOf(us.getUserID())));
 		}
 		
 		return v;
@@ -104,7 +183,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 				String list = User.getInstance().friendsArrayAsString();
 				Log.d(LOG,list);
 				String out = Client.GET(urls[0],list);
-				Log.d(LOG,out);
+				Log.d(LOG,"--"+out);
 				JSONArray arr = new JSONArray((new JSONObject(out)).get("status").toString());
 				for(int i = 0; i < arr.length(); i++)
 				{

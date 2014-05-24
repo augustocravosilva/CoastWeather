@@ -157,7 +157,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 		super.onPause();
 	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
