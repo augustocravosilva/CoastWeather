@@ -166,7 +166,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			menuItem.setActionView(R.layout.menu_progressbar);
 			menuItem.expandActionView();
 			new getBeachesTask().execute(URL);
-			
+			mSectionsPagerAdapter.notifyDataSetChanged();
 			break;
 		default:
 			break;

@@ -89,7 +89,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 	@Override
 	public int getItemPosition (Object object) // this determines if the fragments changed
 	{ // useful to use with notifyDataSetChanged
-		if (object instanceof LoginFragment) {
+		if (object instanceof LoginFragment || object instanceof FriendsFragment) {
 			return POSITION_NONE;
 		} else return POSITION_UNCHANGED;
 	}
