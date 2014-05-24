@@ -44,7 +44,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 	}
 	
 	@Override
-	public Object getItem(int arg0) {
+	public UserStatus getItem(int arg0) {
 		if(statuses!=null)
 			return statuses.get(arg0);
 		return null;

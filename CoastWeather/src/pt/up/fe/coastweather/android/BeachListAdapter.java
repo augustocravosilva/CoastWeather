@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import pt.up.fe.coastweather.R;
+import pt.up.fe.coastweather.logic.User;
 import pt.up.fe.coastweather.logic.UserStatus;
 import android.content.Context;
 import android.util.Log;
@@ -16,8 +17,6 @@ import android.widget.TextView;
 
 public class BeachListAdapter extends BaseAdapter {
 	public static final String LOG = "CoastWeather";
-	private static final String FACEBOOK_IMAGE_LINK_1 = "https://graph.facebook.com/";
-	private static final String FACEBOOK_IMAGE_LINK_2 = "/picture?type=square";
 	Context context;
 	UserStatus[] status;
 
@@ -57,7 +56,7 @@ public class BeachListAdapter extends BaseAdapter {
 		ImageView image = (ImageView) v.findViewById(R.id.icon);
 
 		new DownloadImageTask(image)
-		.execute(FACEBOOK_IMAGE_LINK_1 + user.getUserID() + FACEBOOK_IMAGE_LINK_2);
+		.execute(User.getUserPicLink(String.valueOf(user.getUserID())));
 		TextView nameView = (TextView)v.findViewById(R.id.name);
 		//TextView beachView = (TextView)v.findViewById(R.id.beach);
 		TextView descView = (TextView)v.findViewById(R.id.description);
@@ -73,7 +72,7 @@ public class BeachListAdapter extends BaseAdapter {
 
 		//image.setImageResource(R.drawable.ic_feeling_0);
 		nameView.setText(user.getUsername());
-		//beachView.setText("Praia da Rocha - Portimão");
+		//beachView.setText("Praia da Rocha - Portimï¿½o");
 		switch(user.getFeeling()) {
 		case 0:
 			descView.setText("- " + context.getResources().getString(R.string.feeling_m2_text2));

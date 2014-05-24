@@ -18,7 +18,7 @@ public class FriendsFragment extends Fragment {
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
 	ListView list;
-
+	FriendsFragmentAdapter lfa;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -26,13 +26,14 @@ public class FriendsFragment extends Fragment {
 				container, false);
 
 		list = (ListView) rootView.findViewById(R.id.MessageList);
-		FriendsFragmentAdapter lfa = new FriendsFragmentAdapter(getActivity());
+		lfa = new FriendsFragmentAdapter(getActivity());
 		list.setAdapter(lfa);
 		lfa.updateData();
 		
 		list.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView a, View v, int position, long id) {
 				Intent x = new Intent(getActivity(), BeachActivity.class);
+				x.putExtra(BeachActivity.BEACH_ID, lfa.getItem(position).getBeachId());
 				startActivity(x);
 			}});
 

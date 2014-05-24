@@ -63,9 +63,11 @@ public class User {
 			str.append("%22");
 			str.append(friends.get(i).getFacebookId());
 			str.append("%22");
-			if(i<friends.size()-1)
-				str.append(",");
+			str.append(",");
 		}
+		str.append("%22");
+		str.append(facebookId);
+		str.append("%22");
 		str.append("%5D");
 		return str.toString();
 	}
