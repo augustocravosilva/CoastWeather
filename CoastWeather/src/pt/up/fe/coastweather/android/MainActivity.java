@@ -101,7 +101,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 		Location location = mLocationManager.getLastKnownLocation(mLocationManager.getBestProvider(new Criteria(), false));
 		if( null != location )
-			MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude());
+			MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude(), true);
 
 		new getBeachesTask().execute(URL);
 	}
@@ -112,7 +112,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 			if( null != location ) {
 				Log.i("onLocationChanged", "Mudou");
-				MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude());
+				MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude(), true);
 			} else Log.i("onLocationChanged", "Mudou e null");
 
 		}
