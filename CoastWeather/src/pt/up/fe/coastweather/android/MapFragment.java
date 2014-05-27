@@ -122,6 +122,15 @@ public class MapFragment extends Fragment {
 		super.onLowMemory();
 		mapView.onLowMemory();
 	}
+	
+	static public void centerMap(double newLatitude, double newLongitude) {		
+		if( null != googleMap)
+			googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(newLatitude, newLongitude), CAMERA_ZOOM));
+
+		latitude = newLatitude;
+		longitude = newLongitude;
+		hasClickedBeach = false;
+	}
 
 	static public void onLocationChanged(double newLatitude, double newLongitude, boolean isMyLocation) {
 		if(null != googleMap && isMyLocation && !hasClickedBeach) {
