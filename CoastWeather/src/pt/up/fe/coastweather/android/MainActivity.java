@@ -11,6 +11,7 @@ import pt.up.fe.coastweather.logic.Beach;
 import pt.up.fe.coastweather.logic.BeachData;
 import pt.up.fe.coastweather.logic.Client;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.location.Criteria;
 import android.location.Location;
@@ -47,12 +48,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private static final float LOCATION_REFRESH_DISTANCE = 50;
 	private static final long LOCATION_REFRESH_TIME = 5000;
 	private MenuItem menuItem;
+	private double lastKnownLatitude, lastKnownLongitude;
+	private boolean hasLastKnownLocation = false;
+	private static boolean hideCenterMapButton = false;
+	private static Activity thisActivity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		thisActivity = this;
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -74,6 +79,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			@Override
 			public void onPageSelected(int position) {
 				actionBar.setSelectedNavigationItem(position);
+				
+				if( 0 == position )
+					MainActivity.showCenterMapButton();
+				else
+					MainActivity.hideCenterMapButton();
 			}
 		});
 
@@ -100,9 +110,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				LOCATION_REFRESH_DISTANCE, mLocationListener);
 
 		Location location = mLocationManager.getLastKnownLocation(mLocationManager.getBestProvider(new Criteria(), false));
-		if( null != location )
-			MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude());
 
+		if( null != location ) {
+			hasLastKnownLocation = true;
+			lastKnownLatitude = location.getLatitude();
+			lastKnownLongitude = location.getLongitude();
+			MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude(), true);
+		}
 		new getBeachesTask().execute(Client.GET_BEACH_BY_ID);
 	}
 
@@ -112,7 +126,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 			if( null != location ) {
 				Log.i("onLocationChanged", "Mudou");
-				MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude());
+				hasLastKnownLocation = true;
+				lastKnownLatitude = location.getLatitude();
+				lastKnownLongitude = location.getLongitude();
+				MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude(), true);
 			} else Log.i("onLocationChanged", "Mudou e null");
 
 		}
@@ -131,6 +148,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		
 		return true;
 	}
 
@@ -161,6 +179,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.action_centermap:
+			if( hasLastKnownLocation )
+				MapFragment.centerMap(lastKnownLatitude, lastKnownLongitude);
+			
+			break;
 		case R.id.action_refresh:
 			menuItem = item;
 			menuItem.setActionView(R.layout.menu_progressbar);
@@ -212,5 +235,32 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				menuItem.setActionView(null);
 			}
 		}
+	}
+	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		MenuItem centerMapButton = menu.findItem(R.id.action_centermap);
+		Log.i(TAG, "onprepare");
+		if( hideCenterMapButton ) {
+			centerMapButton.setEnabled(false);
+			centerMapButton.setVisible(false);
+		} else {
+			centerMapButton.setEnabled(true);
+			centerMapButton.setVisible(true);
+		}
+		
+		return true;
+	}
+	
+	public static void hideCenterMapButton() {
+		Log.i(TAG, "escondeu");
+		thisActivity.invalidateOptionsMenu();
+		hideCenterMapButton = true;
+	}
+	
+	public static void showCenterMapButton() {
+		Log.i(TAG, "mostoru");
+		thisActivity.invalidateOptionsMenu();
+		hideCenterMapButton = false;
 	}
 }

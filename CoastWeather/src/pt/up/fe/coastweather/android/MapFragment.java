@@ -19,6 +19,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -32,6 +33,7 @@ public class MapFragment extends Fragment {
 	private static float CAMERA_ZOOM = 12;
 	private static boolean initialized = false;
 	private static double latitude = 0, longitude = 0;
+	private static boolean hasClickedBeach = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,6 +86,7 @@ public class MapFragment extends Fragment {
 				Beach beach = beaches.valueAt(i);
 
 				googleMap.addMarker(new MarkerOptions()
+					.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_feeling))
 					.position(new LatLng(beach.getLatitude(), beach.getLongitude()))
 					.title(String.valueOf(beach.getName())));
 			}
@@ -93,8 +96,12 @@ public class MapFragment extends Fragment {
 	private final OnInfoWindowClickListener onMarkerInfoWindowClickListener = new OnInfoWindowClickListener() {
 		@Override
 		public void onInfoWindowClick(Marker marker) {
+			Beach clickedBeach = BeachData.getBeachByName(marker.getTitle());
+			onLocationChanged(clickedBeach.getLatitude(), clickedBeach.getLongitude(), false);
+			hasClickedBeach = true;
+
 			Intent intent = new Intent(getActivity(), BeachActivity.class);
-			intent.putExtra(BeachActivity.BEACH_ID, BeachData.getBeachByName(marker.getTitle()).getIdBeach());
+			intent.putExtra(BeachActivity.BEACH_ID, clickedBeach.getIdBeach());
 			startActivity(intent);
 		}
 	};
@@ -115,16 +122,28 @@ public class MapFragment extends Fragment {
 		super.onLowMemory();
 		mapView.onLowMemory();
 	}
-
-	static public void onLocationChanged(double newLatitude, double newLongitude) {
-		if(null != googleMap)
+	
+	static public void centerMap(double newLatitude, double newLongitude) {		
+		if( null != googleMap)
 			googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(newLatitude, newLongitude), CAMERA_ZOOM));
-		else {
-
-		}
 
 		latitude = newLatitude;
 		longitude = newLongitude;
+		hasClickedBeach = false;
+	}
+
+	static public void onLocationChanged(double newLatitude, double newLongitude, boolean isMyLocation) {
+		if(null != googleMap && isMyLocation && !hasClickedBeach) {
+			googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(newLatitude, newLongitude), CAMERA_ZOOM));
+			latitude = newLatitude;
+			longitude = newLongitude;
+		} else if(null != googleMap && !isMyLocation) {
+			googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(newLatitude, newLongitude), CAMERA_ZOOM));
+			latitude = newLatitude;
+			longitude = newLongitude;
+			hasClickedBeach = false;
+		}
+
 		initialized = true;
 	}
 
