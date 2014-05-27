@@ -13,17 +13,18 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
 
 import android.util.Log;
 
 public class Client {
-	public static final String GET_FRIENDS_ACT = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/user/friends/";
-	public static String GET_STATUS_BY_ID = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/";
-	public static String POST_STATUS = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status";
-	public static String GET_BEACHES_BY_LOCATION= "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/beaches/";
-	public static String GET_BEACH_BY_ID = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/beaches/";
-	public static String GET_STATUS_BY_BEACH_ID = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/status/beach/";
-	public static String POST_REGISTER = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/users";
+	public static final String GET_FRIENDS_ACT = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status/user/friends/";
+	public static String GET_STATUS_BY_ID = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status/";
+	public static String POST_STATUS = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status";
+	public static String GET_BEACHES_BY_LOCATION= "http://coastweather.fe.up.pt/coastWeather/v1/index.php/beaches/";
+	public static String GET_BEACH_BY_ID = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/beaches/";
+	public static String GET_STATUS_BY_BEACH_ID = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status/beach/";
+	public static String POST_REGISTER = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/users";
 
 	public static String GET(String url, String data){
 		InputStream inputStream = null;
@@ -34,9 +35,12 @@ public class Client {
 			// create HttpClient
 			HttpClient httpclient = new DefaultHttpClient();
 
-			// make GET request to the given URL
-			HttpResponse httpResponse = httpclient.execute(new HttpGet(url + data));
+			HttpGet httpget = new HttpGet(url + data);
+			httpget.setHeader("Authorization", "test");
 
+			// make GET request to the given URL
+			HttpResponse httpResponse = httpclient.execute(httpget);
+			
 			// receive response as inputStream
 			inputStream = httpResponse.getEntity().getContent();
 
@@ -66,10 +70,10 @@ public class Client {
 			
 			
 			// 6. set httpPost Entity
-			httpPost.setEntity(new UrlEncodedFormEntity(data));
+			httpPost.setEntity(new UrlEncodedFormEntity(data,HTTP.UTF_16));
 			
 			// 7. Set some headers to inform server about the type of the content   
-			//httpPost.setHeader("Accept", "application/json");
+			httpPost.setHeader("Authorization", "test");
 			//httpPost.setHeader("Content-type", "application/json");
 			
 			// 8. Execute POST request to the given URL

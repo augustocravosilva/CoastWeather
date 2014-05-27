@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpGet;
 import pt.up.fe.coastweather.R;
 import pt.up.fe.coastweather.logic.Beach;
 import pt.up.fe.coastweather.logic.BeachData;
+import pt.up.fe.coastweather.logic.Client;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.location.Criteria;
@@ -45,7 +46,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private static final String TAG = "MainActivity";
 	private static final float LOCATION_REFRESH_DISTANCE = 50;
 	private static final long LOCATION_REFRESH_TIME = 5000;
-	private static final String URL = "http://paginas.fe.up.pt/~ei11068/coastWeather/v1/index.php/beaches";
 	private MenuItem menuItem;
 
 	@Override
@@ -103,7 +103,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		if( null != location )
 			MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude());
 
-		new getBeachesTask().execute(URL);
+		new getBeachesTask().execute(Client.GET_BEACH_BY_ID);
 	}
 
 	private final LocationListener mLocationListener = new LocationListener() {
@@ -165,7 +165,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			menuItem = item;
 			menuItem.setActionView(R.layout.menu_progressbar);
 			menuItem.expandActionView();
-			new getBeachesTask().execute(URL);
+			new getBeachesTask().execute(Client.GET_BEACH_BY_ID);
 			mSectionsPagerAdapter.notifyDataSetChanged();
 			break;
 		default:

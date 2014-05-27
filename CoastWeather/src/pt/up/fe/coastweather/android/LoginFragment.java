@@ -3,12 +3,9 @@ package pt.up.fe.coastweather.android;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONObject;
-
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -16,27 +13,22 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.Response.PagingDirection;
-import com.facebook.model.GraphObject;
 import com.facebook.model.GraphObjectList;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
-
 import pt.up.fe.coastweather.R;
 import pt.up.fe.coastweather.logic.Client;
 import pt.up.fe.coastweather.logic.User;
-import pt.up.fe.coastweather.logic.UserStatus;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A dummy fragment representing a section of the app, but that simply
@@ -49,7 +41,6 @@ public class LoginFragment extends Fragment {
 	 */
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	private static final String TAG = "LoginFragment ";
-	private GraphUser fbuser;
 	private SectionsPagerAdapter spa;
 
 	private Session.StatusCallback callback = new Session.StatusCallback() {
@@ -96,7 +87,6 @@ public class LoginFragment extends Fragment {
 				public void onCompleted(GraphUser user, Response response) {
 					if (user != null) {
 						// Display the parsed user info
-						fbuser = user;
 						User.getInstance().setFacebookId(user.getId());
 						User.getInstance().setName(user.getName());
 						Object email = user.getProperty("email");
@@ -201,22 +191,26 @@ public class LoginFragment extends Fragment {
 		@Override
 		protected Boolean doInBackground(String... params) {
 			try {
-				ArrayList<UserStatus> statusArray = new ArrayList<UserStatus>();
-				String list = User.getInstance().friendsArrayAsString();
 				List<NameValuePair> data = new ArrayList<NameValuePair>();
 				data.add(new BasicNameValuePair("idFacebook",params[0]));
 				data.add(new BasicNameValuePair("name",params[1]));
 				data.add(new BasicNameValuePair("email",params[2]));
 				String out = Client.POST(Client.POST_REGISTER, data);
-				Log.d(TAG,out);
+				Log.d(TAG,"out " + out);
 				String error = new JSONObject(out).get("error").toString();
-				if(error == "true" && (new JSONObject(out)).get("message").toString().contains("id"))
+				if((error.equals("true") && (new JSONObject(out)).get("message").toString().contains("id"))||error.equals("false"))
 					return true;
 			} catch (Exception e) {
 				Log.w(TAG, "json  " + e.getMessage());
 			}
-			Log.e(TAG, "Not able to register");
+			Log.e(TAG, "Not able to register.");
 			return false;
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			if(!result)
+				Toast.makeText(getActivity(), "Not able to register.", Toast.LENGTH_LONG).show();
 		}
 
 	}
