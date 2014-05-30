@@ -10,6 +10,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -19,7 +20,8 @@ import android.util.Log;
 
 public class Client {
 	public static final String GET_FRIENDS_ACT = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status/user/friends/";
-	public static String GET_STATUS_BY_ID = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status/";
+	public static String STATUS_BY_ID = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status/";
+	public static String GET_STATUS_OF_USER = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status/user/";
 	public static String POST_STATUS = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status";
 	public static String GET_BEACHES_BY_LOCATION= "http://coastweather.fe.up.pt/coastWeather/v1/index.php/beaches";
 	public static String GET_BEACH_BY_ID = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/beaches";
@@ -40,6 +42,37 @@ public class Client {
 
 			// make GET request to the given URL
 			HttpResponse httpResponse = httpclient.execute(httpget);
+			
+			// receive response as inputStream
+			inputStream = httpResponse.getEntity().getContent();
+
+			// convert inputstream to string
+			if(inputStream != null) 
+				result = convertInputStreamToString(inputStream);
+			else
+				result = "Did not work!";
+
+		} catch (Exception e) {
+			Log.d("InputStream", e.getLocalizedMessage());
+		}
+
+		return result;
+	}
+	
+	public static String DELETE(String url, String data){
+		InputStream inputStream = null;
+		String result = "";
+
+		try {
+
+			// create HttpClient
+			HttpClient httpclient = new DefaultHttpClient();
+
+			HttpDelete httpdelete = new HttpDelete(url + data);
+			httpdelete.setHeader("Authorization", "test");
+
+			// make GET request to the given URL
+			HttpResponse httpResponse = httpclient.execute(httpdelete);
 			
 			// receive response as inputStream
 			inputStream = httpResponse.getEntity().getContent();

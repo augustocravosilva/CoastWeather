@@ -2,6 +2,8 @@ package pt.up.fe.coastweather.logic;
 
 import java.util.ArrayList;
 
+import com.facebook.Session;
+
 public class User {
 
 	static private User myUser;
@@ -9,14 +11,23 @@ public class User {
 	private String name;
 	private String facebookId;
 	private ArrayList<User> friends;
+
+	private boolean errorflag;
+
+	private String email;
+
+	private Session fbsession;
 	
 	private User() {
 		friends = new ArrayList<User>();
 		name = "";
 		facebookId = "";
+		errorflag = false;
+		email = "";
 	}
 	
 	private User(String fid, String fname) {
+		this();
 		name = fname;
 		facebookId=fid;
 	}
@@ -27,6 +38,11 @@ public class User {
 			myUser = new User();
 		
 		return myUser;
+	}
+	
+	static public synchronized void reset()
+	{
+		myUser = null;
 	}
 
 	public String getName() {
@@ -51,7 +67,7 @@ public class User {
 	
 	public boolean isLoggedIn()
 	{
-		return (facebookId!="");
+		return !errorflag && (facebookId!="");
 	}
 	
 	public String friendsArrayAsString()
@@ -85,6 +101,31 @@ public class User {
 	static public String getUserPicLink(String id)
 	{
 		return "http://graph.facebook.com/"+id+"/picture?type=square";
+	}
+
+	public void setErrorFlag() {
+		errorflag = true;
+	}
+	
+	public void dismissErrorFlag() {
+		errorflag = false;
+	}
+
+	public void setEmail(String emailstr) {
+		email = emailstr;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setfbSession(Session msession) {
+		fbsession = msession;
+	}
+	
+	public Session getfbSession()
+	{
+		return fbsession;
 	}
 
 }

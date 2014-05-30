@@ -74,6 +74,22 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 			login.setAdapter(this);
 			return login;
 		}
+		case 4: {
+			if(User.getInstance().isLoggedIn())
+			{
+				MineFragment fragment = new MineFragment();
+				Bundle args = new Bundle();
+				args.putInt(MineFragment.ARG_SECTION_NUMBER, position + 1);
+				fragment.setArguments(args);
+				return fragment;
+			}
+			login = new LoginFragment();
+			Bundle args = new Bundle();
+			args.putInt(LoginFragment.ARG_SECTION_NUMBER, position + 1);
+			login.setArguments(args);
+			login.setAdapter(this);
+			return login;
+		}
 		default: {
 			return null;
 		}
@@ -83,13 +99,13 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 	@Override
 	public int getCount() {
 		// Show 3 total pages.
-		return 4;
+		return 5;
 	}
 	
 	@Override
 	public int getItemPosition (Object object) // this determines if the fragments changed
 	{ // useful to use with notifyDataSetChanged
-		if (object instanceof LoginFragment || object instanceof FriendsFragment) {
+		if (object instanceof LoginFragment || object instanceof FriendsFragment || object instanceof MineFragment) {
 			return POSITION_NONE;
 		} else return POSITION_UNCHANGED;
 	}
@@ -106,6 +122,8 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 			return context.getString(R.string.title_section3).toUpperCase(l);
 		case 3:
 			return context.getString(R.string.title_section4).toUpperCase(l);
+		case 4:
+			return context.getString(R.string.title_section5).toUpperCase(l);
 		}
 		return null;
 	}

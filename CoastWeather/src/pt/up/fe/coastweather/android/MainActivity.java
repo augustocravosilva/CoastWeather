@@ -6,10 +6,13 @@ import java.util.List;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 
+import com.facebook.Session;
+
 import pt.up.fe.coastweather.R;
 import pt.up.fe.coastweather.logic.Beach;
 import pt.up.fe.coastweather.logic.BeachData;
 import pt.up.fe.coastweather.logic.Client;
+import pt.up.fe.coastweather.logic.User;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
@@ -87,7 +90,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			}
 		});
 
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //TODO: delete this
+		//getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //TODO: delete this
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
 			// Create a tab with text corresponding to the page title defined by
@@ -189,6 +192,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			menuItem.setActionView(R.layout.menu_progressbar);
 			menuItem.expandActionView();
 			new getBeachesTask().execute(Client.GET_BEACH_BY_ID);
+			mSectionsPagerAdapter.notifyDataSetChanged();
+			break;
+		case R.id.action_logout:
+			Session s = User.getInstance().getfbSession();
+			if(s!=null)
+				s.closeAndClearTokenInformation();
+			User.reset();
 			mSectionsPagerAdapter.notifyDataSetChanged();
 			break;
 		default:

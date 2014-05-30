@@ -75,6 +75,7 @@ public class LoginFragment extends Fragment {
 	@SuppressWarnings("deprecation")
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 		this.msession=session;
+		User.getInstance().setfbSession(msession);
 		if (state.isOpened()) {
 			Log.i(TAG, "Logged in...");
 			text.setText("Loading...");
@@ -87,14 +88,15 @@ public class LoginFragment extends Fragment {
 				public void onCompleted(GraphUser user, Response response) {
 					if (user != null) {
 						// Display the parsed user info
+						User.getInstance().setErrorFlag();
 						User.getInstance().setFacebookId(user.getId());
 						User.getInstance().setName(user.getName());
 						Object email = user.getProperty("email");
 						String emailstr = "no-email@no-email.com";
 						if(email != null)
 							emailstr = email.toString();
+						User.getInstance().setEmail(emailstr);
 						Log.d(TAG,response.toString());
-						new HttpAsyncTask().execute(user.getId(),user.getName(),emailstr);
 						//text.setText(user.getName() + " "+user.getId() + " " + response);
 						new Request(
 								msession,
@@ -121,7 +123,8 @@ public class LoginFragment extends Fragment {
 											r2.executeAsync();
 										} else
 										{
-											spa.notifyDataSetChanged();
+											new HttpAsyncTask().execute(User.getInstance().getFacebookId(),
+													User.getInstance().getName(),User.getInstance().getEmail());
 
 										}
 									}
@@ -132,6 +135,8 @@ public class LoginFragment extends Fragment {
 			});
 		}
 		else if (state.isClosed()) {
+			authButton.setVisibility(View.VISIBLE);
+			User.reset();
 			Log.i(TAG, "Logged out...");
 			//text.setText("logged out");
 		}
@@ -198,7 +203,8 @@ public class LoginFragment extends Fragment {
 				String out = Client.POST(Client.POST_REGISTER, data);
 				Log.d(TAG,"out " + out);
 				String error = new JSONObject(out).get("error").toString();
-				if((error.equals("true") && (new JSONObject(out)).get("message").toString().contains("id"))||error.equals("false"))
+				Log.d(TAG,"error-" + error);
+				if((error.equals("true") && (new JSONObject(out)).get("message").toString().contains("id "))||error.equals("false"))
 					return true;
 			} catch (Exception e) {
 				Log.w(TAG, "json  " + e.getMessage());
@@ -210,7 +216,17 @@ public class LoginFragment extends Fragment {
 		@Override
 		protected void onPostExecute(Boolean result) {
 			if(!result)
-				Toast.makeText(getActivity(), "Not able to register.", Toast.LENGTH_LONG).show();
+				{
+					Toast.makeText(getActivity(), "Not able to register or login.", Toast.LENGTH_LONG).show();
+					text.setText("");
+					User.reset();
+					msession.closeAndClearTokenInformation();
+				}
+			else
+				{
+					User.getInstance().dismissErrorFlag();
+					spa.notifyDataSetChanged();
+				}
 		}
 
 	}
