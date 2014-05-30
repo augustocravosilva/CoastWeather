@@ -3,9 +3,11 @@ package pt.up.fe.coastweather.android;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
+
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -16,6 +18,7 @@ import com.facebook.Response.PagingDirection;
 import com.facebook.model.GraphObjectList;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
+
 import pt.up.fe.coastweather.R;
 import pt.up.fe.coastweather.logic.Client;
 import pt.up.fe.coastweather.logic.User;
@@ -23,6 +26,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -217,7 +221,9 @@ public class LoginFragment extends Fragment {
 		protected void onPostExecute(Boolean result) {
 			if(!result)
 				{
-					Toast.makeText(getActivity(), "Not able to register or login.", Toast.LENGTH_LONG).show();
+					FragmentActivity act = getActivity();
+					if(act!=null)
+						Toast.makeText(getActivity(), "Not able to register or login.", Toast.LENGTH_LONG).show();
 					text.setText("");
 					User.reset();
 					msession.closeAndClearTokenInformation();
