@@ -203,7 +203,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		@Override
 		protected List<Beach> doInBackground(String... params) {
 			try {
-				return mClient.execute(new HttpGet(params[0]),
+				HttpGet request = new HttpGet(params[0]);
+				request.setHeader("Authorization", "test");
+				
+				return mClient.execute(request,
 						new BeachesJSONResponseHandler());
 			} catch (ClientProtocolException e) {
 				Log.e(TAG, "ClientProtocolException", e);
