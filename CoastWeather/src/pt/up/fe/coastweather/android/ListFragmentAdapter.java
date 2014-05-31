@@ -56,91 +56,104 @@ public class ListFragmentAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View v = convertView;
-		if (v == null) {
-			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = vi.inflate(R.layout.fragment_list_item, null);
+		ViewHolder holder;
+		if (convertView == null) {
+			convertView = ((LayoutInflater)(context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))).inflate(R.layout.fragment_list_item, null);
+			holder = new ViewHolder();
+			holder.beachView = (TextView)convertView.findViewById(R.id.beach);
+			holder.descView = (TextView)convertView.findViewById(R.id.description);
+			holder.image_feeling = (ImageView)convertView.findViewById(R.id.icon_feeling);
+			holder.image_weather1 = (ImageView)convertView.findViewById(R.id.icon_weather1);
+			holder.image_weather2 = (ImageView)convertView.findViewById(R.id.icon_weather2);
+			holder.image_flag = (ImageView)convertView.findViewById(R.id.icon_flag);
+			holder.timeView = (TextView)convertView.findViewById(R.id.time);
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder) convertView.getTag();
 		}
 		Beach beach = (Beach) getItem(position);
 
-		TextView beachView = (TextView)v.findViewById(R.id.beach);
-		TextView descView = (TextView)v.findViewById(R.id.description);
-		ImageView image_feeling = (ImageView) v.findViewById(R.id.icon_feeling);
-		ImageView image_weather1 = (ImageView) v.findViewById(R.id.icon_weather1);
-		ImageView image_weather2 = (ImageView) v.findViewById(R.id.icon_weather2);
-		ImageView image_flag = (ImageView) v.findViewById(R.id.icon_flag);
-		TextView timeView = (TextView)v.findViewById(R.id.time);
+		holder.beachView.setText(Html.fromHtml("<b>" + beach.getName() + "</b> - " + beach.getPlace()));
 
-		beachView.setText(Html.fromHtml("<b>" + beach.getName() + "</b> - " + beach.getPlace()));
-
-		timeView.setText(beach.getLatitude()+"");      
+		holder.timeView.setText("");      
+		holder.timeView.setVisibility(View.GONE);      
 
 		switch(beach.getFeeling()) {
 		case 0:
-			descView.setText("- " + context.getResources().getString(R.string.feeling_m2_text2));
-			image_feeling.setImageResource(R.drawable.ic_feeling_m2);
+			holder.descView.setText("- " + context.getResources().getString(R.string.feeling_m2_text2));
+			holder.image_feeling.setImageResource(R.drawable.ic_feeling_m2);
 			break;
 		case 1:
-			descView.setText("- " + context.getResources().getString(R.string.feeling_m1_text2));
-			image_feeling.setImageResource(R.drawable.ic_feeling_m1);
+			holder.descView.setText("- " + context.getResources().getString(R.string.feeling_m1_text2));
+			holder.image_feeling.setImageResource(R.drawable.ic_feeling_m1);
 			break;
 		case 2:
-			descView.setText("- " + context.getResources().getString(R.string.feeling_0_text2));
-			image_feeling.setImageResource(R.drawable.ic_feeling_0);
+			holder.descView.setText("- " + context.getResources().getString(R.string.feeling_0_text2));
+			holder.image_feeling.setImageResource(R.drawable.ic_feeling_0);
 			break;
 		case 3:
-			descView.setText("- " + context.getResources().getString(R.string.feeling_1_text2));
-			image_feeling.setImageResource(R.drawable.ic_feeling_1);
+			holder.descView.setText("- " + context.getResources().getString(R.string.feeling_1_text2));
+			holder.image_feeling.setImageResource(R.drawable.ic_feeling_1);
 			break;
 		case 4:
-			descView.setText("- " + context.getResources().getString(R.string.feeling_2_text2));
-			image_feeling.setImageResource(R.drawable.ic_feeling_2);
+			holder.descView.setText("- " + context.getResources().getString(R.string.feeling_2_text2));
+			holder.image_feeling.setImageResource(R.drawable.ic_feeling_2);
 			break;
 		default:
-			descView.setText("- " + context.getResources().getString(R.string.feeling_0_text2));
-			image_feeling.setImageResource(R.drawable.ic_feeling_0);
+			holder.descView.setText("- " + context.getResources().getString(R.string.feeling_0_text2));
+			holder.image_feeling.setImageResource(R.drawable.ic_feeling_0);
 			break;
 		}
 
 		if(beach.isSunny())
-			image_weather1.setImageResource(R.drawable.ic_weather_sunny);
+			holder.image_weather1.setImageResource(R.drawable.ic_weather_sunny);
 		else if(beach.isCloudy())
-			image_weather1.setImageResource(R.drawable.ic_weather_cloudy);
+			holder.image_weather1.setImageResource(R.drawable.ic_weather_cloudy);
 		else if(beach.isRainy())
-			image_weather1.setImageResource(R.drawable.ic_weather_rainy);
+			holder.image_weather1.setImageResource(R.drawable.ic_weather_rainy);
 
 		if(beach.isWindy()) {
-			image_weather2.setVisibility(View.VISIBLE);
-			image_weather2.setImageResource(R.drawable.ic_weather_windy);
+			holder.image_weather2.setVisibility(View.VISIBLE);
+			holder.image_weather2.setImageResource(R.drawable.ic_weather_windy);
 		}
 		else
-			image_weather2.setVisibility(View.GONE);
+			holder.image_weather2.setVisibility(View.GONE);
 
 
 		switch(beach.getFlag()) {
 		case 0:
-			image_flag.setVisibility(View.VISIBLE);
-			image_flag.setImageResource(R.drawable.ic_flag_green);
+			holder.image_flag.setVisibility(View.VISIBLE);
+			holder.image_flag.setImageResource(R.drawable.ic_flag_green);
 			break;
 		case 1:
-			image_flag.setVisibility(View.VISIBLE);
-			image_flag.setImageResource(R.drawable.ic_flag_yellow);
+			holder.image_flag.setVisibility(View.VISIBLE);
+			holder.image_flag.setImageResource(R.drawable.ic_flag_yellow);
 			break;
 		case 2:
-			image_flag.setVisibility(View.VISIBLE);
-			image_flag.setImageResource(R.drawable.ic_flag_red);
+			holder.image_flag.setVisibility(View.VISIBLE);
+			holder.image_flag.setImageResource(R.drawable.ic_flag_red);
 			break;
 		case 3:
-			image_flag.setVisibility(View.VISIBLE);
-			image_flag.setImageResource(R.drawable.ic_flag_black);
+			holder.image_flag.setVisibility(View.VISIBLE);
+			holder.image_flag.setImageResource(R.drawable.ic_flag_black);
 			break;
 		default:
-			image_flag.setVisibility(View.GONE);
+			holder.image_flag.setVisibility(View.GONE);
 		}
 
-		return v;
+		return convertView;
 	}
 
+	static class ViewHolder {
+		TextView beachView;
+		TextView descView;
+		ImageView image_feeling;
+		ImageView image_weather1;
+		ImageView image_weather2;
+		ImageView image_flag;
+		TextView timeView;
+	}
+	
 	private class HttpAsyncTask extends AsyncTask<String, Void, Beach[]> {
 		HttpAsyncTask() {
 
