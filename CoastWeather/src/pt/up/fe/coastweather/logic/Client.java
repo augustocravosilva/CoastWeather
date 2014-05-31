@@ -23,7 +23,7 @@ public class Client {
 	public static String STATUS_BY_ID = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status/";
 	public static String GET_STATUS_OF_USER = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status/user/";
 	public static String POST_STATUS = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status";
-	public static String GET_BEACHES_BY_LOCATION= "http://coastweather.fe.up.pt/coastWeather/v1/index.php/beaches";
+	public static String GET_BEACHES_BY_LOCATION= "http://coastweather.fe.up.pt/coastWeather/v1/index.php/beaches/";
 	public static String GET_BEACH_BY_ID = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/beaches";
 	public static String GET_STATUS_BY_BEACH_ID = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status/beach/";
 	public static String POST_REGISTER = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/users";
@@ -103,7 +103,7 @@ public class Client {
 			
 			
 			// 6. set httpPost Entity
-			httpPost.setEntity(new UrlEncodedFormEntity(data,HTTP.UTF_16));
+			httpPost.setEntity(new UrlEncodedFormEntity(data));
 			
 			// 7. Set some headers to inform server about the type of the content   
 			httpPost.setHeader("Authorization", "test");

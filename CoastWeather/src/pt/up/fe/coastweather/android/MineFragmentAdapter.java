@@ -61,7 +61,6 @@ public class MineFragmentAdapter extends BaseAdapter {
 		return arg0;
 	}
 
-
 	public String getStatusString(int id)
 	{
 		String out = "";
@@ -250,6 +249,7 @@ public class MineFragmentAdapter extends BaseAdapter {
 		synchronized protected void onPostExecute(Boolean result) {
 			if(result!=null && result)
 			{
+				Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
 				notifyDataSetChanged();
 			} else
 			{

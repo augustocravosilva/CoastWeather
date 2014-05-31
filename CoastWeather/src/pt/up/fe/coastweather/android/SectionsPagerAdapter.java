@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 
 /**
@@ -18,6 +19,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  */
 public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
+	private static final String TAG = "SectionsPagerAdapter";
 	private Context context;
 	private LoginFragment login;
 	private Fragment mapFragment = new MapFragment();
@@ -105,6 +107,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 	@Override
 	public int getItemPosition (Object object) // this determines if the fragments changed
 	{ // useful to use with notifyDataSetChanged
+		Log.d(TAG,"NOFITY!!");
 		if (object instanceof LoginFragment || object instanceof FriendsFragment || object instanceof MineFragment) {
 			return POSITION_NONE;
 		} else return POSITION_UNCHANGED;

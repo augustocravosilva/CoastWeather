@@ -200,6 +200,7 @@ public class LoginFragment extends Fragment {
 		@Override
 		protected Boolean doInBackground(String... params) {
 			try {
+				Log.d(TAG,"-- " + params[0] + " " + params[1] + " " + params[2] + " ");
 				List<NameValuePair> data = new ArrayList<NameValuePair>();
 				data.add(new BasicNameValuePair("idFacebook",params[0]));
 				data.add(new BasicNameValuePair("name",params[1]));
