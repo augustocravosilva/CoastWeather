@@ -19,6 +19,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
 	private static final String TAG = "SectionsPagerAdapter";
+	public static final int MAP_TAB = 0;
 	private Context context;
 	private LoginFragment login;
 	private Fragment mapFragment = new MapFragment();
@@ -32,7 +33,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 	public Fragment getItem(int position) {
 
 		switch (position) {
-		case 0:
+		case MAP_TAB:
 		{
 			return mapFragment;
 		}

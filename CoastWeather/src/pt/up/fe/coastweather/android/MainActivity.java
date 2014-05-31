@@ -55,16 +55,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private static boolean hasLastKnownLocation = false;
 	private static boolean hideCenterMapButton = false;
 	private static Activity thisActivity;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d(TAG,"created!");
+		
 		setContentView(R.layout.activity_main);
 		thisActivity = this;
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -73,12 +74,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-
 		// When swiping between different sections, select the corresponding
 		// tab. We can also use ActionBar.Tab#select() to do this if we have
 		// a reference to the Tab.
 		mViewPager
 		.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+
 			@Override
 			public void onPageSelected(int position) {
 				actionBar.setSelectedNavigationItem(position);
@@ -90,7 +91,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			}
 		});
 
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //TODO: delete this
+		//getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //TODO: delete this
+		//DO THIS: Definicoes -> Opcoes do Programador -> Manter ativo
+		// Para activar opcoes de programador no menu: Definicoes->Acerca -> Carregar 7x em cima de versao android
+		
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
 			// Create a tab with text corresponding to the page title defined by
@@ -101,9 +105,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
-
-
-
+		
+		
 		LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
 				LOCATION_REFRESH_DISTANCE, mLocationListener);
@@ -174,12 +177,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	}
 
 	@Override
-	protected void onPause() {
-
-		super.onPause();
-	}
-	
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_centermap:
@@ -191,8 +188,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			menuItem = item;
 			menuItem.setActionView(R.layout.menu_progressbar);
 			menuItem.expandActionView();
-			new getBeachesTask().execute(Client.GET_BEACH_BY_ID);
-			mSectionsPagerAdapter.notifyDataSetChanged();
+			if(mViewPager.getCurrentItem() == SectionsPagerAdapter.MAP_TAB)
+				new getBeachesTask().execute(Client.GET_BEACH_BY_ID);
+			else
+				{
+					mSectionsPagerAdapter.notifyDataSetChanged();
+					if( null != menuItem ) {
+						menuItem.collapseActionView();
+						menuItem.setActionView(null);
+					}
+				}
 			break;
 		case R.id.action_logout:
 			Session s = User.getInstance().getfbSession();

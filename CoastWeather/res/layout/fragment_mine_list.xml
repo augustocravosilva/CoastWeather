@@ -51,6 +51,7 @@
 	    android:id="@+id/del_button"
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
+        android:focusable="false"
         android:layout_height="wrap_content"
         android:text="@string/action_delete"
 	    />
