@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
@@ -93,11 +92,66 @@ public class BeachActivity extends Activity {
 			ImageView image_flag = (ImageView) findViewById(R.id.icon_beach_flag);
 			TextView timeView = (TextView) findViewById(R.id.beach_time);
 
-			timeView.setText("5 minutes ago");  
-			image_feeling.setImageResource(R.drawable.ic_feeling_2);
-			image_weather1.setImageResource(R.drawable.ic_weather_sunny);
-			image_weather2.setImageResource(R.drawable.ic_weather_windy);
-			image_flag.setImageResource(R.drawable.ic_flag_green);
+			timeView.setText("");  
+
+			switch(beach.getFeeling()) {
+			case 0:
+				image_feeling.setImageResource(R.drawable.ic_feeling_m2);
+				break;
+			case 1:
+				image_feeling.setImageResource(R.drawable.ic_feeling_m1);
+				break;
+			case 2:
+				image_feeling.setImageResource(R.drawable.ic_feeling_0);
+				break;
+			case 3:
+				image_feeling.setImageResource(R.drawable.ic_feeling_1);
+				break;
+			case 4:
+				image_feeling.setImageResource(R.drawable.ic_feeling_2);
+				break;
+			default:
+				image_feeling.setImageResource(R.drawable.ic_feeling);
+				break;
+			}
+
+			//image_feeling.setImageResource(R.drawable.ic_feeling_2);
+
+			if(beach.isSunny())
+				image_weather1.setImageResource(R.drawable.ic_weather_sunny);
+			else if(beach.isCloudy())
+				image_weather1.setImageResource(R.drawable.ic_weather_cloudy);
+			else if(beach.isRainy())
+				image_weather1.setImageResource(R.drawable.ic_weather_rainy);
+			else
+				image_weather1.setImageResource(R.drawable.ic_weather_sunny_grey);
+
+			if(beach.isWindy()) {
+				image_weather2.setVisibility(View.VISIBLE);
+				image_weather2.setImageResource(R.drawable.ic_weather_windy);
+			}
+			else
+				image_weather2.setVisibility(View.GONE);
+
+			//image_weather1.setImageResource(R.drawable.ic_weather_sunny);
+			//image_weather2.setImageResource(R.drawable.ic_weather_windy);
+
+			switch(beach.getFlag()) {
+			case 0:
+				image_flag.setImageResource(R.drawable.ic_flag_green);
+				break;
+			case 1:
+				image_flag.setImageResource(R.drawable.ic_flag_yellow);
+				break;
+			case 2:
+				image_flag.setImageResource(R.drawable.ic_flag_red);
+				break;
+			case 3:
+				image_flag.setImageResource(R.drawable.ic_flag_black);
+				break;
+			default:
+				image_flag.setImageResource(R.drawable.ic_flag_grey);
+			}
 
 			/*TextView textLatitude = (TextView) findViewById(R.id.beach_gps_latitude);
 		TextView textLongitude = (TextView) findViewById(R.id.beach_gps_longitude);*/
@@ -110,6 +164,9 @@ public class BeachActivity extends Activity {
 
 			new HttpAsyncTask(this).execute(Client.GET_STATUS_BY_BEACH_ID);
 		}
+		else 
+			finish();
+
 	}
 
 	@Override
@@ -158,10 +215,6 @@ public class BeachActivity extends Activity {
 
 				list = (ListView) findViewById(R.id.beach_status_list);
 				list.setAdapter(new BeachListAdapter(context,result));
-				String x = "";
-				for(int i = 0; i < result.length; i++)
-					x += " *** " + result[i].toString(); 
-				Log.i(LOG, x);
 			}
 		}
 	}

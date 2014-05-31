@@ -226,6 +226,8 @@ public class UserStatus {
 			long diffMinutes = diff / (60 * 1000) % 60;
 			long diffHours = diff / (60 * 60 * 1000) % 24;
 			long diffDays = diff / (24 * 60 * 60 * 1000);
+			
+			Log.w("CoastWeather", "statusId:"+statusId + "\ndiffSeconds=" + diffSeconds + "\ndiffMinutes" + diffMinutes + "\ndiffHours" + diffHours + "\ndiffDays");
 
 			if(diffMinutes == 0)
 				return diffSeconds + (diffSeconds == 1 ? " second " : " seconds ") + "ago"; 
@@ -262,7 +264,7 @@ public class UserStatus {
 	public JSONObject getJson() {
 		JSONObject json = new JSONObject();
 		try {
-			json.put(USER_ID, userID); //TODO: access via FaceBook user
+			json.put(USER_ID, userID); 
 			json.put(BEACH_ID, beachId);
 			json.put(FEELING, feeling);
 			json.put(FLAG, flag);
@@ -290,6 +292,7 @@ public class UserStatus {
 		nameValuePairs.add(new BasicNameValuePair(RAINY, Boolean.toString(rainy)));
 		return nameValuePairs;
 	}
+	
 
 	//idUser, idBeach, content, feeling, flag, sun, wind, clouds, rain
 

@@ -45,7 +45,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 
 	private CharSequence[] beachesNames;
 	private int[] beachesIds;
-	
+
 
 
 	private ImageButton[] feelingButtons = new ImageButton[5];
@@ -56,10 +56,10 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 
 	private TextView feelingText;
 	private TextView test;
-	
+
 	private Spinner spinner;
 	private ArrayAdapter<CharSequence> spinner_adapter;
-	
+
 	private UserStatus user = null;
 
 
@@ -88,7 +88,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 		else
 			new HttpAsyncTask(HttpAsyncTask.MODE_GET_BEACHES).execute(Client.GET_BEACHES_BY_LOCATION);
 
-		
+
 
 		feelingButtons[0] = (ImageButton) rootView.findViewById(R.id.imagebuttonM2);
 		feelingButtons[1] = (ImageButton) rootView.findViewById(R.id.imagebuttonM1);
@@ -223,9 +223,9 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 
 				user = new UserStatus(beachId, feeling, flag, sunny, windy, cloudy, rainy);
 
+				shareButton.setEnabled(false);
 
-
-				new HttpAsyncTask(HttpAsyncTask.MODE_SEND_STATUS).execute(Client.POST_STATUS); //TODO: Uncomment
+				new HttpAsyncTask(HttpAsyncTask.MODE_SEND_STATUS).execute(Client.POST_STATUS);
 
 			}
 
@@ -280,7 +280,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 		static final int MODE_SEND_STATUS = 1;
 		static final int MODE_GET_BEACHES = 2;
 		int mode;
-		
+
 
 		HttpAsyncTask(int mode) {
 			this.mode = mode;
@@ -297,7 +297,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 			}
 			case MODE_GET_BEACHES: {
 				double latitude, longitude;
-				
+
 				if(MainActivity.isHasLastKnownLocation()) {
 					latitude = MainActivity.getLastKnownLatitude();
 					longitude = MainActivity.getLastKnownLongitude();
@@ -306,7 +306,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 					latitude = MapFragment.getLatitude();
 					longitude = MapFragment.getLongitude();
 				}
-				return Client.GET(urls[0], latitude + "/" + longitude/*38.614916/-9.210523"*/);
+				return Client.GET(urls[0], latitude + "/" + longitude + "/" + MAX_BEACHES_SPINNER/*38.614916/-9.210523"*/);
 			}
 			}
 
@@ -315,6 +315,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
 		protected void onPostExecute(String result) {
+			shareButton.setEnabled(true);
 			if(result.equals("error1")) {
 				Toast.makeText(getActivity(), getString(R.string.fragment_add_review_data_sent_error), Toast.LENGTH_LONG).show();
 				return;
@@ -331,10 +332,10 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 					JSONArray array = j.getJSONArray("beaches");
 					j = null;
 
-					beachesNames = new String[array.length() < MAX_BEACHES_SPINNER ? array.length() : MAX_BEACHES_SPINNER];
-					beachesIds = new int[array.length() < MAX_BEACHES_SPINNER ? array.length() : MAX_BEACHES_SPINNER];
+					beachesNames = new String[array.length()];
+					beachesIds = new int[array.length()];
 
-					for (int i = 0; i < array.length() && i < MAX_BEACHES_SPINNER;i++) {
+					for (int i = 0; i < array.length();i++) {
 						//beaches[i] = array.getJSONObject(i).toString();
 						Beach b = new Beach(array.getJSONObject(i));
 						beachesNames[i] = b.getName();

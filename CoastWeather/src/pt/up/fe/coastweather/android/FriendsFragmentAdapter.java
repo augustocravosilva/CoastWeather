@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.google.android.gms.identity.intents.model.UserAddress;
-
 import pt.up.fe.coastweather.R;
 import pt.up.fe.coastweather.logic.Client;
 import pt.up.fe.coastweather.logic.User;
@@ -25,7 +23,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 	Context context;
 	private static final String LOG = "FriendList";
 	private ArrayList<UserStatus> statuses;
-	
+
 	FriendsFragmentAdapter(Context c) {
 		this.context = c;
 	}
@@ -42,7 +40,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 		if(User.getInstance().isLoggedIn())
 			new HttpAsyncTask().execute(Client.GET_FRIENDS_ACT);
 	}
-	
+
 	@Override
 	public UserStatus getItem(int arg0) {
 		if(statuses!=null)
@@ -52,7 +50,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int arg0) {
-		return arg0;
+		return statuses.get(arg0).getBeachId();
 	}
 
 
@@ -80,7 +78,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 		}
 		return out;
 	}
-	
+
 	public int getStatusPic(int id)
 	{
 		int out = 0;
@@ -105,7 +103,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 		}
 		return out;
 	}
-	
+
 	public int getFlagPic(int id)
 	{
 		int out = 0;
@@ -127,7 +125,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 		}
 		return out;
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Log.i(LOG, "Draw view");
@@ -148,32 +146,32 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 		ImageView image_weather2 = (ImageView) v.findViewById(R.id.icon_weather2);
 		ImageView image_flag = (ImageView) v.findViewById(R.id.icon_flag);
 		TextView timeView = (TextView)v.findViewById(R.id.time);
-		
-		
+
+
 		if(User.getInstance().isLoggedIn() && statuses!=null)
 		{
-				UserStatus us = statuses.get(position);
-				nameView.setText(us.getUsername());
-				beachView.setText(us.getBeachName() + " - " + us.getPlace());
-				Log.d(LOG,"->"+us.getFeeling());
-				descView.setText(getStatusString(us.getFeeling()));
-				timeView.setText(us.getDateFormatted());   
-				image_feeling.setImageResource(getStatusPic(us.getFeeling()));
-				if(us.isCloudy())
-					image_weather1.setImageResource(R.drawable.ic_weather_cloudy);
-				else if(us.isRainy())
-					image_weather1.setImageResource(R.drawable.ic_weather_rainy);
-				else if(us.isSunny())
-					image_weather1.setImageResource(R.drawable.ic_weather_sunny);
-				if(us.isWindy())
-					image_weather2.setImageResource(R.drawable.ic_weather_windy);
-				image_flag.setImageResource(getFlagPic(us.getFlag()));
-				new DownloadImageTask(image).execute(User.getUserPicLink(String.valueOf(us.getUserID())));
+			UserStatus us = statuses.get(position);
+			nameView.setText(us.getUsername());
+			beachView.setText(us.getBeachName() + " - " + us.getPlace());
+			Log.d(LOG,"->"+us.getFeeling());
+			descView.setText(getStatusString(us.getFeeling()));
+			timeView.setText(us.getDateFormatted());   
+			image_feeling.setImageResource(getStatusPic(us.getFeeling()));
+			if(us.isCloudy())
+				image_weather1.setImageResource(R.drawable.ic_weather_cloudy);
+			else if(us.isRainy())
+				image_weather1.setImageResource(R.drawable.ic_weather_rainy);
+			else if(us.isSunny())
+				image_weather1.setImageResource(R.drawable.ic_weather_sunny);
+			if(us.isWindy())
+				image_weather2.setImageResource(R.drawable.ic_weather_windy);
+			image_flag.setImageResource(getFlagPic(us.getFlag()));
+			new DownloadImageTask(image).execute(User.getUserPicLink(String.valueOf(us.getUserID())));
 		}
-		
+
 		return v;
 	}
-	
+
 	private class HttpAsyncTask extends AsyncTask<String, Void, ArrayList<UserStatus>> {
 
 		@Override
@@ -202,10 +200,10 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 			if (result != null) {
 				statuses=result;
 				notifyDataSetChanged();
+			}
 		}
 	}
-}
 
-	
+
 
 }

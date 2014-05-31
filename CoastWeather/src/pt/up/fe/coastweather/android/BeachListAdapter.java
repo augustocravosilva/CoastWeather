@@ -23,19 +23,16 @@ public class BeachListAdapter extends BaseAdapter {
 	}
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return status.length;
 	}
 
 	@Override
 	public Object getItem(int arg0) {
-		// TODO Auto-generated method stub
 		return status[arg0];
 	}
 
 	@Override
 	public long getItemId(int arg0) {
-		// TODO Auto-generated method stub
 		return status[arg0].getStatusId();
 	}
 
@@ -54,7 +51,6 @@ public class BeachListAdapter extends BaseAdapter {
 		new DownloadImageTask(image)
 		.execute(User.getUserPicLink(String.valueOf(user.getUserID())));
 		TextView nameView = (TextView)v.findViewById(R.id.name);
-		//TextView beachView = (TextView)v.findViewById(R.id.beach);
 		TextView descView = (TextView)v.findViewById(R.id.description);
 
 		ImageView image_feeling = (ImageView) v.findViewById(R.id.icon_feeling);
@@ -92,46 +88,9 @@ public class BeachListAdapter extends BaseAdapter {
 			image_feeling.setImageResource(R.drawable.ic_feeling_0);
 			break;
 		}
-		//descView.setText("- Feeling awesome");
-		//HH converts hour in 24 hours format (0-23), day calculation
-		/*SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-		Date d1 = null;
-		Date d2 = null;
-
-		try {
-			d1 = format.parse(user.getDate());
-			d2 = new Date();
-
-			//in milliseconds
-			long diff = d2.getTime() - d1.getTime();
-
-			long diffSeconds = diff / 1000 % 60;
-			long diffMinutes = diff / (60 * 1000) % 60;
-			long diffHours = diff / (60 * 60 * 1000) % 24;
-			long diffDays = diff / (24 * 60 * 60 * 1000);
-			Log.i(LOG, "**Seconds: " + diffSeconds + " **Minutes: " +diffMinutes + " **Hours: " + diffHours + " **Days: " + diffDays);
-
-			if(diffMinutes == 0)
-				timeView.setText(diffSeconds + " seconds ago"); 
-			else if (diffHours == 0)
-				timeView.setText(diffMinutes + " minutes ago"); 
-			else if (diffDays == 0)
-				timeView.setText(diffHours + " hours ago");
-			else if (diffDays <= 7)
-				timeView.setText(diffDays + " days ago");
-			else
-				timeView.setText(user.getDate());
-
-			//timeView.setText(user.getDate()); 
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
 
 		timeView.setText(user.getDateFormatted());
-		
-		//image_feeling.setImageResource(R.drawable.ic_feeling_2);
+
 		if(user.isSunny())
 			image_weather1.setImageResource(R.drawable.ic_weather_sunny);
 		else if(user.isCloudy())
@@ -139,22 +98,32 @@ public class BeachListAdapter extends BaseAdapter {
 		else if(user.isRainy())
 			image_weather1.setImageResource(R.drawable.ic_weather_rainy);
 
-		if(user.isWindy())
+		if(user.isWindy()) {
+			image_weather2.setVisibility(View.VISIBLE);
 			image_weather2.setImageResource(R.drawable.ic_weather_windy);
+		}
+		else
+			image_weather2.setVisibility(View.GONE);
 
 		switch(user.getFlag()) {
 		case 0:
+			image_flag.setVisibility(View.VISIBLE);
 			image_flag.setImageResource(R.drawable.ic_flag_green);
 			break;
 		case 1:
+			image_flag.setVisibility(View.VISIBLE);
 			image_flag.setImageResource(R.drawable.ic_flag_yellow);
 			break;
 		case 2:
+			image_flag.setVisibility(View.VISIBLE);
 			image_flag.setImageResource(R.drawable.ic_flag_red);
 			break;
 		case 3:
+			image_flag.setVisibility(View.VISIBLE);
 			image_flag.setImageResource(R.drawable.ic_flag_black);
 			break;
+		default:
+			image_flag.setVisibility(View.GONE);
 		}
 
 

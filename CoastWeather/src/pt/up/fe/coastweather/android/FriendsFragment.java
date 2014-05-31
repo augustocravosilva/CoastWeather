@@ -33,7 +33,7 @@ public class FriendsFragment extends Fragment {
 		list.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView a, View v, int position, long id) {
 				Intent x = new Intent(getActivity(), BeachActivity.class);
-				x.putExtra(BeachActivity.BEACH_ID, lfa.getItem(position).getBeachId());
+				x.putExtra(BeachActivity.BEACH_ID, lfa.getItemId(position));
 				startActivity(x);
 			}});
 
