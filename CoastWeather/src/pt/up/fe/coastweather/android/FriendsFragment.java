@@ -1,8 +1,6 @@
 package pt.up.fe.coastweather.android;
 
 import pt.up.fe.coastweather.R;
-import pt.up.fe.coastweather.logic.Client;
-import pt.up.fe.coastweather.logic.User;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,7 +31,7 @@ public class FriendsFragment extends Fragment {
 		list.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView a, View v, int position, long id) {
 				Intent x = new Intent(getActivity(), BeachActivity.class);
-				x.putExtra(BeachActivity.BEACH_ID, lfa.getItemId(position));
+				x.putExtra(BeachActivity.BEACH_ID, lfa.getItem(position).getBeachId());
 				startActivity(x);
 			}});
 

@@ -47,7 +47,7 @@ public class ListFragment extends Fragment {
 			public void onItemClick(AdapterView a, View v, int position, long id) {
 				if(adapter != null) {
 					Intent x = new Intent(getActivity(), BeachActivity.class);
-					x.putExtra(BeachActivity.BEACH_ID, adapter.getItemId(position));
+					x.putExtra(BeachActivity.BEACH_ID, adapter.getItem(position).getIdBeach());
 					startActivity(x);
 				}
 			}});

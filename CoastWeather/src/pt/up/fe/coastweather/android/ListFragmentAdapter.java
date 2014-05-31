@@ -45,7 +45,7 @@ public class ListFragmentAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int arg0) {
+	public Beach getItem(int arg0) {
 		return beaches[arg0];
 	}
 
