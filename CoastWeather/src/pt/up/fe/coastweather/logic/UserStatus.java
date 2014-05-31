@@ -228,13 +228,13 @@ public class UserStatus {
 			long diffDays = diff / (24 * 60 * 60 * 1000);
 
 			if(diffMinutes == 0)
-				return diffSeconds + " seconds ago"; 
+				return diffSeconds + (diffSeconds == 1 ? " second " : " seconds ") + "ago"; 
 			else if (diffHours == 0)
-				return diffMinutes + " minutes ago"; 
+				return diffMinutes + (diffMinutes == 1 ? " minute " : " minutes ") + "ago"; 
 			else if (diffDays == 0)
-				return diffHours + " hours ago";
+				return diffHours + (diffHours == 1 ? " hour " : " hours ") + "ago";
 			else if (diffDays <= 7)
-				return diffDays + " days ago";
+				return diffDays + (diffDays == 1 ? " day " : " days ") + "ago";
 			else
 				return date;
 

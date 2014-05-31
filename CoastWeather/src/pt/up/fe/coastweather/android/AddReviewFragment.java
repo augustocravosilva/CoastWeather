@@ -5,7 +5,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pt.up.fe.coastweather.R;
-import pt.up.fe.coastweather.logic.*;
+import pt.up.fe.coastweather.logic.Beach;
+import pt.up.fe.coastweather.logic.Client;
+import pt.up.fe.coastweather.logic.UserStatus;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,6 +28,15 @@ import android.widget.Toast;
 public class AddReviewFragment extends Fragment implements OnItemSelectedListener {
 
 	public static final String ARG_SECTION_NUMBER = "section_number";
+
+	public static final String SAVED_BEACHES_NAMES = "saved1";
+	public static final String SAVED_BEACHES_IDS = "saved2";
+	public static final String SAVED_BEACH_SELECTED = "saved3";
+	public static final String SAVED_FEELING = "saved4";
+	public static final String SAVED_WEATHER1 = "saved5";
+	public static final String SAVED_WEATHER2 = "saved6";
+	public static final String SAVED_FLAG = "saved7";
+
 	private static final int MAX_BEACHES_SPINNER = 15;
 	public static final String LOG = "CoastWeather";
 
@@ -34,6 +45,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 
 	private CharSequence[] beachesNames;
 	private int[] beachesIds;
+	
 
 
 	private ImageButton[] feelingButtons = new ImageButton[5];
@@ -44,7 +56,10 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 
 	private TextView feelingText;
 	private TextView test;
+	
 	private Spinner spinner;
+	private ArrayAdapter<CharSequence> spinner_adapter;
+	
 	private UserStatus user = null;
 
 
@@ -58,14 +73,22 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				container, false);
 
 		spinner = (Spinner) rootView.findViewById(R.id.beaches_spinner);
-		// Create an ArrayAdapter using the string array and a default spinner layout
-		//ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item, A);
-		//adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		//spinner.setAdapter(adapter);
-
-		new HttpAsyncTask(HttpAsyncTask.MODE_GET_BEACHES).execute(Client.GET_BEACHES_BY_LOCATION);
-
+		spinner.setClickable(false);
 		spinner.setOnItemSelectedListener(this);
+
+		if(savedInstanceState != null) {
+			Log.i(LOG, "Bundle not null");
+			if(savedInstanceState.containsKey(SAVED_BEACHES_IDS)) {
+				Log.i(LOG, "Bundle contains data");
+				analyseSavedStatus(savedInstanceState);
+			}
+			else
+				new HttpAsyncTask(HttpAsyncTask.MODE_GET_BEACHES).execute(Client.GET_BEACHES_BY_LOCATION);
+		}
+		else
+			new HttpAsyncTask(HttpAsyncTask.MODE_GET_BEACHES).execute(Client.GET_BEACHES_BY_LOCATION);
+
+		
 
 		feelingButtons[0] = (ImageButton) rootView.findViewById(R.id.imagebuttonM2);
 		feelingButtons[1] = (ImageButton) rootView.findViewById(R.id.imagebuttonM1);
@@ -199,7 +222,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				}
 
 				user = new UserStatus(beachId, feeling, flag, sunny, windy, cloudy, rainy);
-				
+
 
 
 				new HttpAsyncTask(HttpAsyncTask.MODE_SEND_STATUS).execute(Client.POST_STATUS); //TODO: Uncomment
@@ -214,7 +237,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 			}
 
 			private int getFeeling() {
-			
+
 				for(int i = 0; i < feelingButtons.length; i++)
 					if(feelingButtons[i].isSelected())
 						return i;
@@ -228,6 +251,19 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 		return rootView;
 	}
 
+
+	private void analyseSavedStatus(Bundle savedInstanceState) {
+		Log.i(LOG, "Loading saved data");
+		beachesNames = savedInstanceState.getCharSequenceArray(SAVED_BEACHES_NAMES);
+		beachesIds = savedInstanceState.getIntArray(SAVED_BEACHES_IDS);
+		int position = savedInstanceState.getInt(SAVED_BEACH_SELECTED);
+
+		spinner_adapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item, beachesNames);
+		spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(spinner_adapter);
+		spinner.setSelection(position);
+		spinner.setClickable(true);
+	}
 
 	public void onItemSelected(AdapterView<?> parent, View view, 
 			int pos, long id) {
@@ -244,6 +280,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 		static final int MODE_SEND_STATUS = 1;
 		static final int MODE_GET_BEACHES = 2;
 		int mode;
+		
 
 		HttpAsyncTask(int mode) {
 			this.mode = mode;
@@ -256,22 +293,36 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				if (user != null)
 					return Client.POST(urls[0],user.getPost());
 				else
-					return "";
+					return "error1";
 			}
 			case MODE_GET_BEACHES: {
-				return Client.GET(urls[0], MapFragment.getLatitude() + "/" + MapFragment.getLongitude()/*38.614916/-9.210523"*/);
+				double latitude, longitude;
+				
+				if(MainActivity.isHasLastKnownLocation()) {
+					latitude = MainActivity.getLastKnownLatitude();
+					longitude = MainActivity.getLastKnownLongitude();
+				}
+				else {
+					latitude = MapFragment.getLatitude();
+					longitude = MapFragment.getLongitude();
+				}
+				return Client.GET(urls[0], latitude + "/" + longitude/*38.614916/-9.210523"*/);
 			}
 			}
 
-			return "";
+			return "error2";
 		}
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
 		protected void onPostExecute(String result) {
+			if(result.equals("error1")) {
+				Toast.makeText(getActivity(), getString(R.string.fragment_add_review_data_sent_error), Toast.LENGTH_LONG).show();
+				return;
+			}
 
 			//Toast.makeText(getActivity(), "Data Sent!", Toast.LENGTH_SHORT).show();
 			if(mode == MODE_GET_BEACHES) {
-				Log.d(LOG,"1");
+				Log.i(LOG,"Downloading beaches");
 				try {
 					JSONObject j = new JSONObject(result);
 					if (j.getBoolean("error"))
@@ -290,14 +341,18 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 						beachesIds[i] = b.getIdBeach();
 					}
 
-					array = null;
 
-					ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item, beachesNames);
-					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-					spinner.setAdapter(adapter);
+					spinner_adapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item, beachesNames);
+					spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					spinner.setAdapter(spinner_adapter);
+					spinner.setClickable(true);
 
 				} catch (JSONException e) {
 					Log.w(LOG, "Json exception " + e.getMessage());
+					e.printStackTrace();
+				}
+				catch (Exception e) {
+					Log.w(LOG, "Addreview " + e.getMessage());
 					e.printStackTrace();
 				}
 			}
@@ -306,6 +361,15 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				test.setText(result + "\n" + user.getPost());
 			}
 		}
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		super.onSaveInstanceState(savedInstanceState);
+		Log.i(LOG, "Saving AddReviewFragment state");
+		savedInstanceState.putIntArray(SAVED_BEACHES_IDS, beachesIds);
+		savedInstanceState.putCharSequenceArray(SAVED_BEACHES_NAMES, beachesNames);
+		savedInstanceState.putInt(SAVED_BEACH_SELECTED, spinner.getSelectedItemPosition());
 	}
 
 }

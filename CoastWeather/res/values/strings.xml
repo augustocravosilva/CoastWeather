@@ -43,6 +43,7 @@
     <string name="fragment_add_review_select">You need to select something!</string>
     <string name="fragment_add_review_select_feeling">You must select a feeling!</string>
     <string name="fragment_add_review_data_sent">You\'re status was shared!</string>
+    <string name="fragment_add_review_data_sent_error">Error sharing status, try again!</string>
     
     
     

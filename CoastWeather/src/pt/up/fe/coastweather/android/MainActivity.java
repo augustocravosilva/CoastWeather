@@ -51,8 +51,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private static final float LOCATION_REFRESH_DISTANCE = 50;
 	private static final long LOCATION_REFRESH_TIME = 5000;
 	private MenuItem menuItem;
-	private double lastKnownLatitude, lastKnownLongitude;
-	private boolean hasLastKnownLocation = false;
+	private static double lastKnownLatitude, lastKnownLongitude;
+	private static boolean hasLastKnownLocation = false;
 	private static boolean hideCenterMapButton = false;
 	private static Activity thisActivity;
 
@@ -275,5 +275,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		Log.i(TAG, "mostoru");
 		thisActivity.invalidateOptionsMenu();
 		hideCenterMapButton = false;
+	}
+
+	public static double getLastKnownLatitude() {
+		return lastKnownLatitude;
+	}
+
+	public static double getLastKnownLongitude() {
+		return lastKnownLongitude;
+	}
+
+	public static boolean isHasLastKnownLocation() {
+		return hasLastKnownLocation;
 	}
 }
