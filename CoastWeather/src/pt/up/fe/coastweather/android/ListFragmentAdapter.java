@@ -2,6 +2,7 @@ package pt.up.fe.coastweather.android;
 
 import pt.up.fe.coastweather.R;
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,10 +44,10 @@ public class ListFragmentAdapter extends BaseAdapter {
 			v = vi.inflate(R.layout.fragment_list_item, null);
 		}
 
-		ImageView image = (ImageView) v.findViewById(R.id.icon);
+		/*ImageView image = (ImageView) v.findViewById(R.id.icon);
 		new DownloadImageTask(image)
 		.execute("https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-ash2/t1.0-9/523837_507942599227785_89321393_n.jpg");
-		TextView nameView = (TextView)v.findViewById(R.id.name);
+		TextView nameView = (TextView)v.findViewById(R.id.name);*/
 		TextView beachView = (TextView)v.findViewById(R.id.beach);
 		TextView descView = (TextView)v.findViewById(R.id.description);
 
@@ -57,8 +58,8 @@ public class ListFragmentAdapter extends BaseAdapter {
 		TextView timeView = (TextView)v.findViewById(R.id.time);
 		
 		//image.setImageResource(R.drawable.ic_feeling_0);
-		nameView.setText("Tiago Fernandes");
-		beachView.setText("Praia da Rocha - Portimão");
+		//nameView.setText("Tiago Fernandes");
+		beachView.setText(Html.fromHtml("<b>Praia da Rocha</b> - Portimão"));
 		descView.setText("Feeling awesome");
 		timeView.setText("5 minutes ago");      
 		image_feeling.setImageResource(R.drawable.ic_feeling_2);

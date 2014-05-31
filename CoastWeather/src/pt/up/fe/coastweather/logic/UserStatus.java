@@ -1,6 +1,8 @@
 package pt.up.fe.coastweather.logic;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -8,10 +10,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import pt.up.fe.coastweather.R;
-import android.content.res.Resources;
+import android.annotation.SuppressLint;
 import android.util.Log;
 
+@SuppressLint("SimpleDateFormat")
 public class UserStatus {
 	public static final String LOG_TEST_MESSAGE = "TESTING_JSON";
 
@@ -204,6 +206,43 @@ public class UserStatus {
 
 	public String getDate() {
 		return date;
+	}
+
+	public String getDateFormatted() {
+
+		//HH converts hour in 24 hours format (0-23), day calculation
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date d1 = null;
+		Date d2 = null;
+
+		try {
+			d1 = format.parse(date);
+			d2 = new Date();
+
+			//in milliseconds
+			long diff = d2.getTime() - d1.getTime();
+
+			long diffSeconds = diff / 1000 % 60;
+			long diffMinutes = diff / (60 * 1000) % 60;
+			long diffHours = diff / (60 * 60 * 1000) % 24;
+			long diffDays = diff / (24 * 60 * 60 * 1000);
+
+			if(diffMinutes == 0)
+				return diffSeconds + " seconds ago"; 
+			else if (diffHours == 0)
+				return diffMinutes + " minutes ago"; 
+			else if (diffDays == 0)
+				return diffHours + " hours ago";
+			else if (diffDays <= 7)
+				return diffDays + " days ago";
+			else
+				return date;
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return date;
+		}
 	}
 
 	public void setDate(String date) {

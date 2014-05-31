@@ -3,11 +3,9 @@ package pt.up.fe.coastweather.android;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import pt.up.fe.coastweather.R;
-import pt.up.fe.coastweather.logic.Beach;
 import pt.up.fe.coastweather.logic.Client;
 import pt.up.fe.coastweather.logic.User;
 import pt.up.fe.coastweather.logic.UserStatus;
@@ -135,7 +133,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 		if (v == null)
 		{
 			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = vi.inflate(R.layout.fragment_list_item, null);
+			v = vi.inflate(R.layout.fragment_friends_item, null);
 		}
 
 		ImageView image = (ImageView) v.findViewById(R.id.icon);
@@ -154,7 +152,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 		{
 				UserStatus us = statuses.get(position);
 				nameView.setText(us.getUsername());
-				beachView.setText(us.getBeachName());
+				beachView.setText(us.getBeachName() + " - " + us.getPlace());
 				Log.d(LOG,"->"+us.getFeeling());
 				descView.setText(getStatusString(us.getFeeling()));
 				timeView.setText(us.getDate()); //TODO other format?    

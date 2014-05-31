@@ -1,13 +1,9 @@
 package pt.up.fe.coastweather.android;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import pt.up.fe.coastweather.R;
 import pt.up.fe.coastweather.logic.User;
 import pt.up.fe.coastweather.logic.UserStatus;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,11 +64,8 @@ public class BeachListAdapter extends BaseAdapter {
 		TextView timeView = (TextView)v.findViewById(R.id.time);
 
 
-
-
-		//image.setImageResource(R.drawable.ic_feeling_0);
 		nameView.setText(user.getUsername());
-		//beachView.setText("Praia da Rocha - Portim�o");
+
 		switch(user.getFeeling()) {
 		case 0:
 			descView.setText("- " + context.getResources().getString(R.string.feeling_m2_text2));
@@ -101,7 +94,7 @@ public class BeachListAdapter extends BaseAdapter {
 		}
 		//descView.setText("- Feeling awesome");
 		//HH converts hour in 24 hours format (0-23), day calculation
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		/*SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		Date d1 = null;
 		Date d2 = null;
@@ -134,8 +127,10 @@ public class BeachListAdapter extends BaseAdapter {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 
+		timeView.setText(user.getDateFormatted());
+		
 		//image_feeling.setImageResource(R.drawable.ic_feeling_2);
 		if(user.isSunny())
 			image_weather1.setImageResource(R.drawable.ic_weather_sunny);

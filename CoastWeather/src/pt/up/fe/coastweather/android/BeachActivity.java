@@ -58,8 +58,13 @@ public class BeachActivity extends Activity {
 
 		beach = BeachData.getBeach(beachId);
 
-		new DownloadImageTask((ImageView) findViewById(R.id.icon_beach_beach))
-		.execute(beach.getPicture());
+		try{
+			new DownloadImageTask((ImageView) findViewById(R.id.icon_beach_beach))
+			.execute(beach.getPicture());
+		}
+		catch(Exception e){
+			Log.e(LOG, "BeachActivity - error downloading image");
+		}
 
 		if(!beach.isParking())
 			imageParking.setVisibility(View.GONE);
@@ -74,6 +79,7 @@ public class BeachActivity extends Activity {
 			imageBlueFlag.setVisibility(View.GONE);
 
 		getActionBar().setTitle(beach.getName());
+		getActionBar().setSubtitle(beach.getPlace());
 
 		//textLatitude.setText(Html.fromHtml("<b>latitude: </b>" + Double.toString(beach.getLatitude())));
 		//textLongitude.setText(Html.fromHtml("<b>longitude: </b>" + Double.toString(beach.getLongitude())));
@@ -117,7 +123,7 @@ public class BeachActivity extends Activity {
 
 	private class HttpAsyncTask extends AsyncTask<String, Void, UserStatus[]> {
 		Context context;
-		
+
 		HttpAsyncTask(Context c) {
 			context = c;
 		}
@@ -146,7 +152,7 @@ public class BeachActivity extends Activity {
 		protected void onPostExecute(UserStatus[] result) {
 			if(result != null) {
 				separator.setVisibility(View.VISIBLE);
-				
+
 				list = (ListView) findViewById(R.id.beach_status_list);
 				list.setAdapter(new BeachListAdapter(context,result));
 				String x = "";
