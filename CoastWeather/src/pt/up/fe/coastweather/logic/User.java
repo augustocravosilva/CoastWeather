@@ -97,10 +97,19 @@ public class User {
 	{
 		return "http://graph.facebook.com/"+facebookId+"/picture?type=square";
 	}
+	public String getUserPicLinkMedium()
+	{
+		return "http://graph.facebook.com/"+facebookId+"/picture?type=normal";
+	}
 	
 	static public String getUserPicLink(String id)
 	{
 		return "http://graph.facebook.com/"+id+"/picture?type=square";
+	}
+	
+	static public String getUserPicLinkMedium(String id)
+	{
+		return "http://graph.facebook.com/"+id+"/picture?type=normal";
 	}
 
 	public void setErrorFlag() {

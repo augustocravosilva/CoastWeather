@@ -33,7 +33,7 @@ public class MineFragment extends Fragment {
 		TextView nameView = (TextView) rootView.findViewById(R.id.name);
 		numbersView = (TextView) rootView.findViewById(R.id.numbers);
 		nameView.setText(User.getInstance().getName());
-		new DownloadImageTask(image).execute(User.getUserPicLink(String.valueOf(User.getInstance().getFacebookId())));
+		new DownloadImageTask(image).execute(User.getUserPicLinkMedium(String.valueOf(User.getInstance().getFacebookId())));
 
 		list = (ListView) rootView.findViewById(R.id.MessageList);
 		lfa = new MineFragmentAdapter(getActivity(),this);
