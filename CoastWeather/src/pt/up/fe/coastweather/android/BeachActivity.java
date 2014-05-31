@@ -66,48 +66,50 @@ public class BeachActivity extends Activity {
 			Log.e(LOG, "BeachActivity - error downloading image");
 		}
 
-		if(!beach.isParking())
-			imageParking.setVisibility(View.GONE);
+		if(beach != null) {
+			if(!beach.isParking())
+				imageParking.setVisibility(View.GONE);
 
-		if(!beach.isUmbrella())
-			imageUmbrella.setVisibility(View.GONE);
+			if(!beach.isUmbrella())
+				imageUmbrella.setVisibility(View.GONE);
 
-		if(!beach.isRestaurant())
-			imageRestaurant.setVisibility(View.GONE);
+			if(!beach.isRestaurant())
+				imageRestaurant.setVisibility(View.GONE);
 
-		if(!beach.isBlueFlag())
-			imageBlueFlag.setVisibility(View.GONE);
+			if(!beach.isBlueFlag())
+				imageBlueFlag.setVisibility(View.GONE);
 
-		getActionBar().setTitle(beach.getName());
-		getActionBar().setSubtitle(beach.getPlace());
+			getActionBar().setTitle(beach.getName());
+			getActionBar().setSubtitle(beach.getPlace());
 
-		//textLatitude.setText(Html.fromHtml("<b>latitude: </b>" + Double.toString(beach.getLatitude())));
-		//textLongitude.setText(Html.fromHtml("<b>longitude: </b>" + Double.toString(beach.getLongitude())));
+			//textLatitude.setText(Html.fromHtml("<b>latitude: </b>" + Double.toString(beach.getLatitude())));
+			//textLongitude.setText(Html.fromHtml("<b>longitude: </b>" + Double.toString(beach.getLongitude())));
 
 
 
-		ImageView image_feeling = (ImageView) findViewById(R.id.icon_beach_feeling);
-		ImageView image_weather1 = (ImageView) findViewById(R.id.icon_beach_weather1);
-		ImageView image_weather2 = (ImageView) findViewById(R.id.icon_beach_weather2);
-		ImageView image_flag = (ImageView) findViewById(R.id.icon_beach_flag);
-		TextView timeView = (TextView) findViewById(R.id.beach_time);
+			ImageView image_feeling = (ImageView) findViewById(R.id.icon_beach_feeling);
+			ImageView image_weather1 = (ImageView) findViewById(R.id.icon_beach_weather1);
+			ImageView image_weather2 = (ImageView) findViewById(R.id.icon_beach_weather2);
+			ImageView image_flag = (ImageView) findViewById(R.id.icon_beach_flag);
+			TextView timeView = (TextView) findViewById(R.id.beach_time);
 
-		timeView.setText("5 minutes ago");  
-		image_feeling.setImageResource(R.drawable.ic_feeling_2);
-		image_weather1.setImageResource(R.drawable.ic_weather_sunny);
-		image_weather2.setImageResource(R.drawable.ic_weather_windy);
-		image_flag.setImageResource(R.drawable.ic_flag_green);
+			timeView.setText("5 minutes ago");  
+			image_feeling.setImageResource(R.drawable.ic_feeling_2);
+			image_weather1.setImageResource(R.drawable.ic_weather_sunny);
+			image_weather2.setImageResource(R.drawable.ic_weather_windy);
+			image_flag.setImageResource(R.drawable.ic_flag_green);
 
-		/*TextView textLatitude = (TextView) findViewById(R.id.beach_gps_latitude);
+			/*TextView textLatitude = (TextView) findViewById(R.id.beach_gps_latitude);
 		TextView textLongitude = (TextView) findViewById(R.id.beach_gps_longitude);*/
 
-		textLatitude.setText(Html.fromHtml("<b>latitude: </b>" + beach.getLatitude()));
-		textLongitude.setText(Html.fromHtml("<b>longitude: </b>" + beach.getLongitude()));
+			textLatitude.setText(Html.fromHtml("<b>latitude: </b>" + beach.getLatitude()));
+			textLongitude.setText(Html.fromHtml("<b>longitude: </b>" + beach.getLongitude()));
 
-		/*list = (ListView) findViewById(R.id.beach_status_list);
+			/*list = (ListView) findViewById(R.id.beach_status_list);
 		list.setAdapter(new BeachListAdapter(this));*/
 
-		new HttpAsyncTask(this).execute(Client.GET_STATUS_BY_BEACH_ID);
+			new HttpAsyncTask(this).execute(Client.GET_STATUS_BY_BEACH_ID);
+		}
 	}
 
 	@Override
@@ -161,5 +163,11 @@ public class BeachActivity extends Activity {
 				Log.i(LOG, x);
 			}
 		}
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		super.onSaveInstanceState(savedInstanceState);
+		savedInstanceState.putInt(BEACH_ID, beachId);
 	}
 }
