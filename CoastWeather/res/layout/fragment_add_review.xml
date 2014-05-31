@@ -17,7 +17,7 @@
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="2"
-            android:text="Select your beach:"
+            android:text="@string/fragment_add_review_select_beach"
             android:textSize="14dp"
             android:textStyle="bold" />
 
@@ -36,7 +36,7 @@
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="2"
-            android:text="How does it feel?"
+            android:text="@string/fragment_add_review_feel"
             android:textSize="14dp"
             android:textStyle="bold" />
 
@@ -100,7 +100,7 @@
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="2"
-            android:text="More info"
+            android:text="@string/fragment_add_review_info"
             android:textSize="14dp"
             android:textStyle="bold" />
 
@@ -116,28 +116,28 @@
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:background="@drawable/weather_sunny"
-                android:contentDescription="sunny" />
+                android:contentDescription="@string/fragment_add_review_sunny" />
 
             <ImageButton
                 android:id="@+id/imagebuttonWindy"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:background="@drawable/weather_windy"
-                android:contentDescription="windy" />
+                android:contentDescription="@string/fragment_add_review_windy" />
 
             <ImageButton
                 android:id="@+id/imagebuttonCloudy"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:background="@drawable/weather_cloudy"
-                android:contentDescription="cloudy" />
+                android:contentDescription="@string/fragment_add_review_cloudy" />
 
             <ImageButton
                 android:id="@+id/imagebuttonRainy"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:background="@drawable/weather_rainy"
-                android:contentDescription="rainy" />
+                android:contentDescription="@string/fragment_add_review_rainy" />
         </LinearLayout>
 
         <TextView
@@ -149,7 +149,7 @@
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="2"
-            android:text="Flag"
+            android:text="@string/fragment_add_review_flag"
             android:textSize="14dp"
             android:textStyle="bold" />
 
@@ -165,28 +165,28 @@
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:background="@drawable/flag_green"
-                android:contentDescription="green" />
+                android:contentDescription="@string/fragment_add_review_green" />
 
             <ImageButton
                 android:id="@+id/imagebuttonYellow"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:background="@drawable/flag_yellow"
-                android:contentDescription="yellow" />
+                android:contentDescription="@string/fragment_add_review_yellow" />
 
             <ImageButton
                 android:id="@+id/imagebuttonRed"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:background="@drawable/flag_red"
-                android:contentDescription="red" />
+                android:contentDescription="@string/fragment_add_review_red" />
 
             <ImageButton
                 android:id="@+id/imagebuttonBlack"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:background="@drawable/flag_black"
-                android:contentDescription="black" />
+                android:contentDescription="@string/fragment_add_review_black" />
         </LinearLayout>
 
         <Button
@@ -196,7 +196,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/blue_button"
-            android:text="Share" />
+            android:text="@string/fragment_add_review_share" />
 
         <TextView
             android:id="@+id/textTest"

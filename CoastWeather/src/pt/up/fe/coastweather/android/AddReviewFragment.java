@@ -29,8 +29,8 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 	private static final int MAX_BEACHES_SPINNER = 15;
 	public static final String LOG = "CoastWeather";
 
-	private CharSequence[] A = {"Praia da Rocha","Praia da Rocha1","Praia da Rocha2","Praia da Rocha3","Praia da Rocha4"};
-	private int[] B = {1,2,3,4,5};
+	/*private CharSequence[] A = {"Praia da Rocha","Praia da Rocha1","Praia da Rocha2","Praia da Rocha3","Praia da Rocha4"};
+	private int[] B = {1,2,3,4,5};*/
 
 	private CharSequence[] beachesNames;
 	private int[] beachesIds;
@@ -137,14 +137,14 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				public void onClick(View v) {
 					boolean selected = v.isSelected();
 
-					if(!((String)v.getContentDescription()).equals("windy"))
+					if(!((String)v.getContentDescription()).equals(getString(R.string.fragment_add_review_windy)))
 						unselectOtherButtons();
 					v.setSelected(!selected);
 				}
 
 				private void unselectOtherButtons() {
 					for(ImageButton j : weatherButtons) {
-						if (!((String)j.getContentDescription()).equals("windy"))
+						if (!((String)j.getContentDescription()).equals(getString(R.string.fragment_add_review_windy)))
 							j.setSelected(false);
 					}
 
@@ -188,13 +188,13 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				boolean rainy = weatherButtons[3].isSelected();
 
 				if(spinner.getCount() < 1) {
-					Toast.makeText(getActivity(), "You need an internet connection!", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), getString(R.string.fragment_add_review_internet_connection), Toast.LENGTH_SHORT).show();
 					return;
 				}
 				int beachId = beachesIds[spinner.getSelectedItemPosition()];
 
 				if(feeling < 0 || !(sunny || windy || cloudy || rainy)) {
-					Toast.makeText(getActivity(), "Select it!", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), getString(R.string.fragment_add_review_select), Toast.LENGTH_SHORT).show();
 					return;
 				}
 
@@ -219,7 +219,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 					if(feelingButtons[i].isSelected())
 						return i;
 
-				Toast.makeText(getActivity(), "You must select a feeling!", Toast.LENGTH_SHORT).show(); //TODO: add to strings
+				Toast.makeText(getActivity(), getString(R.string.fragment_add_review_select_feeling), Toast.LENGTH_SHORT).show(); 
 				return -1;
 			}
 		});
@@ -302,7 +302,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				}
 			}
 			else {
-				Toast.makeText(getActivity(), "Data Sent!", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), getString(R.string.fragment_add_review_data_sent), Toast.LENGTH_LONG).show();
 				test.setText(result + "\n" + user.getPost());
 			}
 		}

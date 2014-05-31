@@ -26,5 +26,36 @@
     <string name="feeling_m1_text2">Feeling not OK</string> 
     <string name="feeling_m2_text2">Thinking about going home</string>
     
+    <string name="fragment_add_review_select_beach">Select your beach:</string>
+    <string name="fragment_add_review_feel">How does it feel?</string>
+    <string name="fragment_add_review_info">More info</string>
+    <string name="fragment_add_review_sunny">sunny</string>
+    <string name="fragment_add_review_windy">windy</string>
+    <string name="fragment_add_review_cloudy">cloudy</string>
+    <string name="fragment_add_review_rainy">rainy</string>
+    <string name="fragment_add_review_flag">Flag</string>
+    <string name="fragment_add_review_green">green</string>
+    <string name="fragment_add_review_yellow">yellow</string>
+    <string name="fragment_add_review_red">red</string>
+    <string name="fragment_add_review_black">black</string>
+    <string name="fragment_add_review_share">Share</string>
+    <string name="fragment_add_review_internet_connection">You need an internet connection!</string>
+    <string name="fragment_add_review_select">You need to select something!</string>
+    <string name="fragment_add_review_select_feeling">You must select a feeling!</string>
+    <string name="fragment_add_review_data_sent">You\'re status was shared!</string>
+    
+    
+    
+    <string name="activity_beach_beach_image">beach image</string>
+    <string name="activity_beach_coordinates">coordinates</string>
+    <string name="activity_beach_parking">parking</string>
+    <string name="activity_beach_umbrella">umbrella</string>
+    <string name="activity_beach_restaurant">restaurant</string>
+    <string name="activity_beach_blue_flag">blue flag</string>
+    <string name="activity_beach_feeling">feeling</string>
+    <string name="activity_beach_weather">weather</string>
+    <string name="activity_beach_flag">flag</string>
+    <string name="activity_beach_profile_pic">user picture</string>
+    
 
 </resources>

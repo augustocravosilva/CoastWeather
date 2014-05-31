@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:contentDescription="beach image" />
+        android:contentDescription="@string/activity_beach_beach_image" />
 
     <LinearLayout
         android:id="@+id/beach_extra_info"
@@ -22,10 +22,11 @@
             android:id="@+id/icon_beach_gps"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:contentDescription="@string/activity_beach_coordinates"
             android:src="@drawable/ic_beach_coordinates" />
 
         <LinearLayout
-            android:id="@+id/beach_extra_info"
+            android:id="@+id/beach_extra_info_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -36,38 +37,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:selectAllOnFocus="true"
-                android:text="37.11801" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/beach_gps_longitude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:selectAllOnFocus="true"
-                android:text="-8.536353" />
+                android:text="" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/icon_beach_parking"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:contentDescription="@string/activity_beach_parking"
             android:src="@drawable/ic_beach_parking" />
 
         <ImageView
             android:id="@+id/icon_beach_umbrella"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:contentDescription="@string/activity_beach_umbrella"
             android:src="@drawable/ic_beach_umbrella" />
 
         <ImageView
             android:id="@+id/icon_beach_restaurant"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:contentDescription="@string/activity_beach_restaurant"
             android:src="@drawable/ic_beach_restaurant" />
 
         <ImageView
             android:id="@+id/icon_beach_blue_flag"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:contentDescription="@string/activity_beach_blue_flag"
             android:src="@drawable/ic_beach_flag" />
     </LinearLayout>
 
@@ -81,22 +86,26 @@
         <ImageView
             android:id="@+id/icon_beach_feeling"
             android:layout_width="75dp"
-            android:layout_height="75dp" />
+            android:layout_height="75dp"
+            android:contentDescription="@string/activity_beach_feeling" />
 
         <ImageView
             android:id="@+id/icon_beach_weather1"
             android:layout_width="75dp"
-            android:layout_height="75dp" />
+            android:layout_height="75dp"
+            android:contentDescription="@string/activity_beach_weather" />
 
         <ImageView
             android:id="@+id/icon_beach_weather2"
             android:layout_width="75dp"
-            android:layout_height="75dp" />
+            android:layout_height="75dp"
+            android:contentDescription="@string/activity_beach_weather" />
 
         <ImageView
             android:id="@+id/icon_beach_flag"
             android:layout_width="75dp"
-            android:layout_height="75dp" />
+            android:layout_height="75dp"
+            android:contentDescription="@string/activity_beach_flag" />
     </LinearLayout>
 
     <TextView

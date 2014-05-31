@@ -24,22 +24,26 @@
         <ImageView
             android:id="@+id/icon_feeling"
             android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:contentDescription="@string/activity_beach_feeling" />
 
         <ImageView
             android:id="@+id/icon_weather1"
             android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:contentDescription="@string/activity_beach_weather" />
 
         <ImageView
             android:id="@+id/icon_weather2"
             android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:contentDescription="@string/activity_beach_weather" />
 
         <ImageView
             android:id="@+id/icon_flag"
             android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:contentDescription="@string/activity_beach_flag" />
     </LinearLayout>
 
     <TextView
