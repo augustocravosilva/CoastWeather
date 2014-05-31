@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.google.android.gms.identity.intents.model.UserAddress;
+
 import pt.up.fe.coastweather.R;
 import pt.up.fe.coastweather.logic.Client;
 import pt.up.fe.coastweather.logic.User;
@@ -37,7 +39,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 	synchronized public void updateData()
 	{
 
-		if(User.getInstance().isLoggedIn() && statuses==null)
+		if(User.getInstance().isLoggedIn())
 			new HttpAsyncTask().execute(Client.GET_FRIENDS_ACT);
 	}
 	
@@ -155,7 +157,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 				beachView.setText(us.getBeachName() + " - " + us.getPlace());
 				Log.d(LOG,"->"+us.getFeeling());
 				descView.setText(getStatusString(us.getFeeling()));
-				timeView.setText(us.getDate()); //TODO other format?    
+				timeView.setText(us.getDateFormatted());   
 				image_feeling.setImageResource(getStatusPic(us.getFeeling()));
 				if(us.isCloudy())
 					image_weather1.setImageResource(R.drawable.ic_weather_cloudy);

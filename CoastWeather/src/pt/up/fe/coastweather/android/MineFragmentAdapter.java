@@ -11,6 +11,7 @@ import pt.up.fe.coastweather.logic.Beach;
 import pt.up.fe.coastweather.logic.Client;
 import pt.up.fe.coastweather.logic.User;
 import pt.up.fe.coastweather.logic.UserStatus;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -42,10 +43,10 @@ public class MineFragmentAdapter extends BaseAdapter {
 			return statuses.size();
 		return 0;
 	}
-
+	
 	synchronized public void updateData()
 	{
-		if(User.getInstance().isLoggedIn() && statuses==null)
+		if(User.getInstance().isLoggedIn())
 			new HttpAsyncTask().execute(Client.GET_STATUS_OF_USER);
 	}
 	
@@ -154,10 +155,10 @@ public class MineFragmentAdapter extends BaseAdapter {
 		Button deleteStatus = (Button) v.findViewById(R.id.del_button);
 		
 		final UserStatus us = statuses.get(position);
-		beachView.setText(us.getBeachName());
+		beachView.setText(us.getBeachName() + " - " + us.getPlace());
 		Log.d(TAG,"->"+us.getFeeling());
 		descView.setText(getStatusString(us.getFeeling()));
-		timeView.setText(us.getDate()); //TODO other format?    
+		timeView.setText(us.getDateFormatted());   
 		image_feeling.setImageResource(getStatusPic(us.getFeeling()));
 		if(us.isCloudy())
 			image_weather1.setImageResource(R.drawable.ic_weather_cloudy);
@@ -250,7 +251,8 @@ public class MineFragmentAdapter extends BaseAdapter {
 			if(result!=null && result)
 			{
 				Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
-				notifyDataSetChanged();
+				statuses=null;
+				updateData();
 			} else
 			{
 				Toast.makeText(context, "Not able to delete.", Toast.LENGTH_LONG).show();
