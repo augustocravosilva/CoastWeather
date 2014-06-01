@@ -21,9 +21,9 @@ public class BeachData {
 		beaches.clear();
 	}
 	
-	public static Beach getBeachByName(String name) {
+	public static Beach getBeachByNameAndPlace(String name, String place) {
 		for(int i = 0, size = beaches.size(); i < size; i++)
-			if( beaches.valueAt(i).getName().equals(name) )
+			if( beaches.valueAt(i).getName().equals(name) && beaches.valueAt(i).getPlace().equals(place) )
 				return beaches.valueAt(i);
 		
 		return null;
