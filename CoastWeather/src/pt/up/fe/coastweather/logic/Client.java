@@ -4,7 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -38,7 +43,7 @@ public class Client {
 			HttpClient httpclient = new DefaultHttpClient();
 
 			HttpGet httpget = new HttpGet(url + data);
-			httpget.setHeader("Authorization", "test");
+			httpget.setHeader("Authorization", genKey());
 
 			// make GET request to the given URL
 			HttpResponse httpResponse = httpclient.execute(httpget);
@@ -59,6 +64,33 @@ public class Client {
 		return result;
 	}
 	
+	final private static char[] hexArray = "0123456789abcdef".toCharArray();
+	private static final String TAG = "clienthttp";
+	public static String bytesToHex(byte[] bytes) {
+		char[] hexChars = new char[bytes.length * 2];
+		for ( int j = 0; j < bytes.length; j++ ) {
+			int v = bytes[j] & 0xFF;
+			hexChars[j * 2] = hexArray[v >>> 4];
+			hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+		}
+		return new String(hexChars);
+	}
+	
+	public static String genKey()
+	{
+		String out = "";
+		String date = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH).format(new Date());
+		String p1 = "20R0DJzwli";
+		String pass = date + p1;
+		//Log.d(TAG, "before-> "+pass);
+		try {
+			out = bytesToHex(MessageDigest.getInstance("SHA-256").digest(pass.getBytes()));
+		} catch (NoSuchAlgorithmException e) {
+		}
+		Log.d(TAG,"key-> " + out);
+		return out;
+	}
+	
 	public static String DELETE(String url, String data){
 		InputStream inputStream = null;
 		String result = "";
@@ -69,7 +101,8 @@ public class Client {
 			HttpClient httpclient = new DefaultHttpClient();
 
 			HttpDelete httpdelete = new HttpDelete(url + data);
-			httpdelete.setHeader("Authorization", "test");
+
+			httpdelete.setHeader("Authorization",genKey());
 
 			// make GET request to the given URL
 			HttpResponse httpResponse = httpclient.execute(httpdelete);
@@ -106,7 +139,7 @@ public class Client {
 			httpPost.setEntity(new UrlEncodedFormEntity(data));
 			
 			// 7. Set some headers to inform server about the type of the content   
-			httpPost.setHeader("Authorization", "test");
+			httpPost.setHeader("Authorization", genKey());
 			//httpPost.setHeader("Content-type", "application/json");
 			
 			// 8. Execute POST request to the given URL

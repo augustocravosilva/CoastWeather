@@ -172,7 +172,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 			if(idFlag>0)
 				image_flag.setImageResource(idFlag);
 			else image_flag.setVisibility(View.GONE);
-			image.setVisibility(View.GONE);
+			image.setImageResource(R.drawable.ic_launcher);
 			new DownloadImageTask(image).execute(User.getUserPicLink(String.valueOf(us.getUserID())));
 		}
 

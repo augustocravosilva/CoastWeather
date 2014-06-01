@@ -223,7 +223,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		protected List<Beach> doInBackground(String... params) {
 			try {
 				HttpGet request = new HttpGet(params[0]);
-				request.setHeader("Authorization", "test");
+				request.setHeader("Authorization", Client.genKey());
 				
 				return mClient.execute(request,
 						new BeachesJSONResponseHandler());
