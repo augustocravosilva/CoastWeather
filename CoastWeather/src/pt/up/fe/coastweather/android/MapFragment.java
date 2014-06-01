@@ -85,10 +85,32 @@ public class MapFragment extends Fragment {
 			for(int i = 0, size = beaches.size(); i < size; i++) {
 				Beach beach = beaches.valueAt(i);
 
-				googleMap.addMarker(new MarkerOptions()
-					.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_feeling))
-					.position(new LatLng(beach.getLatitude(), beach.getLongitude()))
-					.title(String.valueOf(beach.getName())));
+				MarkerOptions marker = new MarkerOptions()
+				.position(new LatLng(beach.getLatitude(), beach.getLongitude()))
+				.title(String.valueOf(beach.getName()));
+				
+				switch(beach.getFeeling()) {
+				case 0:
+					marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_feeling_m2));
+					break;
+				case 1:
+					marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_feeling_m1));
+					break;
+				case 2:
+					marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_feeling_0));
+					break;
+				case 3:
+					marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_feeling_1));
+					break;
+				case 4:
+					marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_feeling_2));
+					break;
+				default:
+					marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_feeling));
+					break;
+				}
+				
+				googleMap.addMarker(marker);
 			}
 		}
 	}
