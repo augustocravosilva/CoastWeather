@@ -41,7 +41,7 @@
     <string name="fragment_add_review_black">black</string>
     <string name="fragment_add_review_share">Share</string>
     <string name="fragment_add_review_internet_connection">You need an internet connection!</string>
-    <string name="fragment_add_review_select">You need to select something!</string>
+    <string name="fragment_add_review_select_weather">You must select whether it\'s sunny, cloudy or rainy!</string>
     <string name="fragment_add_review_select_feeling">You must select a feeling!</string>
     <string name="fragment_add_review_data_sent">You\'re status was shared!</string>
     <string name="fragment_add_review_data_sent_error">Error sharing status, try again!</string>

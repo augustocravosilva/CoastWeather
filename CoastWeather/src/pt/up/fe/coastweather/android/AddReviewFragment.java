@@ -55,7 +55,6 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 	private Button shareButton;
 
 	private TextView feelingText;
-	private TextView test;
 
 	private Spinner spinner;
 	private ArrayAdapter<CharSequence> spinner_adapter;
@@ -107,7 +106,6 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 		flagsButtons[3] = (ImageButton) rootView.findViewById(R.id.imagebuttonBlack);
 
 		feelingText = (TextView) rootView.findViewById(R.id.feelingtext);
-		test = (TextView) rootView.findViewById(R.id.textTest);
 
 
 		for(ImageButton i : feelingButtons) {
@@ -216,8 +214,10 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				}
 				int beachId = beachesIds[spinner.getSelectedItemPosition()];
 
-				if(feeling < 0 || !(sunny || windy || cloudy || rainy)) {
-					Toast.makeText(getActivity(), getString(R.string.fragment_add_review_select), Toast.LENGTH_SHORT).show();
+				if(feeling < 0)
+					return;
+				else if(!(sunny || cloudy || rainy)) {
+					Toast.makeText(getActivity(), getString(R.string.fragment_add_review_select_weather), Toast.LENGTH_LONG).show();
 					return;
 				}
 
@@ -359,7 +359,6 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 			}
 			else {
 				Toast.makeText(getActivity(), getString(R.string.fragment_add_review_data_sent), Toast.LENGTH_LONG).show();
-				test.setText(result + "\n" + user.getPost());
 			}
 		}
 	}
