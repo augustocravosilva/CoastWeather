@@ -26,6 +26,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.facebook.Session;
 
@@ -201,7 +202,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		case R.id.action_logout:
 			Session s = User.getInstance().getfbSession();
 			if(s!=null)
+			{
 				s.closeAndClearTokenInformation();
+				Toast.makeText(thisActivity, "Logged out", Toast.LENGTH_SHORT).show();
+			} else Toast.makeText(thisActivity, "You are already logged out", Toast.LENGTH_SHORT).show();
+
 			User.reset();
 			mSectionsPagerAdapter.notifyDataSetChanged();
 			break;

@@ -90,7 +90,7 @@ public class LoginFragment extends Fragment {
 
 				@Override
 				public void onCompleted(GraphUser user, Response response) {
-					if (user != null) {
+					if (user != null && User.getInstance().getFacebookId().equals("")) {
 						// Display the parsed user info
 						User.getInstance().setErrorFlag();
 						User.getInstance().setFacebookId(user.getId());

@@ -66,7 +66,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 			{
 				FriendsFragment fragment = new FriendsFragment();
 				Bundle args = new Bundle();
-				args.putInt(LoginFragment.ARG_SECTION_NUMBER, position + 1);
+				args.putInt(FriendsFragment.ARG_SECTION_NUMBER, position + 1);
 				fragment.setArguments(args);
 				return fragment;
 			}
@@ -108,7 +108,9 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 	@Override
 	public int getItemPosition (Object object) // this determines if the fragments changed
 	{ // useful to use with notifyDataSetChanged
-		if (object instanceof ListFragment || object instanceof LoginFragment || object instanceof FriendsFragment || object instanceof MineFragment) {
+		if (object instanceof ListFragment || object instanceof LoginFragment ||
+				object instanceof FriendsFragment || object instanceof MineFragment ||
+				object instanceof AddReviewFragment) {
 			return POSITION_NONE;
 		} else return POSITION_UNCHANGED;
 	}

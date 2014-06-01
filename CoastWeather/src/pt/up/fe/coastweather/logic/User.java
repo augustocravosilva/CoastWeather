@@ -129,7 +129,8 @@ public class User {
 	}
 
 	public void setfbSession(Session msession) {
-		fbsession = msession;
+		if(fbsession!=msession)
+			fbsession = msession;
 	}
 	
 	public Session getfbSession()
