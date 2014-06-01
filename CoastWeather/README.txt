@@ -17,3 +17,11 @@ If facebook tells there is an error with authentication, please contact us.
 Due to the test state of this app, there could be a need to a new key hash to be generated
 
 Enjoy
+
+----
+
+To compile the source code:
+
+Use eclipse with Android environment
+Download the facebook sdk in https://developers.facebook.com/docs/android/ and add the Facebook project in eclipse
+Add Google Play services to eclipse as described here http://developer.android.com/google/play-services/setup.html
