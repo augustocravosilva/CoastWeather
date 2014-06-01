@@ -166,9 +166,15 @@ public class MineFragmentAdapter extends BaseAdapter {
 			image_weather1.setImageResource(R.drawable.ic_weather_rainy);
 		else if(us.isSunny())
 			image_weather1.setImageResource(R.drawable.ic_weather_sunny);
+		else
+			image_weather1.setVisibility(View.GONE);
 		if(us.isWindy())
 			image_weather2.setImageResource(R.drawable.ic_weather_windy);
-		image_flag.setImageResource(getFlagPic(us.getFlag()));
+		else image_weather2.setVisibility(View.GONE);
+		int idFlag = getFlagPic(us.getFlag());
+		if(idFlag>0)
+			image_flag.setImageResource(idFlag);
+		else image_flag.setVisibility(View.GONE);
 		
 		deleteStatus.setOnClickListener(new View.OnClickListener() {
 			@Override
