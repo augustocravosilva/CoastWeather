@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 
 /**
@@ -111,6 +112,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 		if (object instanceof ListFragment || object instanceof LoginFragment ||
 				object instanceof FriendsFragment || object instanceof MineFragment ||
 				object instanceof AddReviewFragment) {
+			Log.d(TAG,"new view gen");
 			return POSITION_NONE;
 		} else return POSITION_UNCHANGED;
 	}
