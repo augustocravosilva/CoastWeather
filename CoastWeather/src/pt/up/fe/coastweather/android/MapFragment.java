@@ -80,6 +80,7 @@ public class MapFragment extends Fragment {
 	
 	public static void refreshBeaches() {
 		if( null != googleMap ) {
+			googleMap.clear();
 			SparseArray<Beach> beaches = BeachData.getAllBeaches();
 						
 			for(int i = 0, size = beaches.size(); i < size; i++) {
