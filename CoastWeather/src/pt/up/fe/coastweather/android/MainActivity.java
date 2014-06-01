@@ -6,8 +6,6 @@ import java.util.List;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 
-import com.facebook.Session;
-
 import pt.up.fe.coastweather.R;
 import pt.up.fe.coastweather.logic.Beach;
 import pt.up.fe.coastweather.logic.BeachData;
@@ -28,7 +26,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
+
+import com.facebook.Session;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -123,7 +122,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			lastKnownLongitude = location.getLongitude();
 			MapFragment.onLocationChanged(location.getLatitude(), location.getLongitude(), true);
 		}
-		new getBeachesTask().execute(Client.GET_BEACH_BY_ID);
+		new getBeachesTask().execute(Client.GET_BEACHES);
 	}
 
 	private final LocationListener mLocationListener = new LocationListener() {
@@ -189,7 +188,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			menuItem.setActionView(R.layout.menu_progressbar);
 			menuItem.expandActionView();
 			if(mViewPager.getCurrentItem() == SectionsPagerAdapter.MAP_TAB)
-				new getBeachesTask().execute(Client.GET_BEACH_BY_ID);
+				new getBeachesTask().execute(Client.GET_BEACHES);
 			else
 				{
 					mSectionsPagerAdapter.notifyDataSetChanged();

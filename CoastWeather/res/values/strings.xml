@@ -25,6 +25,7 @@
     <string name="feeling_0_text2">Feeling OK</string>
     <string name="feeling_m1_text2">Feeling not OK</string> 
     <string name="feeling_m2_text2">Thinking about going home</string>
+    <string name="feeling_text_null">No recent data</string>
     
     <string name="fragment_add_review_select_beach">Select your beach:</string>
     <string name="fragment_add_review_feel">How does it feel?</string>

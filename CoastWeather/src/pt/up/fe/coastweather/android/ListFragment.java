@@ -1,18 +1,9 @@
 package pt.up.fe.coastweather.android;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import pt.up.fe.coastweather.R;
-import pt.up.fe.coastweather.logic.Beach;
-import pt.up.fe.coastweather.logic.Client;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +19,7 @@ public class ListFragment extends Fragment {
 
 
 	ListView list;
-	ListFragmentAdapter adapter = null;
+	ListFragmentAdapter adapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

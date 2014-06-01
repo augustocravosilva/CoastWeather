@@ -80,28 +80,28 @@ public class ListFragmentAdapter extends BaseAdapter {
 
 		switch(beach.getFeeling()) {
 		case 0:
-			holder.descView.setText("- " + context.getResources().getString(R.string.feeling_m2_text2));
+			holder.descView.setText(context.getResources().getString(R.string.feeling_m2_text2));
 			holder.image_feeling.setImageResource(R.drawable.ic_feeling_m2);
 			break;
 		case 1:
-			holder.descView.setText("- " + context.getResources().getString(R.string.feeling_m1_text2));
+			holder.descView.setText(context.getResources().getString(R.string.feeling_m1_text2));
 			holder.image_feeling.setImageResource(R.drawable.ic_feeling_m1);
 			break;
 		case 2:
-			holder.descView.setText("- " + context.getResources().getString(R.string.feeling_0_text2));
+			holder.descView.setText(context.getResources().getString(R.string.feeling_0_text2));
 			holder.image_feeling.setImageResource(R.drawable.ic_feeling_0);
 			break;
 		case 3:
-			holder.descView.setText("- " + context.getResources().getString(R.string.feeling_1_text2));
+			holder.descView.setText(context.getResources().getString(R.string.feeling_1_text2));
 			holder.image_feeling.setImageResource(R.drawable.ic_feeling_1);
 			break;
 		case 4:
-			holder.descView.setText("- " + context.getResources().getString(R.string.feeling_2_text2));
+			holder.descView.setText(context.getResources().getString(R.string.feeling_2_text2));
 			holder.image_feeling.setImageResource(R.drawable.ic_feeling_2);
 			break;
 		default:
-			holder.descView.setText("- " + context.getResources().getString(R.string.feeling_0_text2));
-			holder.image_feeling.setImageResource(R.drawable.ic_feeling_0);
+			holder.descView.setText(context.getResources().getString(R.string.feeling_text_null));
+			holder.image_feeling.setImageResource(R.drawable.ic_feeling);
 			break;
 		}
 
@@ -111,6 +111,8 @@ public class ListFragmentAdapter extends BaseAdapter {
 			holder.image_weather1.setImageResource(R.drawable.ic_weather_cloudy);
 		else if(beach.isRainy())
 			holder.image_weather1.setImageResource(R.drawable.ic_weather_rainy);
+		else
+			holder.image_weather1.setImageResource(R.drawable.ic_weather_sunny_grey);
 
 		if(beach.isWindy()) {
 			holder.image_weather2.setVisibility(View.VISIBLE);
@@ -122,23 +124,19 @@ public class ListFragmentAdapter extends BaseAdapter {
 
 		switch(beach.getFlag()) {
 		case 0:
-			holder.image_flag.setVisibility(View.VISIBLE);
 			holder.image_flag.setImageResource(R.drawable.ic_flag_green);
 			break;
 		case 1:
-			holder.image_flag.setVisibility(View.VISIBLE);
 			holder.image_flag.setImageResource(R.drawable.ic_flag_yellow);
 			break;
 		case 2:
-			holder.image_flag.setVisibility(View.VISIBLE);
 			holder.image_flag.setImageResource(R.drawable.ic_flag_red);
 			break;
 		case 3:
-			holder.image_flag.setVisibility(View.VISIBLE);
 			holder.image_flag.setImageResource(R.drawable.ic_flag_black);
 			break;
 		default:
-			holder.image_flag.setVisibility(View.GONE);
+			holder.image_flag.setImageResource(R.drawable.ic_flag_grey);;
 		}
 
 		return convertView;

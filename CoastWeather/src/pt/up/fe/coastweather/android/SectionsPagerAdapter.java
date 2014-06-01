@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  */
 public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
+	@SuppressWarnings("unused")
 	private static final String TAG = "SectionsPagerAdapter";
 	public static final int MAP_TAB = 0;
 	private Context context;
@@ -107,7 +108,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 	@Override
 	public int getItemPosition (Object object) // this determines if the fragments changed
 	{ // useful to use with notifyDataSetChanged
-		if (object instanceof LoginFragment || object instanceof FriendsFragment || object instanceof MineFragment) {
+		if (object instanceof ListFragment || object instanceof LoginFragment || object instanceof FriendsFragment || object instanceof MineFragment) {
 			return POSITION_NONE;
 		} else return POSITION_UNCHANGED;
 	}
