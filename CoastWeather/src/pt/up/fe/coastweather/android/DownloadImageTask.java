@@ -41,6 +41,5 @@ class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
 	protected void onPostExecute(Bitmap result) {
 		bmImage.setImageBitmap(result);
-		bmImage.setVisibility(View.VISIBLE);
 	}
 }
