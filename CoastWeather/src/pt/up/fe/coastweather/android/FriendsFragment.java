@@ -29,7 +29,7 @@ public class FriendsFragment extends Fragment {
 		lfa.updateData();
 		
 		list.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView a, View v, int position, long id) {
+			public void onItemClick(@SuppressWarnings("rawtypes") AdapterView a, View v, int position, long id) {
 				Intent x = new Intent(getActivity(), BeachActivity.class);
 				x.putExtra(BeachActivity.BEACH_ID, lfa.getItem(position).getBeachId());
 				startActivity(x);

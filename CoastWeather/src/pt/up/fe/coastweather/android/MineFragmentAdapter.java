@@ -3,15 +3,12 @@ package pt.up.fe.coastweather.android;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import pt.up.fe.coastweather.R;
-import pt.up.fe.coastweather.logic.Beach;
 import pt.up.fe.coastweather.logic.Client;
 import pt.up.fe.coastweather.logic.User;
 import pt.up.fe.coastweather.logic.UserStatus;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;

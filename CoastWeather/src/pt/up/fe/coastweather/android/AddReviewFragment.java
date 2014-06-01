@@ -358,6 +358,7 @@ public class AddReviewFragment extends Fragment implements OnItemSelectedListene
 				}
 			}
 			else {
+				Log.i(LOG + "1", result);
 				Toast.makeText(getActivity(), getString(R.string.fragment_add_review_data_sent), Toast.LENGTH_LONG).show();
 			}
 		}

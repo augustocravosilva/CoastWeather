@@ -35,7 +35,7 @@ public class ListFragment extends Fragment {
 		
 
 		list.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView a, View v, int position, long id) {
+			public void onItemClick(@SuppressWarnings("rawtypes") AdapterView a, View v, int position, long id) {
 				if(adapter != null) {
 					Intent x = new Intent(getActivity(), BeachActivity.class);
 					x.putExtra(BeachActivity.BEACH_ID, adapter.getItem(position).getIdBeach());

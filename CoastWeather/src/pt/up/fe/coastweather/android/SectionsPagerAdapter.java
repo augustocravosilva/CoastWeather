@@ -19,7 +19,6 @@ import android.util.Log;
  */
 public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
-	@SuppressWarnings("unused")
 	private static final String TAG = "SectionsPagerAdapter";
 	public static final int MAP_TAB = 0;
 	private Context context;
