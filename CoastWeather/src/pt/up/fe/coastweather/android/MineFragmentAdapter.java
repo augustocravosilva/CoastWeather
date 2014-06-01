@@ -59,7 +59,7 @@ public class MineFragmentAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int arg0) {
-		return arg0;
+		return statuses.get(arg0).getStatusId();
 	}
 
 	public String getStatusString(int id)

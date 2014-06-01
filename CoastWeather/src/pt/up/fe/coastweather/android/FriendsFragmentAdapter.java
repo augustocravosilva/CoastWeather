@@ -50,7 +50,7 @@ public class FriendsFragmentAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int arg0) {
-		return statuses.get(arg0).getBeachId();
+		return statuses.get(arg0).getStatusId();
 	}
 
 

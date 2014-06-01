@@ -109,7 +109,7 @@ public class User {
 	
 	static public String getUserPicLinkMedium(String id)
 	{
-		return "http://graph.facebook.com/"+id+"/picture?type=normal";
+		return "http://graph.facebook.com/"+id+"/picture?width=300&height=300";
 	}
 
 	public void setErrorFlag() {
