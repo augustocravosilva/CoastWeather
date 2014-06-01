@@ -87,7 +87,8 @@ public class MapFragment extends Fragment {
 
 				MarkerOptions marker = new MarkerOptions()
 				.position(new LatLng(beach.getLatitude(), beach.getLongitude()))
-				.title(String.valueOf(beach.getName()));
+				.title(String.valueOf(beach.getName()))
+				.snippet(beach.getPlace());
 				
 				switch(beach.getFeeling()) {
 				case 0:
@@ -118,13 +119,16 @@ public class MapFragment extends Fragment {
 	private final OnInfoWindowClickListener onMarkerInfoWindowClickListener = new OnInfoWindowClickListener() {
 		@Override
 		public void onInfoWindowClick(Marker marker) {
-			Beach clickedBeach = BeachData.getBeachByName(marker.getTitle());
-			onLocationChanged(clickedBeach.getLatitude(), clickedBeach.getLongitude(), false);
-			hasClickedBeach = true;
+			Beach clickedBeach = BeachData.getBeachByNameAndPlace(marker.getTitle(), marker.getSnippet());
+			
+			if( null != clickedBeach ) {
+				onLocationChanged(clickedBeach.getLatitude(), clickedBeach.getLongitude(), false);
+				hasClickedBeach = true;
 
-			Intent intent = new Intent(getActivity(), BeachActivity.class);
-			intent.putExtra(BeachActivity.BEACH_ID, clickedBeach.getIdBeach());
-			startActivity(intent);
+				Intent intent = new Intent(getActivity(), BeachActivity.class);
+				intent.putExtra(BeachActivity.BEACH_ID, clickedBeach.getIdBeach());
+				startActivity(intent);
+			}	
 		}
 	};
 
