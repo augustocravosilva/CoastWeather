@@ -23,15 +23,15 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.util.Log;
 
 public class Client {
-	public static final String GET_FRIENDS_ACT = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status/user/friends/";
-	public static String STATUS_BY_ID = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status/";
-	public static String GET_STATUS_OF_USER = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status/user/";
-	public static String POST_STATUS = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status";
-	public static String GET_BEACHES_BY_LOCATION= "http://coastweather.fe.up.pt/coastWeather/v1/index.php/beaches/";
-	public static String GET_BEACHES = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/beaches";
-	public static String GET_BEACH_BY_ID = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/beaches/";
-	public static String GET_STATUS_BY_BEACH_ID = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/status/beach/";
-	public static String POST_REGISTER = "http://coastweather.fe.up.pt/coastWeather/v1/index.php/users";
+	public static final String GET_FRIENDS_ACT = "http://paginas.fe.up.pt/~ei11054/coastWeather/v1/index.php/status/user/friends/";
+	public static String STATUS_BY_ID = "http://paginas.fe.up.pt/~ei11054/coastWeather/v1/index.php/status/";
+	public static String GET_STATUS_OF_USER = "http://paginas.fe.up.pt/~ei11054/coastWeather/v1/index.php/status/user/";
+	public static String POST_STATUS = "http://paginas.fe.up.pt/~ei11054/coastWeather/v1/index.php/status";
+	public static String GET_BEACHES_BY_LOCATION= "http://paginas.fe.up.pt/~ei11054/coastWeather/v1/index.php/beaches/";
+	public static String GET_BEACHES = "http://paginas.fe.up.pt/~ei11054/coastWeather/v1/index.php/beaches";
+	public static String GET_BEACH_BY_ID = "http://paginas.fe.up.pt/~ei11054/coastWeather/v1/index.php/beaches/";
+	public static String GET_STATUS_BY_BEACH_ID = "http://paginas.fe.up.pt/~ei11054/coastWeather/v1/index.php/status/beach/";
+	public static String POST_REGISTER = "http://paginas.fe.up.pt/~ei11054/coastWeather/v1/index.php/users";
 
 	public static String GET(String url, String data){
 		InputStream inputStream = null;
@@ -60,7 +60,7 @@ public class Client {
 		} catch (Exception e) {
 			Log.d("InputStream", e.getLocalizedMessage());
 		}
-
+        Log.i("Nabo", result);
 		return result;
 	}
 	
@@ -227,3 +227,4 @@ public class Client {
 	}   
 
 }
+
