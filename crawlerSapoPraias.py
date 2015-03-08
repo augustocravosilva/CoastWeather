@@ -1,10 +1,10 @@
 from bs4 import BeautifulSoup
 import urllib
+import codecs
 
 
 
-
-def search_page(page):
+def search_page(page, file):
     html = urllib.urlopen(page).read()
     soup = BeautifulSoup(html)
     data = []
@@ -53,10 +53,19 @@ def search_page(page):
 
     for beach in data:
         if beach.has_key('title'):
-            print 'INSERT INTO BEACH(name, latitude, longitude, place, picture, parking, blueFlag, restaurant, umbrella) VALUES ("%s", %s, %s, "%s", "%s", %s, %s, %s, %s);' % (beach['title'], beach['latitude'], beach['longitude'], beach['place'], beach['picture'], beach['parking'], beach['blueFlag'], beach['restaurant'], beach['umbrella'])
+        	print beach['title']
+            	file.write('INSERT INTO BEACH(name, latitude, longitude, place, picture, parking, blueFlag, restaurant, umbrella) VALUES ("%s", %s, %s, "%s", "%s", %s, %s, %s, %s);\n' % (beach['title'], beach['latitude'], beach['longitude'], beach['place'], beach['picture'], beach['parking'], beach['blueFlag'], beach['restaurant'], beach['umbrella']))
 
     nextp = soup.find('a', {'class': 'linkNext'})
     if nextp:
-        search_page(nextp.get('href'))
+        search_page(nextp.get('href'),file)
 
-search_page("http://praias.sapo.pt/praias/norte/")
+f = codecs.open('script.sql', 'w', 'utf-8-sig')
+search_page("http://praias.sapo.pt/praias/norte/", f)
+search_page("http://praias.sapo.pt/praias/centro/", f)
+search_page("http://praias.sapo.pt/praias/lisboa/", f)
+search_page("http://praias.sapo.pt/praias/alentejo/", f)
+search_page("http://praias.sapo.pt/praias/algarve/", f)
+search_page("http://praias.sapo.pt/praias/madeira/", f)
+search_page("http://praias.sapo.pt/praias/acores/", f)
+f.close()
